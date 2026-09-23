@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
@@ -62,9 +63,49 @@ export function HeroSection() {
       </div>
 
       <div className="lg:col-span-5">
-        <div className="aspect-[4/5] rounded-3xl border border-cyan-400/30 bg-gradient-to-b from-cyan-400/10 to-transparent p-1">
-          <div className="flex h-full items-center justify-center rounded-[22px] bg-[#121829] text-slate-500">
-            Fotografía Daniel
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-[420px] rounded-3xl border border-cyan-400/30 bg-gradient-to-b from-cyan-400/10 to-transparent p-1">
+          <div className="relative h-full w-full overflow-hidden rounded-[22px] bg-[#121829]">
+            <Image
+              src="/daniel.jpg"
+              alt="Daniel Ramirez"
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 90vw, 420px"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-[#070913]/70 via-transparent to-transparent" />
+
+            <div className="absolute top-4 right-4 flex items-center gap-2 rounded-lg border border-cyan-400/30 bg-[#070913]/80 px-3 py-2 backdrop-blur-md">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-400" />
+              <span className="font-mono text-[10px] text-cyan-400 uppercase">
+                Software Developer
+              </span>
+            </div>
+
+            <div className="absolute right-4 bottom-4 left-4 rounded-xl border border-white/10 bg-[#070913]/85 p-4 backdrop-blur-xl">
+              <p className="font-mono text-xs text-slate-300">
+                <span className="text-blue-400">const</span> developer ={" "}
+                <span className="text-cyan-400">{"{"}</span>
+              </p>
+
+              <p className="pl-4 font-mono text-xs text-slate-400">
+                name:{" "}
+                <span className="text-violet-300">
+                  &quot;Daniel Ramirez&quot;
+                </span>
+                ,
+              </p>
+
+              <p className="pl-4 font-mono text-xs text-slate-400">
+                focus:{" "}
+                <span className="text-cyan-300">
+                  &quot;FullStack & Software&quot;
+                </span>
+              </p>
+
+              <p className="font-mono text-xs text-cyan-400">{"}"}</p>
+            </div>
           </div>
         </div>
       </div>

@@ -12,15 +12,8 @@ export default defineConfig({
 
     setupFiles: ["./src/test/setup.ts"],
 
-    include: [
-      "src/**/*.test.ts",
-      "src/**/*.test.tsx",
-    ],
+    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
 
-    exclude: [
-      "tests/**",
-      "node_modules/**",
-      ".next/**",
-    ],
+    exclude: ["tests/**", "node_modules/**", ".next/**"],
   },
-}); 
+});
