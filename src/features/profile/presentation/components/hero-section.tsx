@@ -22,7 +22,7 @@ export function HeroSection() {
           <span className="text-xl text-slate-300">Software Developer</span>
 
           <span className="rounded-md border border-cyan-400/20 bg-white/5 px-3 py-1 text-sm text-cyan-400">
-            Backend Developer
+            FullStack Developer
           </span>
         </div>
 
