@@ -7,8 +7,12 @@ export function createSupabaseAdmin() {
 
   const secretKey = process.env.SUPABASE_SECRET_KEY;
 
-  if (!url || !secretKey) {
-    throw new Error("Faltan variables de entorno de Supabase.");
+  if (!url) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL no está configurada.");
+  }
+
+  if (!secretKey) {
+    throw new Error("SUPABASE_SECRET_KEY no está configurada.");
   }
 
   return createClient(url, secretKey, {

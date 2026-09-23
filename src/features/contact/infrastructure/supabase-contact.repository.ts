@@ -15,7 +15,9 @@ export class SupabaseContactRepository implements ContactRepository {
     });
 
     if (error) {
-      throw new Error(error.message);
+      console.error("SUPABASE INSERT ERROR:", error);
+
+      throw new Error(`Supabase error: ${error.message}`);
     }
   }
 }
