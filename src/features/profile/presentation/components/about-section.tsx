@@ -1,57 +1,110 @@
 "use client";
 
 import { Braces, Cloud, Code2, Database } from "lucide-react";
+
 import { motion } from "motion/react";
+
+/* =========================================================
+   ÁREAS
+========================================================= */
 
 const areas = [
   {
     icon: Code2,
+
     title: "Software Development",
+
     text: "Arquitectura limpia, patrones MVC, microservicios y código modular orientado a la escalabilidad y mantenibilidad.",
+
     label: "Modularidad",
+
     footer: "SOLID · Clean",
-    iconClass: "border-indigo-400/30 bg-indigo-400/10 text-indigo-300",
-    footerClass: "text-blue-300",
-    borderClass: "border-cyan-400/45",
-    glowClass: "hover:shadow-[0_18px_50px_rgba(34,211,238,0.08)]",
+
+    iconClass:
+      "border-indigo-200 bg-indigo-50 text-indigo-600 dark:border-indigo-400/30 dark:bg-indigo-400/10 dark:text-indigo-300",
+
+    footerClass: "text-blue-600 dark:text-blue-300",
+
+    borderClass: "border-cyan-200 dark:border-cyan-400/45",
+
+    glowClass:
+      "hover:shadow-[0_18px_45px_rgba(8,145,178,0.10)] dark:hover:shadow-[0_18px_50px_rgba(34,211,238,0.08)]",
   },
+
   {
     icon: Braces,
+
     title: "Backend & APIs",
+
     text: "Diseño de RESTful APIs seguras, middleware optimizado, autenticación JWT, rate limiting y alto throughput.",
+
     label: "Seguridad",
+
     footer: "JWT · OAuth",
-    iconClass: "border-cyan-400/30 bg-cyan-400/10 text-cyan-300",
-    footerClass: "text-cyan-300",
-    borderClass: "border-white/10",
-    glowClass: "hover:shadow-[0_18px_50px_rgba(34,211,238,0.06)]",
+
+    iconClass:
+      "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300",
+
+    footerClass: "text-cyan-700 dark:text-cyan-300",
+
+    borderClass: "border-slate-200 dark:border-white/10",
+
+    glowClass:
+      "hover:shadow-[0_18px_45px_rgba(8,145,178,0.08)] dark:hover:shadow-[0_18px_50px_rgba(34,211,238,0.06)]",
   },
+
   {
     icon: Database,
+
     title: "Databases",
+
     text: "Modelado relacional robusto, consultas indexadas complejas, integridad referencial y transacciones ACID confiables.",
+
     label: "Integridad",
+
     footer: "ACID · Indexing",
-    iconClass: "border-violet-400/30 bg-violet-400/10 text-violet-300",
-    footerClass: "text-violet-300",
-    borderClass: "border-white/10",
-    glowClass: "hover:shadow-[0_18px_50px_rgba(167,139,250,0.06)]",
+
+    iconClass:
+      "border-violet-200 bg-violet-50 text-violet-600 dark:border-violet-400/30 dark:bg-violet-400/10 dark:text-violet-300",
+
+    footerClass: "text-violet-600 dark:text-violet-300",
+
+    borderClass: "border-slate-200 dark:border-white/10",
+
+    glowClass:
+      "hover:shadow-[0_18px_45px_rgba(124,58,237,0.08)] dark:hover:shadow-[0_18px_50px_rgba(167,139,250,0.06)]",
   },
+
   {
     icon: Cloud,
+
     title: "Cloud & Deployment",
+
     text: "Contenedores Docker, orquestación, CI/CD, automatización con PM2 y despliegue de alta disponibilidad en la nube.",
+
     label: "DevOps",
+
     footer: "Docker · PM2",
-    iconClass: "border-cyan-400/30 bg-cyan-400/10 text-cyan-300",
-    footerClass: "text-cyan-300",
-    borderClass: "border-white/10",
-    glowClass: "hover:shadow-[0_18px_50px_rgba(34,211,238,0.06)]",
+
+    iconClass:
+      "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300",
+
+    footerClass: "text-cyan-700 dark:text-cyan-300",
+
+    borderClass: "border-slate-200 dark:border-white/10",
+
+    glowClass:
+      "hover:shadow-[0_18px_45px_rgba(8,145,178,0.08)] dark:hover:shadow-[0_18px_50px_rgba(34,211,238,0.06)]",
   },
 ];
 
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+
 const containerVariants = {
   hidden: {},
+
   visible: {
     transition: {
       staggerChildren: 0.11,
@@ -66,10 +119,12 @@ const cardVariants = {
     y: 28,
     scale: 0.98,
   },
+
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
+
     transition: {
       duration: 0.5,
       ease: "easeOut" as const,
@@ -77,16 +132,26 @@ const cardVariants = {
   },
 };
 
+/* =========================================================
+   COMPONENTE
+========================================================= */
+
 export function AboutSection() {
   return (
     <section
       id="sobre-mi"
-      className="relative w-full max-w-full overflow-x-clip border-t border-white/[0.07] py-14 sm:py-16 md:py-20 landscape:py-12"
+      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
-      {/* ILUMINACIÓN */}
-      <div className="pointer-events-none absolute top-20 -left-28 h-[240px] w-[240px] rounded-full bg-cyan-400/[0.025] blur-[90px] sm:-left-36 sm:h-[300px] sm:w-[300px] sm:blur-[110px]" />
+      {/* =====================================================
+          ILUMINACIÓN
+      ===================================================== */}
 
-      {/* CONTENEDOR */}
+      <div className="pointer-events-none absolute top-20 -left-28 h-[240px] w-[240px] rounded-full bg-cyan-400/[0.08] blur-[90px] sm:-left-36 sm:h-[300px] sm:w-[300px] sm:blur-[110px] dark:bg-cyan-400/[0.025]" />
+
+      {/* =====================================================
+          CONTENEDOR
+      ===================================================== */}
+
       <div className="relative mx-auto w-full max-w-7xl min-w-0 px-4 min-[380px]:px-5 sm:px-6 md:px-8 lg:px-8 xl:px-10 2xl:px-0">
         {/* =================================================
             CABECERA
@@ -112,19 +177,22 @@ export function AboutSection() {
           className="mb-7 min-w-0 sm:mb-9 lg:mb-10"
         >
           {/* ETIQUETA */}
-          <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-2.5 py-1.5 sm:px-3">
-            <span className="truncate font-mono text-[8px] font-bold tracking-[0.08em] text-cyan-300 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em]">
+
+          <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
+            <span className="truncate font-mono text-[8px] font-bold tracking-[0.08em] text-cyan-700 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em] dark:text-cyan-300">
               Trayectoria
             </span>
           </div>
 
           {/* TÍTULO */}
-          <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-white min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem]">
+
+          <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-slate-950 min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem] dark:text-white">
             Sobre Mí
           </h2>
 
           {/* DESCRIPCIÓN */}
-          <p className="mt-3 max-w-[780px] text-[13px] leading-6 text-slate-300 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[17px]">
+
+          <p className="mt-3 max-w-[780px] text-[13px] leading-6 text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[17px] dark:text-slate-300">
             Titulado en Diseño y Desarrollo de Software por Tecsup,
             perteneciente al décimo superior y beneficiario de Beca 18.
             Apasionado por construir soluciones web, backend, móviles y
@@ -156,12 +224,14 @@ export function AboutSection() {
                 whileHover={{
                   y: -6,
                 }}
-                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border bg-[#121620]/95 p-4 transition-[border-color,box-shadow] duration-300 min-[360px]:p-5 sm:min-h-[255px] sm:rounded-[16px] sm:p-6 lg:min-h-[275px] ${area.borderClass} ${area.glowClass}`}
+                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[background-color,border-color,box-shadow] duration-300 min-[360px]:p-5 sm:min-h-[255px] sm:rounded-[16px] sm:p-6 lg:min-h-[275px] dark:bg-[#121620]/95 dark:shadow-none ${area.borderClass} ${area.glowClass} `}
               >
                 {/* GLOW SUPERIOR */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/[0.015] to-transparent sm:h-24" />
+
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-cyan-50/80 to-transparent sm:h-24 dark:from-white/[0.015]" />
 
                 {/* ICONO */}
+
                 <motion.div
                   whileHover={{
                     rotate: -4,
@@ -172,7 +242,7 @@ export function AboutSection() {
                     stiffness: 280,
                     damping: 18,
                   }}
-                  className={`relative mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border sm:mb-5 sm:h-12 sm:w-12 sm:rounded-xl ${area.iconClass}`}
+                  className={`relative mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border sm:mb-5 sm:h-12 sm:w-12 sm:rounded-xl ${area.iconClass} `}
                 >
                   <Icon
                     size={20}
@@ -182,29 +252,37 @@ export function AboutSection() {
                 </motion.div>
 
                 {/* TÍTULO */}
-                <h3 className="relative max-w-full text-[16px] leading-6 font-bold tracking-[-0.025em] break-words text-white min-[360px]:text-[17px] sm:text-[19px]">
+
+                <h3 className="relative max-w-full text-[16px] leading-6 font-bold tracking-[-0.025em] break-words text-slate-950 min-[360px]:text-[17px] sm:text-[19px] dark:text-white">
                   {area.title}
                 </h3>
 
                 {/* TEXTO */}
-                <p className="relative mt-2.5 flex-1 text-[12px] leading-6 break-words text-slate-300 sm:mt-3 sm:text-[13px] sm:leading-[1.65]">
+
+                <p className="relative mt-2.5 flex-1 text-[12px] leading-6 break-words text-slate-600 sm:mt-3 sm:text-[13px] sm:leading-[1.65] dark:text-slate-300">
                   {area.text}
                 </p>
 
-                {/* FOOTER */}
-                <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-white/[0.07] pt-3 min-[350px]:flex-row min-[350px]:items-center min-[350px]:justify-between sm:mt-5 sm:gap-4 sm:pt-4">
-                  <span className="min-w-0 font-mono text-[8px] font-semibold tracking-[0.1em] break-words text-slate-500 min-[360px]:text-[9px] sm:tracking-[0.14em]">
+                {/* =================================================
+                    FOOTER
+                ================================================= */}
+
+                <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-slate-200 pt-3 min-[350px]:flex-row min-[350px]:items-center min-[350px]:justify-between sm:mt-5 sm:gap-4 sm:pt-4 dark:border-white/[0.07]">
+                  <span className="min-w-0 font-mono text-[8px] font-semibold tracking-[0.1em] break-words text-slate-500 min-[360px]:text-[9px] sm:tracking-[0.14em] dark:text-slate-500">
                     {area.label}
                   </span>
 
                   <span
-                    className={`min-w-0 font-mono text-[8px] font-bold tracking-[0.08em] break-words min-[350px]:text-right min-[360px]:text-[9px] sm:tracking-[0.12em] ${area.footerClass}`}
+                    className={`min-w-0 font-mono text-[8px] font-bold tracking-[0.08em] break-words min-[350px]:text-right min-[360px]:text-[9px] sm:tracking-[0.12em] ${area.footerClass} `}
                   >
                     {area.footer}
                   </span>
                 </div>
 
-                {/* LÍNEA HOVER */}
+                {/* =================================================
+                    LÍNEA HOVER
+                ================================================= */}
+
                 <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500 group-hover:w-full" />
               </motion.article>
             );

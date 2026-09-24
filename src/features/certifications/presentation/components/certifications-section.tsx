@@ -14,6 +14,10 @@ import { motion } from "motion/react";
 
 const AUTO_SPEED = 28;
 
+/* =========================================================
+   CERTIFICACIONES
+========================================================= */
+
 const certifications = [
   {
     name: "Responsive Web Design",
@@ -23,6 +27,7 @@ const certifications = [
       "Desarrollo de interfaces web responsivas, estructura semántica y adaptación a diferentes dispositivos.",
     accent: "cyan",
   },
+
   {
     name: "Scientific Computing with Python",
     organization: "freeCodeCamp",
@@ -31,6 +36,7 @@ const certifications = [
       "Programación con Python aplicada a lógica, estructuras de datos y resolución de problemas computacionales.",
     accent: "blue",
   },
+
   {
     name: "Data Analytics Essentials",
     organization: "Cisco Networking Academy",
@@ -39,6 +45,7 @@ const certifications = [
       "Fundamentos de análisis de datos, interpretación de información y visualización orientada a decisiones.",
     accent: "cyan",
   },
+
   {
     name: "Gestión Ágil y Lean",
     organization: "Fundación Telefónica",
@@ -47,6 +54,7 @@ const certifications = [
       "Principios de metodologías ágiles, mejora continua, organización del trabajo y entrega de valor.",
     accent: "violet",
   },
+
   {
     name: "Data Engineers en Azure",
     organization: "NTT DATA",
@@ -57,57 +65,68 @@ const certifications = [
   },
 ];
 
+/* =========================================================
+   COLORES SEGÚN ACENTO
+========================================================= */
+
 function getAccentClasses(accent: string) {
   switch (accent) {
     case "violet":
       return {
-        organization: "text-violet-300",
+        organization: "text-violet-700 dark:text-violet-300",
 
-        year: "border-violet-400/30 bg-violet-400/[0.08] text-violet-300",
+        year: "border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-400/30 dark:bg-violet-400/[0.08] dark:text-violet-300",
 
-        icon: "text-violet-300",
+        icon: "text-violet-600 dark:text-violet-300",
 
-        iconBg: "border-violet-400/20 bg-violet-400/[0.08]",
+        iconBg:
+          "border-violet-200 bg-violet-50 dark:border-violet-400/20 dark:bg-violet-400/[0.08]",
 
         hover:
-          "hover:border-violet-400/40 hover:shadow-[0_22px_70px_rgba(167,139,250,0.10)]",
+          "hover:border-violet-400/50 hover:shadow-[0_22px_70px_rgba(139,92,246,0.10)] dark:hover:border-violet-400/40 dark:hover:shadow-[0_22px_70px_rgba(167,139,250,0.10)]",
 
-        dot: "bg-violet-400",
+        dot: "bg-violet-500 dark:bg-violet-400",
       };
 
     case "blue":
       return {
-        organization: "text-blue-300",
+        organization: "text-blue-700 dark:text-blue-300",
 
-        year: "border-blue-400/30 bg-blue-400/[0.08] text-blue-300",
+        year: "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-400/30 dark:bg-blue-400/[0.08] dark:text-blue-300",
 
-        icon: "text-blue-300",
+        icon: "text-blue-600 dark:text-blue-300",
 
-        iconBg: "border-blue-400/20 bg-blue-400/[0.08]",
+        iconBg:
+          "border-blue-200 bg-blue-50 dark:border-blue-400/20 dark:bg-blue-400/[0.08]",
 
         hover:
-          "hover:border-blue-400/40 hover:shadow-[0_22px_70px_rgba(96,165,250,0.10)]",
+          "hover:border-blue-400/50 hover:shadow-[0_22px_70px_rgba(59,130,246,0.10)] dark:hover:border-blue-400/40 dark:hover:shadow-[0_22px_70px_rgba(96,165,250,0.10)]",
 
-        dot: "bg-blue-400",
+        dot: "bg-blue-500 dark:bg-blue-400",
       };
 
     default:
       return {
-        organization: "text-cyan-300",
+        organization: "text-cyan-700 dark:text-cyan-300",
 
-        year: "border-cyan-400/30 bg-cyan-400/[0.08] text-cyan-300",
+        year: "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/[0.08] dark:text-cyan-300",
 
-        icon: "text-cyan-300",
+        icon: "text-cyan-600 dark:text-cyan-300",
 
-        iconBg: "border-cyan-400/20 bg-cyan-400/[0.08]",
+        iconBg:
+          "border-cyan-200 bg-cyan-50 dark:border-cyan-400/20 dark:bg-cyan-400/[0.08]",
 
         hover:
-          "hover:border-cyan-400/40 hover:shadow-[0_22px_70px_rgba(34,211,238,0.10)]",
+          "hover:border-cyan-400/50 hover:shadow-[0_22px_70px_rgba(6,182,212,0.10)] dark:hover:border-cyan-400/40 dark:hover:shadow-[0_22px_70px_rgba(34,211,238,0.10)]",
 
-        dot: "bg-cyan-400",
+        dot: "bg-cyan-500 dark:bg-cyan-400",
       };
   }
 }
+
+/* =========================================================
+   COMPONENTE
+========================================================= */
 
 export function CertificationsSection() {
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -339,38 +358,42 @@ export function CertificationsSection() {
   return (
     <section
       id="certificaciones"
-      className="relative w-full max-w-full overflow-x-clip border-t border-white/[0.07] py-14 sm:py-16 md:py-20 landscape:py-12"
+      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
       {/* =================================================
-          GLOW AMBIENTAL
+          GLOW AMBIENTAL DERECHO
       ================================================= */}
 
       <motion.div
         animate={{
           x: [0, -50, 0],
           y: [0, 30, 0],
-          opacity: [0.02, 0.045, 0.02],
+          opacity: [0.025, 0.07, 0.025],
         }}
         transition={{
           duration: 12,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="pointer-events-none absolute top-0 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400 blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[155px]"
+        className="pointer-events-none absolute top-0 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400 blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[155px] dark:opacity-100"
       />
+
+      {/* =================================================
+          GLOW AMBIENTAL IZQUIERDO
+      ================================================= */}
 
       <motion.div
         animate={{
           x: [0, 45, 0],
           y: [0, -25, 0],
-          opacity: [0.01, 0.03, 0.01],
+          opacity: [0.015, 0.045, 0.015],
         }}
         transition={{
           duration: 14,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="pointer-events-none absolute bottom-0 -left-28 h-[240px] w-[240px] rounded-full bg-blue-500 blur-[100px] sm:-left-32 sm:h-[340px] sm:w-[340px] sm:blur-[150px]"
+        className="pointer-events-none absolute bottom-0 -left-28 h-[240px] w-[240px] rounded-full bg-blue-500 blur-[100px] sm:-left-32 sm:h-[340px] sm:w-[340px] sm:blur-[150px] dark:opacity-100"
       />
 
       {/* =================================================
@@ -401,7 +424,9 @@ export function CertificationsSection() {
           }}
           className="min-w-0"
         >
-          {/* BADGE */}
+          {/* =================================================
+              BADGE
+          ================================================= */}
 
           <motion.div
             initial={{
@@ -419,24 +444,28 @@ export function CertificationsSection() {
               duration: 0.5,
               delay: 0.1,
             }}
-            className="inline-flex max-w-full items-center gap-2 rounded-[5px] border border-cyan-300/25 bg-[#1b2330]/80 px-2.5 py-1.5 sm:px-3"
+            className="inline-flex max-w-full items-center gap-2 rounded-[5px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none"
           >
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.55)] dark:bg-cyan-400 dark:shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
 
-            <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-300 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.12em]">
+            <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-700 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.12em] dark:text-cyan-300">
               Credenciales
             </span>
           </motion.div>
 
-          {/* TÍTULO */}
+          {/* =================================================
+              TÍTULO
+          ================================================= */}
 
-          <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.04em] break-words text-white min-[360px]:text-[30px] sm:mt-4 sm:text-3xl md:text-[2.5rem]">
+          <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.04em] break-words text-slate-950 min-[360px]:text-[30px] sm:mt-4 sm:text-3xl md:text-[2.5rem] dark:text-white">
             Certificaciones
           </h2>
 
-          {/* DESCRIPCIÓN */}
+          {/* =================================================
+              DESCRIPCIÓN
+          ================================================= */}
 
-          <p className="mt-3 max-w-[760px] text-[13px] leading-6 break-words text-slate-300 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px]">
+          <p className="mt-3 max-w-[760px] text-[13px] leading-6 break-words text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px] dark:text-slate-300">
             Acreditaciones y formación técnica orientadas al desarrollo de
             software, datos, metodologías ágiles y tecnologías modernas.
           </p>
@@ -447,13 +476,17 @@ export function CertificationsSection() {
         ================================================= */}
 
         <div className="relative mt-7 w-full max-w-full min-w-0 overflow-hidden sm:mt-9 lg:mt-10">
-          {/* FADE IZQUIERDO */}
+          {/* =================================================
+              FADE IZQUIERDO
+          ================================================= */}
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-5 bg-gradient-to-r from-[#070b14] via-[#070b14]/60 to-transparent min-[360px]:w-7 sm:w-10 md:w-14" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-5 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent min-[360px]:w-7 sm:w-10 md:w-14 dark:from-[#070b14] dark:via-[#070b14]/60" />
 
-          {/* FADE DERECHO */}
+          {/* =================================================
+              FADE DERECHO
+          ================================================= */}
 
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-5 bg-gradient-to-l from-[#070b14] via-[#070b14]/60 to-transparent min-[360px]:w-7 sm:w-10 md:w-14" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-5 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent min-[360px]:w-7 sm:w-10 md:w-14 dark:from-[#070b14] dark:via-[#070b14]/60" />
 
           {/* =================================================
               CARRUSEL
@@ -494,22 +527,28 @@ export function CertificationsSection() {
                   transition={{
                     duration: 0.25,
                   }}
-                  className={`group relative flex min-h-[255px] w-[calc(100vw-3rem)] max-w-[330px] shrink-0 flex-col overflow-hidden rounded-[16px] border border-white/[0.09] bg-[#151923]/95 p-4 shadow-[0_14px_45px_rgba(0,0,0,0.16)] transition-[border-color,box-shadow] duration-500 min-[360px]:min-h-[270px] min-[360px]:rounded-[18px] min-[360px]:p-5 sm:min-h-[290px] sm:w-[340px] sm:max-w-[340px] sm:rounded-[20px] sm:p-6 lg:w-[330px] ${colors.hover}`}
+                  className={`group relative flex min-h-[255px] w-[calc(100vw-3rem)] max-w-[330px] shrink-0 flex-col overflow-hidden rounded-[16px] border border-slate-200 bg-white p-4 shadow-[0_14px_45px_rgba(15,23,42,0.07)] transition-[background-color,border-color,box-shadow] duration-500 min-[360px]:min-h-[270px] min-[360px]:rounded-[18px] min-[360px]:p-5 sm:min-h-[290px] sm:w-[340px] sm:max-w-[340px] sm:rounded-[20px] sm:p-6 lg:w-[330px] dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-[0_14px_45px_rgba(0,0,0,0.16)] ${colors.hover} `}
                 >
-                  {/* FONDO */}
+                  {/* =================================================
+                        FONDO
+                    ================================================= */}
 
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.025] via-transparent to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-50/70 via-transparent to-transparent dark:from-white/[0.025]" />
 
-                  {/* GLOW */}
+                  {/* =================================================
+                        GLOW
+                    ================================================= */}
 
-                  <div className="pointer-events-none absolute -top-16 -right-16 h-32 w-32 rounded-full bg-cyan-400/[0.025] blur-[60px] transition duration-500 group-hover:bg-cyan-400/[0.055] sm:-top-20 sm:-right-20 sm:h-44 sm:w-44 sm:blur-[80px]" />
+                  <div className="pointer-events-none absolute -top-16 -right-16 h-32 w-32 rounded-full bg-cyan-400/[0.06] blur-[60px] transition duration-500 group-hover:bg-cyan-400/[0.10] sm:-top-20 sm:-right-20 sm:h-44 sm:w-44 sm:blur-[80px] dark:bg-cyan-400/[0.025] dark:group-hover:bg-cyan-400/[0.055]" />
 
                   {/* =================================================
                         HEADER CARD
                     ================================================= */}
 
                   <div className="relative flex min-w-0 flex-col gap-3 min-[350px]:flex-row min-[350px]:items-start min-[350px]:justify-between">
-                    {/* Organización */}
+                    {/* =================================================
+                          ORGANIZACIÓN
+                      ================================================= */}
 
                     <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
                       <motion.div
@@ -522,36 +561,40 @@ export function CertificationsSection() {
                           stiffness: 300,
                           damping: 18,
                         }}
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border sm:h-10 sm:w-10 sm:rounded-xl ${colors.iconBg}`}
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border sm:h-10 sm:w-10 sm:rounded-xl ${colors.iconBg} `}
                       >
                         <ShieldCheck size={17} className={colors.icon} />
                       </motion.div>
 
                       <div className="min-w-0">
                         <span
-                          className={`block max-w-full truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization}`}
+                          className={`block max-w-full truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization} `}
                         >
                           {certificate.organization}
                         </span>
 
-                        <span className="mt-1 block max-w-full truncate font-mono text-[7px] tracking-[0.07em] text-slate-600 uppercase sm:text-[8px] sm:tracking-[0.12em]">
+                        <span className="mt-1 block max-w-full truncate font-mono text-[7px] tracking-[0.07em] text-slate-500 uppercase sm:text-[8px] sm:tracking-[0.12em] dark:text-slate-600">
                           Professional Credential
                         </span>
                       </div>
                     </div>
 
-                    {/* Año */}
+                    {/* =================================================
+                          AÑO
+                      ================================================= */}
 
                     <span
-                      className={`w-fit shrink-0 rounded-md border px-2 py-1 font-mono text-[8px] font-bold sm:px-2.5 sm:text-[9px] ${colors.year}`}
+                      className={`w-fit shrink-0 rounded-md border px-2 py-1 font-mono text-[8px] font-bold sm:px-2.5 sm:text-[9px] ${colors.year} `}
                     >
                       {certificate.year}
                     </span>
                   </div>
 
-                  {/* NÚMERO */}
+                  {/* =================================================
+                        NÚMERO DECORATIVO
+                    ================================================= */}
 
-                  <span className="pointer-events-none absolute top-[72px] right-4 font-mono text-[36px] leading-none font-black text-white/[0.025] min-[360px]:text-[42px] sm:top-[78px] sm:right-5 sm:text-[48px]">
+                  <span className="pointer-events-none absolute top-[72px] right-4 font-mono text-[36px] leading-none font-black text-slate-900/[0.035] min-[360px]:text-[42px] sm:top-[78px] sm:right-5 sm:text-[48px] dark:text-white/[0.025]">
                     {String(originalIndex + 1).padStart(2, "0")}
                   </span>
 
@@ -559,13 +602,15 @@ export function CertificationsSection() {
                         TÍTULO
                     ================================================= */}
 
-                  <h3 className="relative mt-5 max-w-full text-[16px] leading-6 font-bold tracking-[-0.035em] break-words text-white transition-colors duration-300 group-hover:text-cyan-50 min-[360px]:text-[18px] sm:mt-7 sm:max-w-[270px] sm:text-[20px] sm:leading-7">
+                  <h3 className="relative mt-5 max-w-full text-[16px] leading-6 font-bold tracking-[-0.035em] break-words text-slate-950 transition-colors duration-300 group-hover:text-cyan-700 min-[360px]:text-[18px] sm:mt-7 sm:max-w-[270px] sm:text-[20px] sm:leading-7 dark:text-white dark:group-hover:text-cyan-50">
                     {certificate.name}
                   </h3>
 
-                  {/* DESCRIPCIÓN */}
+                  {/* =================================================
+                        DESCRIPCIÓN
+                    ================================================= */}
 
-                  <p className="relative mt-2.5 flex-1 text-[11px] leading-5 break-words text-slate-400 transition-colors duration-300 group-hover:text-slate-300 min-[360px]:text-[12px] min-[360px]:leading-6 sm:mt-3 sm:text-[13px]">
+                  <p className="relative mt-2.5 flex-1 text-[11px] leading-5 break-words text-slate-600 transition-colors duration-300 group-hover:text-slate-700 min-[360px]:text-[12px] min-[360px]:leading-6 sm:mt-3 sm:text-[13px] dark:text-slate-400 dark:group-hover:text-slate-300">
                     {certificate.description}
                   </p>
 
@@ -573,8 +618,10 @@ export function CertificationsSection() {
                         FOOTER
                     ================================================= */}
 
-                  <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-white/[0.07] pt-3 min-[340px]:flex-row min-[340px]:items-center min-[340px]:justify-between sm:mt-6 sm:pt-4">
-                    {/* Verificada */}
+                  <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-slate-200 pt-3 min-[340px]:flex-row min-[340px]:items-center min-[340px]:justify-between sm:mt-6 sm:pt-4 dark:border-white/[0.07]">
+                    {/* =================================================
+                          VERIFICADA
+                      ================================================= */}
 
                     <div className="flex min-w-0 items-center gap-2">
                       <BadgeCheck
@@ -582,20 +629,22 @@ export function CertificationsSection() {
                         className={`shrink-0 ${colors.icon}`}
                       />
 
-                      <span className="min-w-0 truncate font-mono text-[8px] tracking-[0.06em] text-slate-400 sm:text-[9px] sm:tracking-[0.1em]">
+                      <span className="min-w-0 truncate font-mono text-[8px] tracking-[0.06em] text-slate-500 sm:text-[9px] sm:tracking-[0.1em] dark:text-slate-400">
                         Verificada
                       </span>
                     </div>
 
-                    {/* Código */}
+                    {/* =================================================
+                          CÓDIGO
+                      ================================================= */}
 
                     <div className="flex min-w-0 items-center gap-2">
                       <span
-                        className={`h-1.5 w-1.5 shrink-0 rounded-full ${colors.dot} shadow-[0_0_7px_currentColor]`}
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full shadow-[0_0_7px_currentColor] ${colors.dot} `}
                       />
 
                       <span
-                        className={`min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization}`}
+                        className={`min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization} `}
                       >
                         CERT-
                         {String(originalIndex + 1).padStart(2, "0")}
@@ -603,7 +652,9 @@ export function CertificationsSection() {
                     </div>
                   </div>
 
-                  {/* LÍNEA INFERIOR */}
+                  {/* =================================================
+                        LÍNEA INFERIOR
+                    ================================================= */}
 
                   <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 transition-all duration-700 group-hover:w-full" />
                 </motion.article>
