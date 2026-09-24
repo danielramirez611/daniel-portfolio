@@ -7,7 +7,6 @@ import type { Project } from "../../domain/entities/project";
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
 }
 
 /* =========================================================
@@ -356,10 +355,8 @@ function ProjectPreview({ project }: { project: Project }) {
    PROJECT CARD
 ========================================================= */
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
-  const isFeatured = index === 0;
-
-  const number = String(index + 1).padStart(2, "0");
+export function ProjectCard({ project }: ProjectCardProps) {
+  const isFeatured = project.slug === "hub-programacion";
 
   return (
     <motion.article
@@ -377,7 +374,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       }}
       transition={{
         duration: 0.55,
-        delay: index * 0.055,
+        delay: 0.055,
         ease: "easeOut",
       }}
       whileHover={{
@@ -402,9 +399,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/[0.018] to-transparent" />
 
       {isFeatured ? (
-        <FeaturedProject project={project} number={number} />
+        <FeaturedProject project={project} />
       ) : (
-        <StandardProject project={project} number={number} />
+        <StandardProject project={project} />
       )}
 
       {/* Línea inferior */}
@@ -417,18 +414,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
    FEATURED PROJECT
 ========================================================= */
 
-function FeaturedProject({
-  project,
-  number,
-}: {
-  project: Project;
-  number: string;
-}) {
+function FeaturedProject({ project }: { project: Project }) {
   return (
     <div className="relative grid min-h-[355px] gap-10 p-7 md:p-8 lg:grid-cols-[0.82fr_1.18fr] lg:p-9">
       {/* Información */}
       <div className="flex min-w-0 flex-col justify-center">
-        <ProjectHeader project={project} number={number} />
+        <ProjectHeader project={project} />
 
         <h3 className="mt-5 text-[27px] font-bold tracking-[-0.04em] text-white md:text-[30px]">
           {project.title}
@@ -473,16 +464,10 @@ function FeaturedProject({
    STANDARD PROJECT
 ========================================================= */
 
-function StandardProject({
-  project,
-  number,
-}: {
-  project: Project;
-  number: string;
-}) {
+function StandardProject({ project }: { project: Project }) {
   return (
     <div className="relative flex h-full min-h-[510px] flex-col p-7 md:p-8">
-      <ProjectHeader project={project} number={number} />
+      <ProjectHeader project={project} />
 
       <h3 className="mt-5 text-[25px] font-bold tracking-[-0.04em] text-white">
         {project.title}
@@ -513,8 +498,6 @@ function StandardProject({
 
       {/* Footer */}
       <div className="flex items-center justify-between border-t border-white/[0.06] pt-4 font-mono text-[9px] tracking-[0.1em] uppercase">
-        <span className="text-slate-500">Proyecto {number}</span>
-
         <span className="flex items-center gap-2 text-cyan-400">
           <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
           System Ready
@@ -528,17 +511,11 @@ function StandardProject({
    PROJECT HEADER
 ========================================================= */
 
-function ProjectHeader({
-  project,
-  number,
-}: {
-  project: Project;
-  number: string;
-}) {
+function ProjectHeader({ project }: { project: Project }) {
   return (
     <div className="flex flex-wrap items-center gap-2 font-mono">
       <span className="text-[10px] font-bold tracking-[0.13em] text-cyan-300 uppercase">
-        {`${number} // ${project.category}`}
+        {`${project.category}`}
       </span>
 
       {project.subtitle && (

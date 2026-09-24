@@ -35,8 +35,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
         {/* PROYECTOS */}
         <div className="grid gap-6 lg:grid-cols-2">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
       </div>
