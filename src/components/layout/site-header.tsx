@@ -103,19 +103,30 @@ export function SiteHeader() {
               <Network size={16} />
             </a>
 
-            {/* AVATAR */}
+            {/* LOGO PERSONAL */}
             <a
-              href="#sobre-mi"
-              aria-label="Ir a sobre mí"
-              className="relative hidden h-8 w-8 shrink-0 overflow-hidden rounded-full border border-cyan-400/40 bg-[#111827] min-[330px]:block sm:h-9 sm:w-9"
+              href="#inicio"
+              aria-label="DR Tech - Inicio"
+              className="relative hidden h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-cyan-400/30 bg-white/[0.04] p-1.5 transition hover:border-cyan-400/60 min-[330px]:flex sm:h-10 sm:w-10"
             >
+              {/* Logo para tema claro */}
               <Image
-                src="/daniel.jpg"
-                alt="Daniel Ramirez"
-                fill
+                src="/brand/marca-light.png"
+                alt="DR Tech"
+                width={40}
+                height={40}
                 priority
-                sizes="36px"
-                className="object-cover object-center"
+                className="h-full w-full object-contain dark:hidden"
+              />
+
+              {/* Logo para tema oscuro */}
+              <Image
+                src="/brand/marca-dark.png"
+                alt="DR Tech"
+                width={40}
+                height={40}
+                priority
+                className="hidden h-full w-full object-contain dark:block"
               />
             </a>
 

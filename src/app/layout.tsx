@@ -47,9 +47,30 @@ export const metadata: Metadata = {
     },
   ],
 
+  icons: {
+    icon: [
+      {
+        url: "/brand/marca-light.png",
+        type: "image/png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/brand/marca-dark.png",
+        type: "image/png",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+
+    shortcut: "/brand/dr-logo-light.png",
+
+    apple: "/brand/dr-logo-light.png",
+  },
+
   openGraph: {
     title: "Daniel Ramirez | Software Developer",
+
     description: "Backend, APIs, bases de datos y soluciones tecnológicas.",
+
     type: "website",
     locale: "es_PE",
   },
