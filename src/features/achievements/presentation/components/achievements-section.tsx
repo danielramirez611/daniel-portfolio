@@ -69,13 +69,17 @@ export function AchievementsSection() {
   return (
     <section
       id="logros"
-      className="relative border-t border-white/[0.07] py-20"
+      className="relative w-full max-w-full overflow-x-clip border-t border-white/[0.07] py-14 sm:py-16 md:py-20 landscape:py-12"
     >
-      {/* Glow decorativo */}
-      <div className="pointer-events-none absolute top-20 -left-32 h-[320px] w-[320px] rounded-full bg-cyan-400/[0.025] blur-[120px]" />
+      {/* GLOW DECORATIVO */}
+      <div className="pointer-events-none absolute top-20 -left-28 h-[240px] w-[240px] rounded-full bg-cyan-400/[0.025] blur-[90px] sm:-left-32 sm:h-[320px] sm:w-[320px] sm:blur-[120px]" />
 
-      <div className="relative">
-        {/* CABECERA */}
+      {/* CONTENEDOR */}
+      <div className="relative mx-auto w-full max-w-7xl min-w-0 px-4 min-[380px]:px-5 sm:px-6 md:px-8 lg:px-8 xl:px-10 2xl:px-0">
+        {/* =================================================
+            CABECERA
+        ================================================= */}
+
         <motion.div
           initial={{
             opacity: 0,
@@ -87,42 +91,46 @@ export function AchievementsSection() {
           }}
           viewport={{
             once: true,
-            amount: 0.3,
+            amount: 0.2,
           }}
           transition={{
             duration: 0.5,
             ease: "easeOut",
           }}
+          className="min-w-0"
         >
-          {/* Badge */}
-          <div className="inline-flex items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-3 py-1.5">
-            <span className="font-mono text-[10px] font-bold tracking-[0.1em] text-cyan-300 uppercase">
+          {/* BADGE */}
+          <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-2.5 py-1.5 sm:px-3">
+            <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-300 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em]">
               Distinciones
             </span>
           </div>
 
-          {/* Título */}
-          <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.035em] text-white md:text-[2.4rem]">
+          {/* TÍTULO */}
+          <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-white min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem]">
             Logros & Reconocimientos
           </h2>
 
-          {/* Subtítulo */}
-          <p className="mt-3 max-w-[820px] text-[15px] leading-7 text-slate-300 md:text-[16px]">
+          {/* SUBTÍTULO */}
+          <p className="mt-3 max-w-[820px] text-[13px] leading-6 break-words text-slate-300 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px]">
             Reconocimientos de excelencia académica, liderazgo representativo y
             acreditación de competencias.
           </p>
         </motion.div>
 
-        {/* CARDS */}
+        {/* =================================================
+            CARDS
+        ================================================= */}
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{
             once: true,
-            amount: 0.15,
+            amount: 0.12,
           }}
-          className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+          className="mt-8 grid w-full min-w-0 grid-cols-1 gap-3 min-[520px]:grid-cols-2 sm:mt-10 sm:gap-4 lg:grid-cols-2 xl:grid-cols-4 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-4"
         >
           {achievements.map((item) => {
             const Icon = item.icon;
@@ -134,12 +142,12 @@ export function AchievementsSection() {
                 whileHover={{
                   y: -6,
                 }}
-                className={`group relative flex min-h-[205px] flex-col overflow-hidden rounded-[16px] border border-white/[0.09] bg-[#151923]/95 p-6 transition-[border-color,box-shadow] duration-300 ${item.borderClass} ${item.glowClass}`}
+                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border border-white/[0.09] bg-[#151923]/95 p-4 transition-[border-color,box-shadow] duration-300 min-[360px]:p-5 sm:min-h-[195px] sm:rounded-[16px] sm:p-6 lg:min-h-[205px] ${item.borderClass} ${item.glowClass}`}
               >
-                {/* Luz superior */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/[0.015] to-transparent" />
+                {/* LUZ SUPERIOR */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/[0.015] to-transparent sm:h-20" />
 
-                {/* Icono */}
+                {/* ICONO */}
                 <motion.div
                   whileHover={{
                     scale: 1.08,
@@ -150,23 +158,27 @@ export function AchievementsSection() {
                     stiffness: 280,
                     damping: 18,
                   }}
-                  className={`relative flex h-11 w-11 items-center justify-center rounded-xl border ${item.iconClass}`}
+                  className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border sm:h-11 sm:w-11 sm:rounded-xl ${item.iconClass}`}
                 >
-                  <Icon size={21} strokeWidth={2} />
+                  <Icon
+                    size={19}
+                    strokeWidth={2}
+                    className="sm:h-[21px] sm:w-[21px]"
+                  />
                 </motion.div>
 
-                {/* Título */}
-                <h3 className="relative mt-5 text-[19px] font-bold tracking-[-0.025em] text-white">
+                {/* TÍTULO */}
+                <h3 className="relative mt-4 max-w-full text-[16px] leading-6 font-bold tracking-[-0.025em] break-words text-white min-[360px]:text-[17px] sm:mt-5 sm:text-[19px]">
                   {item.title}
                 </h3>
 
-                {/* Descripción */}
-                <p className="relative mt-2 text-[13px] leading-6 text-slate-300">
+                {/* DESCRIPCIÓN */}
+                <p className="relative mt-2 flex-1 text-[12px] leading-6 break-words text-slate-300 min-[360px]:text-[13px]">
                   {item.text}
                 </p>
 
-                {/* Línea inferior */}
-                <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-all duration-500 group-hover:w-full" />
+                {/* LÍNEA INFERIOR */}
+                <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-all duration-500 group-hover:w-full" />
               </motion.article>
             );
           })}

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -10,20 +11,6 @@ import {
 import { BadgeCheck, ShieldCheck } from "lucide-react";
 
 import { motion } from "motion/react";
-
-/*
-|--------------------------------------------------------------------------
-| CONFIGURACIÓN
-|--------------------------------------------------------------------------
-|
-| Velocidad en píxeles por segundo.
-| Puedes cambiar:
-|
-| 20 = lento
-| 28 = recomendado
-| 40 = rápido
-|
-*/
 
 const AUTO_SPEED = 28;
 
@@ -69,12 +56,6 @@ const certifications = [
     accent: "blue",
   },
 ];
-
-/*
-|--------------------------------------------------------------------------
-| COLORES
-|--------------------------------------------------------------------------
-*/
 
 function getAccentClasses(accent: string) {
   switch (accent) {
@@ -128,39 +109,14 @@ function getAccentClasses(accent: string) {
   }
 }
 
-/*
-|--------------------------------------------------------------------------
-| COMPONENTE
-|--------------------------------------------------------------------------
-*/
-
 export function CertificationsSection() {
   const carouselRef = useRef<HTMLDivElement>(null);
-
-  /*
-   * Necesitamos tres grupos:
-   *
-   * grupo 1
-   * grupo 2 <- comenzamos aquí
-   * grupo 3
-   *
-   * De esta forma podemos movernos hacia ambos lados
-   * sin llegar visualmente al final.
-   */
-
-  const loopItems = [...certifications, ...certifications, ...certifications];
-
-  /*
-   |--------------------------------------------------------------------------
-   | REFS
-   |--------------------------------------------------------------------------
-   */
 
   const loopWidthRef = useRef(0);
 
   const animationRef = useRef<number | null>(null);
 
-  const lastFrameRef = useRef<number>(0);
+  const lastFrameRef = useRef(0);
 
   const draggingRef = useRef(false);
 
@@ -170,24 +126,19 @@ export function CertificationsSection() {
 
   const startScrollLeftRef = useRef(0);
 
-  /*
-   |--------------------------------------------------------------------------
-   | ESTADO VISUAL
-   |--------------------------------------------------------------------------
-   */
-
   const [isDragging, setIsDragging] = useState(false);
 
   /*
-   |--------------------------------------------------------------------------
-   | NORMALIZAR POSICIÓN
-   |--------------------------------------------------------------------------
-   |
-   | Esto crea el efecto infinito.
-   |
+   * Tres copias permiten crear
+   * el movimiento infinito.
    */
+  const loopItems = [...certifications, ...certifications, ...certifications];
 
-  function normalizePosition() {
+  /* =====================================================
+     NORMALIZAR LOOP
+  ===================================================== */
+
+  const normalizePosition = useCallback(() => {
     const carousel = carouselRef.current;
 
     const width = loopWidthRef.current;
@@ -195,13 +146,6 @@ export function CertificationsSection() {
     if (!carousel || width <= 0) {
       return;
     }
-
-    /*
-     * Entramos al tercer bloque.
-     *
-     * Regresamos silenciosamente
-     * al segundo.
-     */
 
     if (carousel.scrollLeft >= width * 2) {
       carousel.scrollLeft -= width;
@@ -211,13 +155,6 @@ export function CertificationsSection() {
       }
     }
 
-    /*
-     * Entramos al primer bloque.
-     *
-     * Volvemos silenciosamente
-     * al segundo.
-     */
-
     if (carousel.scrollLeft <= 0) {
       carousel.scrollLeft += width;
 
@@ -225,13 +162,11 @@ export function CertificationsSection() {
         startScrollLeftRef.current += width;
       }
     }
-  }
+  }, []);
 
-  /*
-   |--------------------------------------------------------------------------
-   | INICIALIZAR LOOP
-   |--------------------------------------------------------------------------
-   */
+  /* =====================================================
+     CALCULAR TAMAÑO DEL LOOP
+  ===================================================== */
 
   useEffect(() => {
     function calculateLoop() {
@@ -264,9 +199,7 @@ export function CertificationsSection() {
       carousel.scrollLeft = width;
     }
 
-    const frame = requestAnimationFrame(() => {
-      calculateLoop();
-    });
+    const frame = requestAnimationFrame(calculateLoop);
 
     window.addEventListener("resize", calculateLoop);
 
@@ -277,11 +210,9 @@ export function CertificationsSection() {
     };
   }, []);
 
-  /*
-   |--------------------------------------------------------------------------
-   | MOVIMIENTO AUTOMÁTICO CONTINUO
-   |--------------------------------------------------------------------------
-   */
+  /* =====================================================
+     MOVIMIENTO AUTOMÁTICO
+  ===================================================== */
 
   useEffect(() => {
     function animate(time: number) {
@@ -297,24 +228,9 @@ export function CertificationsSection() {
         lastFrameRef.current = time;
       }
 
-      /*
-       * Delta time.
-       *
-       * Hace que la velocidad sea
-       * igual aunque el monitor sea
-       * 60Hz, 120Hz, etc.
-       */
-
       const delta = Math.min(time - lastFrameRef.current, 50);
 
       lastFrameRef.current = time;
-
-      /*
-       * Solo mover si:
-       *
-       * - el mouse NO está encima
-       * - NO estamos arrastrando
-       */
 
       if (!hoveringRef.current && !draggingRef.current) {
         carousel.scrollLeft += (AUTO_SPEED * delta) / 1000;
@@ -332,29 +248,15 @@ export function CertificationsSection() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, []);
+  }, [normalizePosition]);
 
-  /*
-   |--------------------------------------------------------------------------
-   | MOUSE ENTER
-   |--------------------------------------------------------------------------
-   |
-   | Pausa automática.
-   |
-   */
+  /* =====================================================
+     HOVER
+  ===================================================== */
 
   function handleMouseEnter() {
     hoveringRef.current = true;
   }
-
-  /*
-   |--------------------------------------------------------------------------
-   | MOUSE LEAVE
-   |--------------------------------------------------------------------------
-   |
-   | Continúa automáticamente.
-   |
-   */
 
   function handleMouseLeave() {
     hoveringRef.current = false;
@@ -368,11 +270,9 @@ export function CertificationsSection() {
     lastFrameRef.current = performance.now();
   }
 
-  /*
-   |--------------------------------------------------------------------------
-   | INICIAR ARRASTRE
-   |--------------------------------------------------------------------------
-   */
+  /* =====================================================
+     ARRASTRE
+  ===================================================== */
 
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     const carousel = carouselRef.current;
@@ -392,12 +292,6 @@ export function CertificationsSection() {
     carousel.setPointerCapture(event.pointerId);
   }
 
-  /*
-   |--------------------------------------------------------------------------
-   | ARRASTRANDO
-   |--------------------------------------------------------------------------
-   */
-
   function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
     const carousel = carouselRef.current;
 
@@ -411,12 +305,6 @@ export function CertificationsSection() {
 
     normalizePosition();
   }
-
-  /*
-   |--------------------------------------------------------------------------
-   | TERMINAR ARRASTRE
-   |--------------------------------------------------------------------------
-   */
 
   function handlePointerUp(event: ReactPointerEvent<HTMLDivElement>) {
     const carousel = carouselRef.current;
@@ -432,7 +320,7 @@ export function CertificationsSection() {
     try {
       carousel.releasePointerCapture(event.pointerId);
     } catch {
-      // Ya fue liberado.
+      // Pointer liberado.
     }
 
     normalizePosition();
@@ -448,18 +336,12 @@ export function CertificationsSection() {
     lastFrameRef.current = performance.now();
   }
 
-  /*
-   |--------------------------------------------------------------------------
-   | JSX
-   |--------------------------------------------------------------------------
-   */
-
   return (
     <section
       id="certificaciones"
-      className="relative overflow-hidden border-t border-white/[0.07] py-20"
+      className="relative w-full max-w-full overflow-x-clip border-t border-white/[0.07] py-14 sm:py-16 md:py-20 landscape:py-12"
     >
-      {/* ================================================
+      {/* =================================================
           GLOW AMBIENTAL
       ================================================= */}
 
@@ -474,7 +356,7 @@ export function CertificationsSection() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="pointer-events-none absolute top-0 -right-28 h-[420px] w-[420px] rounded-full bg-cyan-400 blur-[155px]"
+        className="pointer-events-none absolute top-0 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400 blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[155px]"
       />
 
       <motion.div
@@ -488,11 +370,15 @@ export function CertificationsSection() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="pointer-events-none absolute bottom-0 -left-32 h-[340px] w-[340px] rounded-full bg-blue-500 blur-[150px]"
+        className="pointer-events-none absolute bottom-0 -left-28 h-[240px] w-[240px] rounded-full bg-blue-500 blur-[100px] sm:-left-32 sm:h-[340px] sm:w-[340px] sm:blur-[150px]"
       />
 
-      <div className="relative">
-        {/* ================================================
+      {/* =================================================
+          CONTENEDOR GENERAL
+      ================================================= */}
+
+      <div className="relative mx-auto w-full max-w-7xl min-w-0 px-4 min-[380px]:px-5 sm:px-6 md:px-8 lg:px-8 xl:px-10 2xl:px-0">
+        {/* =================================================
             CABECERA
         ================================================= */}
 
@@ -507,14 +393,15 @@ export function CertificationsSection() {
           }}
           viewport={{
             once: true,
-            amount: 0.3,
+            amount: 0.2,
           }}
           transition={{
             duration: 0.6,
             ease: "easeOut",
           }}
+          className="min-w-0"
         >
-          {/* Badge */}
+          {/* BADGE */}
 
           <motion.div
             initial={{
@@ -532,43 +419,45 @@ export function CertificationsSection() {
               duration: 0.5,
               delay: 0.1,
             }}
-            className="inline-flex items-center gap-2 rounded-[5px] border border-cyan-300/25 bg-[#1b2330]/80 px-3 py-1.5"
+            className="inline-flex max-w-full items-center gap-2 rounded-[5px] border border-cyan-300/25 bg-[#1b2330]/80 px-2.5 py-1.5 sm:px-3"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
 
-            <span className="font-mono text-[10px] font-bold tracking-[0.12em] text-cyan-300 uppercase">
+            <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-300 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.12em]">
               Credenciales
             </span>
           </motion.div>
 
-          {/* Título */}
+          {/* TÍTULO */}
 
-          <h2 className="mt-4 text-3xl font-extrabold tracking-[-0.04em] text-white md:text-[2.5rem]">
+          <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.04em] break-words text-white min-[360px]:text-[30px] sm:mt-4 sm:text-3xl md:text-[2.5rem]">
             Certificaciones
           </h2>
 
-          {/* Descripción */}
+          {/* DESCRIPCIÓN */}
 
-          <p className="mt-3 max-w-[760px] text-[15px] leading-7 text-slate-300 md:text-[16px]">
+          <p className="mt-3 max-w-[760px] text-[13px] leading-6 break-words text-slate-300 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px]">
             Acreditaciones y formación técnica orientadas al desarrollo de
             software, datos, metodologías ágiles y tecnologías modernas.
           </p>
         </motion.div>
 
-        {/* ================================================
+        {/* =================================================
             SLIDER
         ================================================= */}
 
-        <div className="relative mt-10">
-          {/* Fade izquierdo */}
+        <div className="relative mt-7 w-full max-w-full min-w-0 overflow-hidden sm:mt-9 lg:mt-10">
+          {/* FADE IZQUIERDO */}
 
-          <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-20 w-10 bg-gradient-to-r from-[#070b14] via-[#070b14]/60 to-transparent md:w-16" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-5 bg-gradient-to-r from-[#070b14] via-[#070b14]/60 to-transparent min-[360px]:w-7 sm:w-10 md:w-14" />
 
-          {/* Fade derecho */}
+          {/* FADE DERECHO */}
 
-          <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-20 w-10 bg-gradient-to-l from-[#070b14] via-[#070b14]/60 to-transparent md:w-16" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-5 bg-gradient-to-l from-[#070b14] via-[#070b14]/60 to-transparent min-[360px]:w-7 sm:w-10 md:w-14" />
 
-          {/* CAROUSEL */}
+          {/* =================================================
+              CARRUSEL
+          ================================================= */}
 
           <div
             ref={carouselRef}
@@ -578,12 +467,9 @@ export function CertificationsSection() {
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerCancel}
-            className={`flex gap-5 overflow-x-auto py-3 select-none ${
+            className={`flex w-full max-w-full min-w-0 touch-pan-y gap-3 overflow-x-auto overscroll-x-contain py-3 select-none min-[360px]:gap-4 sm:gap-5 ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             } [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
-            style={{
-              touchAction: "pan-y",
-            }}
           >
             {loopItems.map((certificate, index) => {
               const originalIndex = index % certifications.length;
@@ -600,30 +486,32 @@ export function CertificationsSection() {
                   whileHover={
                     !isDragging
                       ? {
-                          y: -7,
-                          scale: 1.008,
+                          y: -6,
+                          scale: 1.006,
                         }
                       : undefined
                   }
                   transition={{
                     duration: 0.25,
                   }}
-                  className={`group relative flex min-h-[290px] w-[88vw] max-w-[340px] shrink-0 flex-col overflow-hidden rounded-[20px] border border-white/[0.09] bg-[#151923]/95 p-6 shadow-[0_14px_45px_rgba(0,0,0,0.16)] transition-[border-color,box-shadow] duration-500 sm:w-[340px] lg:w-[330px] ${colors.hover}`}
+                  className={`group relative flex min-h-[255px] w-[calc(100vw-3rem)] max-w-[330px] shrink-0 flex-col overflow-hidden rounded-[16px] border border-white/[0.09] bg-[#151923]/95 p-4 shadow-[0_14px_45px_rgba(0,0,0,0.16)] transition-[border-color,box-shadow] duration-500 min-[360px]:min-h-[270px] min-[360px]:rounded-[18px] min-[360px]:p-5 sm:min-h-[290px] sm:w-[340px] sm:max-w-[340px] sm:rounded-[20px] sm:p-6 lg:w-[330px] ${colors.hover}`}
                 >
-                  {/* Gradiente interno */}
+                  {/* FONDO */}
 
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.025] via-transparent to-transparent" />
 
-                  {/* Glow esquina */}
+                  {/* GLOW */}
 
-                  <div className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-cyan-400/[0.025] blur-[80px] transition duration-500 group-hover:bg-cyan-400/[0.055]" />
+                  <div className="pointer-events-none absolute -top-16 -right-16 h-32 w-32 rounded-full bg-cyan-400/[0.025] blur-[60px] transition duration-500 group-hover:bg-cyan-400/[0.055] sm:-top-20 sm:-right-20 sm:h-44 sm:w-44 sm:blur-[80px]" />
 
-                  {/* ====================================
-                        HEADER
-                    ===================================== */}
+                  {/* =================================================
+                        HEADER CARD
+                    ================================================= */}
 
-                  <div className="relative flex items-start justify-between gap-4">
-                    <div className="flex min-w-0 items-center gap-3">
+                  <div className="relative flex min-w-0 flex-col gap-3 min-[350px]:flex-row min-[350px]:items-start min-[350px]:justify-between">
+                    {/* Organización */}
+
+                    <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
                       <motion.div
                         whileHover={{
                           rotate: -6,
@@ -634,71 +522,80 @@ export function CertificationsSection() {
                           stiffness: 300,
                           damping: 18,
                         }}
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${colors.iconBg}`}
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border sm:h-10 sm:w-10 sm:rounded-xl ${colors.iconBg}`}
                       >
-                        <ShieldCheck size={18} className={colors.icon} />
+                        <ShieldCheck size={17} className={colors.icon} />
                       </motion.div>
 
                       <div className="min-w-0">
                         <span
-                          className={`block truncate font-mono text-[9px] font-bold tracking-[0.12em] ${colors.organization}`}
+                          className={`block max-w-full truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization}`}
                         >
                           {certificate.organization}
                         </span>
 
-                        <span className="mt-1 block font-mono text-[8px] tracking-[0.12em] text-slate-600 uppercase">
+                        <span className="mt-1 block max-w-full truncate font-mono text-[7px] tracking-[0.07em] text-slate-600 uppercase sm:text-[8px] sm:tracking-[0.12em]">
                           Professional Credential
                         </span>
                       </div>
                     </div>
 
+                    {/* Año */}
+
                     <span
-                      className={`shrink-0 rounded-md border px-2.5 py-1 font-mono text-[9px] font-bold ${colors.year}`}
+                      className={`w-fit shrink-0 rounded-md border px-2 py-1 font-mono text-[8px] font-bold sm:px-2.5 sm:text-[9px] ${colors.year}`}
                     >
                       {certificate.year}
                     </span>
                   </div>
 
-                  {/* Número */}
+                  {/* NÚMERO */}
 
-                  <span className="pointer-events-none absolute top-[78px] right-5 font-mono text-[48px] leading-none font-black text-white/[0.025]">
+                  <span className="pointer-events-none absolute top-[72px] right-4 font-mono text-[36px] leading-none font-black text-white/[0.025] min-[360px]:text-[42px] sm:top-[78px] sm:right-5 sm:text-[48px]">
                     {String(originalIndex + 1).padStart(2, "0")}
                   </span>
 
-                  {/* ====================================
-                        NOMBRE
-                    ===================================== */}
+                  {/* =================================================
+                        TÍTULO
+                    ================================================= */}
 
-                  <h3 className="relative mt-7 max-w-[270px] text-[20px] leading-7 font-bold tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-cyan-50">
+                  <h3 className="relative mt-5 max-w-full text-[16px] leading-6 font-bold tracking-[-0.035em] break-words text-white transition-colors duration-300 group-hover:text-cyan-50 min-[360px]:text-[18px] sm:mt-7 sm:max-w-[270px] sm:text-[20px] sm:leading-7">
                     {certificate.name}
                   </h3>
 
-                  {/* Descripción */}
+                  {/* DESCRIPCIÓN */}
 
-                  <p className="relative mt-3 flex-1 text-[13px] leading-6 text-slate-400 transition-colors duration-300 group-hover:text-slate-300">
+                  <p className="relative mt-2.5 flex-1 text-[11px] leading-5 break-words text-slate-400 transition-colors duration-300 group-hover:text-slate-300 min-[360px]:text-[12px] min-[360px]:leading-6 sm:mt-3 sm:text-[13px]">
                     {certificate.description}
                   </p>
 
-                  {/* ====================================
+                  {/* =================================================
                         FOOTER
-                    ===================================== */}
+                    ================================================= */}
 
-                  <div className="relative mt-6 flex items-center justify-between border-t border-white/[0.07] pt-4">
-                    <div className="flex items-center gap-2">
-                      <BadgeCheck size={15} className={colors.icon} />
+                  <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-white/[0.07] pt-3 min-[340px]:flex-row min-[340px]:items-center min-[340px]:justify-between sm:mt-6 sm:pt-4">
+                    {/* Verificada */}
 
-                      <span className="font-mono text-[9px] tracking-[0.1em] text-slate-400">
+                    <div className="flex min-w-0 items-center gap-2">
+                      <BadgeCheck
+                        size={14}
+                        className={`shrink-0 ${colors.icon}`}
+                      />
+
+                      <span className="min-w-0 truncate font-mono text-[8px] tracking-[0.06em] text-slate-400 sm:text-[9px] sm:tracking-[0.1em]">
                         Verificada
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    {/* Código */}
+
+                    <div className="flex min-w-0 items-center gap-2">
                       <span
-                        className={`h-1.5 w-1.5 rounded-full ${colors.dot} shadow-[0_0_7px_currentColor]`}
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full ${colors.dot} shadow-[0_0_7px_currentColor]`}
                       />
 
                       <span
-                        className={`font-mono text-[9px] font-bold tracking-[0.12em] ${colors.organization}`}
+                        className={`min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization}`}
                       >
                         CERT-
                         {String(originalIndex + 1).padStart(2, "0")}
@@ -706,9 +603,9 @@ export function CertificationsSection() {
                     </div>
                   </div>
 
-                  {/* Línea inferior */}
+                  {/* LÍNEA INFERIOR */}
 
-                  <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 transition-all duration-700 group-hover:w-full" />
+                  <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 transition-all duration-700 group-hover:w-full" />
                 </motion.article>
               );
             })}

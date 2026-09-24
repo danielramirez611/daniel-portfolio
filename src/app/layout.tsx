@@ -61,13 +61,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
+    <html lang="es" className="dark w-full max-w-full overflow-x-hidden">
       <body
-        className={`${inter.variable} ${manrope.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${inter.variable} ${manrope.variable} ${jetbrainsMono.variable} min-h-screen w-full max-w-full overflow-x-hidden overscroll-x-none antialiased`}
       >
-        <TooltipProvider>{children}</TooltipProvider>
+        <div className="w-full max-w-full min-w-0 overflow-x-hidden">
+          <TooltipProvider>{children}</TooltipProvider>
 
-        <Analytics />
+          <Analytics />
+        </div>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ElementType } from "react";
 import {
   CodeXml,
   Cpu,
@@ -23,7 +23,7 @@ interface Technology {
 interface StackGroup {
   title: string;
   category: Exclude<Category, "all">;
-  icon: React.ElementType;
+  icon: ElementType;
   iconClassName: string;
   technologies: Technology[];
 }
@@ -244,12 +244,19 @@ export function SkillsSection() {
       : groups.filter((group) => group.category === active);
 
   return (
-    <section id="stack" className="relative border-t border-white/[0.07] py-20">
-      {/* iluminación */}
-      <div className="pointer-events-none absolute top-20 right-0 h-[340px] w-[340px] rounded-full bg-cyan-400/[0.02] blur-[120px]" />
+    <section
+      id="stack"
+      className="relative w-full max-w-full overflow-x-clip border-t border-white/[0.07] py-14 sm:py-16 md:py-20 landscape:py-12"
+    >
+      {/* ILUMINACIÓN */}
+      <div className="pointer-events-none absolute top-20 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400/[0.02] blur-[90px] sm:right-0 sm:h-[340px] sm:w-[340px] sm:blur-[120px]" />
 
-      <div className="relative">
-        {/* CABECERA */}
+      {/* CONTENEDOR */}
+      <div className="relative mx-auto w-full max-w-7xl min-w-0 px-4 min-[380px]:px-5 sm:px-6 md:px-8 lg:px-8 xl:px-10 2xl:px-0">
+        {/* =================================================
+            CABECERA
+        ================================================= */}
+
         <motion.div
           initial={{
             opacity: 0,
@@ -261,59 +268,75 @@ export function SkillsSection() {
           }}
           viewport={{
             once: true,
-            amount: 0.3,
+            amount: 0.2,
           }}
           transition={{
             duration: 0.5,
           }}
-          className="mb-10"
+          className="mb-7 min-w-0 sm:mb-9 lg:mb-10"
         >
-          {/* etiqueta */}
-          <div className="inline-flex items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-3 py-1.5">
-            <span className="font-mono text-[10px] font-bold tracking-[0.1em] text-cyan-300 uppercase">
+          {/* ETIQUETA */}
+          <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-2.5 py-1.5 sm:px-3">
+            <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-300 uppercase min-[350px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em]">
               Herramientas & Lenguajes
             </span>
           </div>
 
-          {/* título + filtros */}
-          <div className="mt-3 flex flex-col justify-between gap-6 xl:flex-row xl:items-end">
-            <div>
-              <h2 className="text-3xl font-extrabold tracking-[-0.035em] text-white md:text-[2.4rem]">
+          {/* =================================================
+              TÍTULO + FILTROS
+          ================================================= */}
+
+          <div className="mt-3 flex min-w-0 flex-col gap-5 lg:gap-6 xl:flex-row xl:items-end xl:justify-between">
+            {/* Texto */}
+
+            <div className="min-w-0">
+              <h2 className="max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-white min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem]">
                 Stack Tecnológico
               </h2>
 
-              <p className="mt-3 text-[15px] leading-7 text-slate-300 md:text-[16px]">
+              <p className="mt-3 max-w-[720px] text-[13px] leading-6 text-slate-300 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px]">
                 Herramientas y tecnologías aplicadas en entornos de producción y
                 arquitectura.
               </p>
             </div>
 
-            {/* filtros */}
-            <div className="inline-flex w-fit flex-wrap items-center rounded-xl border border-white/10 bg-[#171c28] p-1">
-              {filters.map((filter) => {
-                const selected = active === filter.id;
+            {/* =================================================
+                FILTROS RESPONSIVE
+            ================================================= */}
 
-                return (
-                  <button
-                    key={filter.id}
-                    type="button"
-                    onClick={() => setActive(filter.id)}
-                    className={`rounded-lg px-4 py-2 font-mono text-[9px] font-bold tracking-[0.12em] uppercase transition-all duration-300 ${
-                      selected
-                        ? "bg-cyan-400 text-[#06111a] shadow-[0_0_18px_rgba(34,211,238,0.15)]"
-                        : "text-slate-300 hover:bg-white/[0.04] hover:text-white"
-                    }`}
-                  >
-                    {filter.label}
-                  </button>
-                );
-              })}
+            <div className="w-full min-w-0 xl:w-auto">
+              <div className="grid w-full min-w-0 grid-cols-2 gap-1 rounded-xl border border-white/10 bg-[#171c28] p-1 min-[500px]:grid-cols-3 md:grid-cols-5 xl:flex xl:w-fit xl:flex-wrap">
+                {filters.map((filter) => {
+                  const selected = active === filter.id;
+
+                  return (
+                    <button
+                      key={filter.id}
+                      type="button"
+                      onClick={() => setActive(filter.id)}
+                      className={`min-w-0 rounded-lg px-2 py-2.5 font-mono text-[8px] font-bold tracking-[0.06em] break-words uppercase transition-all duration-300 min-[360px]:text-[9px] sm:px-3 xl:px-4 ${
+                        selected
+                          ? "bg-cyan-400 text-[#06111a] shadow-[0_0_18px_rgba(34,211,238,0.15)]"
+                          : "text-slate-300 hover:bg-white/[0.04] hover:text-white"
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </motion.div>
 
-        {/* CARDS */}
-        <motion.div layout className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {/* =================================================
+            CARDS
+        ================================================= */}
+
+        <motion.div
+          layout
+          className="grid w-full min-w-0 grid-cols-1 gap-3 min-[540px]:grid-cols-2 sm:gap-4 lg:gap-5 xl:grid-cols-3 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-3"
+        >
           <AnimatePresence mode="popLayout">
             {visible.map((group, index) => {
               const Icon = group.icon;
@@ -344,13 +367,16 @@ export function SkillsSection() {
                   whileHover={{
                     y: -5,
                   }}
-                  className="group relative min-h-[162px] overflow-hidden rounded-[16px] border border-white/10 bg-[#151925]/95 p-6 transition-[border-color,box-shadow] duration-300 hover:border-cyan-400/25 hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)]"
+                  className="group relative min-w-0 overflow-hidden rounded-[14px] border border-white/10 bg-[#151925]/95 p-4 transition-[border-color,box-shadow] duration-300 hover:border-cyan-400/25 hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)] min-[360px]:p-5 sm:min-h-[160px] sm:rounded-[16px] sm:p-6"
                 >
-                  {/* glow */}
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/[0.015] to-transparent" />
+                  {/* GLOW */}
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/[0.015] to-transparent sm:h-20" />
 
-                  {/* encabezado */}
-                  <div className="relative flex items-center gap-4">
+                  {/* =================================================
+                        ENCABEZADO CARD
+                    ================================================= */}
+
+                  <div className="relative flex min-w-0 items-center gap-3 sm:gap-4">
                     <motion.div
                       whileHover={{
                         scale: 1.08,
@@ -361,18 +387,25 @@ export function SkillsSection() {
                         stiffness: 300,
                         damping: 18,
                       }}
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border ${group.iconClassName}`}
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border sm:h-10 sm:w-10 ${group.iconClassName}`}
                     >
-                      <Icon size={19} strokeWidth={2} />
+                      <Icon
+                        size={18}
+                        strokeWidth={2}
+                        className="sm:h-[19px] sm:w-[19px]"
+                      />
                     </motion.div>
 
-                    <h3 className="text-[19px] font-bold tracking-[-0.03em] text-white">
+                    <h3 className="min-w-0 text-[16px] leading-6 font-bold tracking-[-0.03em] break-words text-white min-[360px]:text-[17px] sm:text-[19px]">
                       {group.title}
                     </h3>
                   </div>
 
-                  {/* tecnologías */}
-                  <div className="relative mt-5 flex flex-wrap gap-2">
+                  {/* =================================================
+                        TECNOLOGÍAS
+                    ================================================= */}
+
+                  <div className="relative mt-4 flex min-w-0 flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
                     {group.technologies.map((technology) => (
                       <motion.span
                         key={technology.name}
@@ -380,19 +413,24 @@ export function SkillsSection() {
                           y: -2,
                           scale: 1.03,
                         }}
-                        className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 font-mono text-[10px] font-bold tracking-[0.06em] ${technology.className}`}
+                        transition={{
+                          duration: 0.18,
+                        }}
+                        className={`inline-flex max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[8px] font-bold tracking-[0.04em] sm:gap-2 sm:px-3 sm:text-[9px] lg:text-[10px] ${technology.className}`}
                       >
                         <span
-                          className={`h-2 w-2 shrink-0 rounded-full ${technology.dotClassName}`}
+                          className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${technology.dotClassName}`}
                         />
 
-                        {technology.name}
+                        <span className="min-w-0 break-words">
+                          {technology.name}
+                        </span>
                       </motion.span>
                     ))}
                   </div>
 
-                  {/* línea inferior animada */}
-                  <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-all duration-500 group-hover:w-full" />
+                  {/* LÍNEA INFERIOR */}
+                  <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-all duration-500 group-hover:w-full" />
                 </motion.article>
               );
             })}

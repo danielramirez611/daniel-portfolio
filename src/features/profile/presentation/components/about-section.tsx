@@ -81,40 +81,50 @@ export function AboutSection() {
   return (
     <section
       id="sobre-mi"
-      className="relative border-t border-white/[0.07] py-20"
+      className="relative w-full max-w-full overflow-x-clip border-t border-white/[0.07] py-14 sm:py-16 md:py-20 landscape:py-12"
     >
-      {/* Iluminación decorativa */}
-      <div className="pointer-events-none absolute top-24 -left-36 h-[300px] w-[300px] rounded-full bg-cyan-400/[0.025] blur-[110px]" />
+      {/* ILUMINACIÓN */}
+      <div className="pointer-events-none absolute top-20 -left-28 h-[240px] w-[240px] rounded-full bg-cyan-400/[0.025] blur-[90px] sm:-left-36 sm:h-[300px] sm:w-[300px] sm:blur-[110px]" />
 
-      <div className="relative">
-        {/* CABECERA */}
+      {/* CONTENEDOR */}
+      <div className="relative mx-auto w-full max-w-7xl min-w-0 px-4 min-[380px]:px-5 sm:px-6 md:px-8 lg:px-8 xl:px-10 2xl:px-0">
+        {/* =================================================
+            CABECERA
+        ================================================= */}
+
         <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{
+            opacity: 0,
+            y: 22,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
           viewport={{
             once: true,
-            amount: 0.3,
+            amount: 0.2,
           }}
           transition={{
             duration: 0.55,
             ease: "easeOut",
           }}
-          className="mb-10"
+          className="mb-7 min-w-0 sm:mb-9 lg:mb-10"
         >
-          {/* Etiqueta */}
-          <div className="inline-flex items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-3 py-1.5">
-            <span className="font-mono text-[10px] font-bold tracking-[0.1em] text-cyan-300 uppercase">
+          {/* ETIQUETA */}
+          <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-2.5 py-1.5 sm:px-3">
+            <span className="truncate font-mono text-[8px] font-bold tracking-[0.08em] text-cyan-300 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em]">
               Trayectoria
             </span>
           </div>
 
-          {/* Título */}
-          <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.035em] text-white md:text-[2.4rem]">
+          {/* TÍTULO */}
+          <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-white min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem]">
             Sobre Mí
           </h2>
 
-          {/* Descripción */}
-          <p className="mt-3 max-w-[780px] text-[15px] leading-7 text-slate-300 md:text-[17px]">
+          {/* DESCRIPCIÓN */}
+          <p className="mt-3 max-w-[780px] text-[13px] leading-6 text-slate-300 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[17px]">
             Titulado en Diseño y Desarrollo de Software por Tecsup,
             perteneciente al décimo superior y beneficiario de Beca 18.
             Apasionado por construir soluciones web, backend, móviles y
@@ -122,16 +132,19 @@ export function AboutSection() {
           </p>
         </motion.div>
 
-        {/* TARJETAS */}
+        {/* =================================================
+            TARJETAS
+        ================================================= */}
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{
             once: true,
-            amount: 0.2,
+            amount: 0.12,
           }}
-          className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+          className="grid w-full min-w-0 grid-cols-1 gap-3 min-[520px]:grid-cols-2 sm:gap-4 lg:grid-cols-2 xl:grid-cols-4 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-4"
         >
           {areas.map((area) => {
             const Icon = area.icon;
@@ -143,12 +156,12 @@ export function AboutSection() {
                 whileHover={{
                   y: -6,
                 }}
-                className={`group relative flex min-h-[275px] flex-col overflow-hidden rounded-[16px] border bg-[#121620]/95 p-6 transition-[border-color,box-shadow] duration-300 ${area.borderClass} ${area.glowClass}`}
+                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border bg-[#121620]/95 p-4 transition-[border-color,box-shadow] duration-300 min-[360px]:p-5 sm:min-h-[255px] sm:rounded-[16px] sm:p-6 lg:min-h-[275px] ${area.borderClass} ${area.glowClass}`}
               >
-                {/* Glow superior */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/[0.015] to-transparent" />
+                {/* GLOW SUPERIOR */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/[0.015] to-transparent sm:h-24" />
 
-                {/* Icono */}
+                {/* ICONO */}
                 <motion.div
                   whileHover={{
                     rotate: -4,
@@ -159,36 +172,40 @@ export function AboutSection() {
                     stiffness: 280,
                     damping: 18,
                   }}
-                  className={`relative mb-5 flex h-12 w-12 items-center justify-center rounded-xl border ${area.iconClass}`}
+                  className={`relative mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border sm:mb-5 sm:h-12 sm:w-12 sm:rounded-xl ${area.iconClass}`}
                 >
-                  <Icon size={22} strokeWidth={2} />
+                  <Icon
+                    size={20}
+                    strokeWidth={2}
+                    className="sm:h-[22px] sm:w-[22px]"
+                  />
                 </motion.div>
 
-                {/* Título */}
-                <h3 className="relative text-[19px] font-bold tracking-[-0.025em] text-white">
+                {/* TÍTULO */}
+                <h3 className="relative max-w-full text-[16px] leading-6 font-bold tracking-[-0.025em] break-words text-white min-[360px]:text-[17px] sm:text-[19px]">
                   {area.title}
                 </h3>
 
-                {/* Texto */}
-                <p className="relative mt-3 flex-1 text-[13px] leading-[1.65] text-slate-300">
+                {/* TEXTO */}
+                <p className="relative mt-2.5 flex-1 text-[12px] leading-6 break-words text-slate-300 sm:mt-3 sm:text-[13px] sm:leading-[1.65]">
                   {area.text}
                 </p>
 
-                {/* Footer */}
-                <div className="relative mt-5 flex items-center justify-between gap-4 border-t border-white/[0.07] pt-4">
-                  <span className="font-mono text-[9px] font-semibold tracking-[0.14em] text-slate-500">
+                {/* FOOTER */}
+                <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-white/[0.07] pt-3 min-[350px]:flex-row min-[350px]:items-center min-[350px]:justify-between sm:mt-5 sm:gap-4 sm:pt-4">
+                  <span className="min-w-0 font-mono text-[8px] font-semibold tracking-[0.1em] break-words text-slate-500 min-[360px]:text-[9px] sm:tracking-[0.14em]">
                     {area.label}
                   </span>
 
                   <span
-                    className={`font-mono text-[9px] font-bold tracking-[0.12em] whitespace-nowrap ${area.footerClass}`}
+                    className={`min-w-0 font-mono text-[8px] font-bold tracking-[0.08em] break-words min-[350px]:text-right min-[360px]:text-[9px] sm:tracking-[0.12em] ${area.footerClass}`}
                   >
                     {area.footer}
                   </span>
                 </div>
 
-                {/* Línea brillante al hover */}
-                <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500 group-hover:w-full" />
+                {/* LÍNEA HOVER */}
+                <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500 group-hover:w-full" />
               </motion.article>
             );
           })}
