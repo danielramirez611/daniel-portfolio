@@ -537,7 +537,7 @@ export function CertificationsSection() {
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
 
             <span className="font-mono text-[10px] font-bold tracking-[0.12em] text-cyan-300 uppercase">
-              06 // Credenciales
+              Credenciales
             </span>
           </motion.div>
 

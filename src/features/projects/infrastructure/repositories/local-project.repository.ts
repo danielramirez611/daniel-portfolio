@@ -3,7 +3,7 @@ import type { ProjectRepository } from "../../domain/repositories/project.reposi
 
 const projects: Project[] = [
   {
-    id: "1",
+    // id: "1",
     slug: "hub-programacion",
     title: "Hub de Programación",
     subtitle: "Plataforma educativa y laboratorio remoto",
@@ -23,7 +23,7 @@ const projects: Project[] = [
   },
 
   {
-    id: "2",
+    // id: "2",
     slug: "xoxo",
     title: "XOXO",
     subtitle: "Aplicación móvil",
@@ -35,7 +35,7 @@ const projects: Project[] = [
   },
 
   {
-    id: "3",
+    // id: "3",
     slug: "messages-tec",
     title: "MessagesTec",
     subtitle: "Chat institucional",
@@ -47,7 +47,7 @@ const projects: Project[] = [
   },
 
   {
-    id: "4",
+    // id: "4",
     slug: "barak",
     title: "Barak",
     subtitle: "Gestión de citas",
@@ -58,7 +58,7 @@ const projects: Project[] = [
   },
 
   {
-    id: "5",
+    // id: "5",
     slug: "cefoproh",
     title: "CEFOPROH",
     subtitle: "Web institucional",

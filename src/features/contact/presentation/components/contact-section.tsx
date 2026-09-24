@@ -117,7 +117,7 @@ export function ContactSection() {
         >
           <div className="inline-flex items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-3 py-1.5">
             <span className="font-mono text-[10px] font-bold tracking-[0.1em] text-cyan-300 uppercase">
-              07 // Hablemos
+              Hablemos
             </span>
           </div>
 

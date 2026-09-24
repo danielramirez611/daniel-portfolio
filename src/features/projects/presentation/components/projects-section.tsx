@@ -19,7 +19,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         <div className="mb-10">
           <div className="inline-flex items-center rounded-[4px] border border-cyan-300/25 bg-[#1b2330]/80 px-3 py-1.5">
             <span className="font-mono text-[10px] font-bold tracking-[0.1em] text-cyan-300 uppercase">
-              04 // Proyectos seleccionados
+              Proyectos seleccionados
             </span>
           </div>
 
@@ -36,7 +36,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         {/* PROYECTOS */}
         <div className="grid gap-6 lg:grid-cols-2">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard key={project.slug} project={project} index={index} />
           ))}
         </div>
       </div>
