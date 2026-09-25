@@ -11,6 +11,10 @@ import {
   Wrench,
 } from "lucide-react";
 
+import { useI18n } from "@/i18n/i18n-provider";
+
+import { messageKeys } from "@/i18n/message-keys";
+
 /* =========================================================
    TIPOS
 ========================================================= */
@@ -20,12 +24,16 @@ type Category =
 
 interface Technology {
   name: string;
+
   className: string;
+
   dotClassName: string;
 }
 
 interface StackGroup {
-  title: string;
+  id: string;
+
+  titleKey: string;
 
   category: Exclude<Category, "all">;
 
@@ -34,6 +42,12 @@ interface StackGroup {
   iconClassName: string;
 
   technologies: Technology[];
+}
+
+interface FilterItem {
+  id: Category;
+
+  labelKey: string;
 }
 
 /* =========================================================
@@ -46,7 +60,9 @@ const groups: StackGroup[] = [
   ======================================================= */
 
   {
-    title: "Frontend",
+    id: "frontend",
+
+    titleKey: messageKeys.SKILLS.FRONTEND,
 
     category: "frontend",
 
@@ -99,7 +115,9 @@ const groups: StackGroup[] = [
   ======================================================= */
 
   {
-    title: "Backend",
+    id: "backend",
+
+    titleKey: messageKeys.SKILLS.BACKEND,
 
     category: "backend",
 
@@ -161,7 +179,9 @@ const groups: StackGroup[] = [
   ======================================================= */
 
   {
-    title: "Lenguajes",
+    id: "languages",
+
+    titleKey: messageKeys.SKILLS.LANGUAGES,
 
     category: "backend",
 
@@ -214,7 +234,9 @@ const groups: StackGroup[] = [
   ======================================================= */
 
   {
-    title: "Bases de Datos",
+    id: "databases",
+
+    titleKey: messageKeys.SKILLS.DATABASES,
 
     category: "database",
 
@@ -267,7 +289,9 @@ const groups: StackGroup[] = [
   ======================================================= */
 
   {
-    title: "Herramientas & DevOps",
+    id: "devops",
+
+    titleKey: messageKeys.SKILLS.TOOLS,
 
     category: "devops",
 
@@ -329,7 +353,9 @@ const groups: StackGroup[] = [
   ======================================================= */
 
   {
-    title: "Hardware & Enterprise",
+    id: "hardware",
+
+    titleKey: messageKeys.SKILLS.HARDWARE,
 
     category: "other",
 
@@ -373,61 +399,61 @@ const groups: StackGroup[] = [
    FILTROS
 ========================================================= */
 
-const filters: {
-  id: Category;
-  label: string;
-}[] = [
+const filters: FilterItem[] = [
   {
     id: "all",
-    label: "Todos",
+
+    labelKey: messageKeys.SKILLS.FILTERS.ALL,
   },
 
   {
     id: "backend",
-    label: "Backend",
+
+    labelKey: messageKeys.SKILLS.FILTERS.BACKEND,
   },
 
   {
     id: "frontend",
-    label: "Frontend",
+
+    labelKey: messageKeys.SKILLS.FILTERS.FRONTEND,
   },
 
   {
     id: "database",
-    label: "Databases",
+
+    labelKey: messageKeys.SKILLS.FILTERS.DATABASES,
   },
 
   {
     id: "devops",
-    label: "DevOps/Tools",
+
+    labelKey: messageKeys.SKILLS.FILTERS.DEVOPS,
   },
 ];
 
 /* =========================================================
-   DELAYS CSS
-
-   Reemplaza stagger de Motion.
+   DELAYS
 ========================================================= */
 
 function getDelayClass(index: number) {
   switch (index) {
     case 1:
-      return "[animation-delay:40ms]";
+      return "perf-delay-1";
 
     case 2:
-      return "[animation-delay:80ms]";
+      return "perf-delay-2";
 
     case 3:
-      return "[animation-delay:120ms]";
+      return "perf-delay-3";
 
     case 4:
-      return "[animation-delay:160ms]";
+      return "perf-delay-4";
 
     case 5:
-      return "[animation-delay:200ms]";
+      return "perf-delay-5";
 
     default:
-      return "[animation-delay:0ms]";
+      return "";
   }
 }
 
@@ -438,6 +464,12 @@ function getDelayClass(index: number) {
 export function SkillsSection() {
   const [active, setActive] = useState<Category>("all");
 
+  const { $t } = useI18n();
+
+  /* =======================================================
+     VISIBLE GROUPS
+  ======================================================= */
+
   const visible =
     active === "all"
       ? groups
@@ -446,7 +478,7 @@ export function SkillsSection() {
   return (
     <section
       id="stack"
-      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
+      className="perf-section relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
       {/* =====================================================
           ILUMINACIÓN
@@ -466,14 +498,14 @@ export function SkillsSection() {
             CABECERA
         ================================================= */}
 
-        <div className="animate-in fade-in slide-in-from-bottom-4 mb-7 min-w-0 duration-500 sm:mb-9 lg:mb-10">
+        <div className="perf-reveal-up mb-7 min-w-0 sm:mb-9 lg:mb-10">
           {/* =================================================
               ETIQUETA
           ================================================= */}
 
           <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
             <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-700 uppercase min-[350px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em] dark:text-cyan-300">
-              Herramientas & Lenguajes
+              {$t(messageKeys.SKILLS.EYEBROW)}
             </span>
           </div>
 
@@ -488,17 +520,16 @@ export function SkillsSection() {
 
             <div className="min-w-0">
               <h2 className="max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-slate-950 min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem] dark:text-white">
-                Stack Tecnológico
+                {$t(messageKeys.SKILLS.TITLE)}
               </h2>
 
               <p className="mt-3 max-w-[720px] text-[13px] leading-6 text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px] dark:text-slate-300">
-                Herramientas y tecnologías aplicadas en entornos de producción y
-                arquitectura.
+                {$t(messageKeys.SKILLS.DESCRIPTION)}
               </p>
             </div>
 
             {/* =================================================
-                FILTROS RESPONSIVE
+                FILTROS
             ================================================= */}
 
             <div className="w-full min-w-0 xl:w-auto">
@@ -514,11 +545,11 @@ export function SkillsSection() {
                       aria-pressed={selected}
                       className={`min-w-0 rounded-lg px-2 py-2.5 font-mono text-[8px] font-bold tracking-[0.06em] break-words uppercase transition-[transform,background-color,color,box-shadow] duration-200 ease-out active:scale-[0.98] min-[360px]:text-[9px] sm:px-3 xl:px-4 ${
                         selected
-                          ? `bg-cyan-500 text-white shadow-[0_0_18px_rgba(6,182,212,0.18)] dark:bg-cyan-400 dark:text-[#06111a] dark:shadow-[0_0_18px_rgba(34,211,238,0.15)]`
-                          : `text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/[0.04] dark:hover:text-white`
-                      } `}
+                          ? "bg-cyan-500 text-white shadow-[0_0_18px_rgba(6,182,212,0.18)] dark:bg-cyan-400 dark:text-[#06111a] dark:shadow-[0_0_18px_rgba(34,211,238,0.15)]"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/[0.04] dark:hover:text-white"
+                      }`}
                     >
-                      {filter.label}
+                      {$t(filter.labelKey)}
                     </button>
                   );
                 })}
@@ -529,11 +560,6 @@ export function SkillsSection() {
 
         {/* =================================================
             CARDS
-
-            Ya no usa:
-            motion.div
-            layout
-            AnimatePresence
         ================================================= */}
 
         <div className="grid w-full min-w-0 grid-cols-1 gap-3 min-[540px]:grid-cols-2 sm:gap-4 lg:gap-5 xl:grid-cols-3 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-3">
@@ -542,8 +568,8 @@ export function SkillsSection() {
 
             return (
               <article
-                key={`${active}-${group.title}`}
-                className={`group animate-in fade-in slide-in-from-bottom-4 zoom-in-[0.98] relative min-w-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:border-cyan-400/40 hover:shadow-[0_18px_45px_rgba(6,182,212,0.08)] min-[360px]:p-5 sm:min-h-[160px] sm:rounded-[16px] sm:p-6 dark:border-white/10 dark:bg-[#151925]/95 dark:shadow-none dark:hover:border-cyan-400/25 dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)] ${getDelayClass(index)} `}
+                key={group.id}
+                className={`group perf-reveal-scale relative min-w-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:border-cyan-400/40 hover:shadow-[0_18px_45px_rgba(6,182,212,0.08)] min-[360px]:p-5 sm:min-h-[160px] sm:rounded-[16px] sm:p-6 dark:border-white/10 dark:bg-[#151925]/95 dark:shadow-none dark:hover:border-cyan-400/25 dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)] ${getDelayClass(index)}`}
               >
                 {/* =================================================
                       GLOW
@@ -555,22 +581,23 @@ export function SkillsSection() {
                 />
 
                 {/* =================================================
-                      ENCABEZADO CARD
+                      ENCABEZADO
                   ================================================= */}
 
                 <div className="relative flex min-w-0 items-center gap-3 sm:gap-4">
                   <div
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out hover:scale-[1.08] hover:-rotate-3 sm:h-10 sm:w-10 ${group.iconClassName} `}
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out group-hover:scale-[1.08] group-hover:-rotate-3 sm:h-10 sm:w-10 ${group.iconClassName}`}
                   >
                     <Icon
                       size={18}
                       strokeWidth={2}
+                      aria-hidden="true"
                       className="sm:h-[19px] sm:w-[19px]"
                     />
                   </div>
 
                   <h3 className="min-w-0 text-[16px] leading-6 font-bold tracking-[-0.03em] break-words text-slate-950 min-[360px]:text-[17px] sm:text-[19px] dark:text-white">
-                    {group.title}
+                    {$t(group.titleKey)}
                   </h3>
                 </div>
 
@@ -582,11 +609,11 @@ export function SkillsSection() {
                   {group.technologies.map((technology) => (
                     <span
                       key={technology.name}
-                      className={`inline-flex max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[8px] font-bold tracking-[0.04em] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_14px_rgba(6,182,212,0.07)] sm:gap-2 sm:px-3 sm:text-[9px] lg:text-[10px] dark:hover:shadow-[0_0_14px_rgba(34,211,238,0.06)] ${technology.className} `}
+                      className={`inline-flex max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[8px] font-bold tracking-[0.04em] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_14px_rgba(6,182,212,0.07)] sm:gap-2 sm:px-3 sm:text-[9px] lg:text-[10px] dark:hover:shadow-[0_0_14px_rgba(34,211,238,0.06)] ${technology.className}`}
                     >
                       <span
                         aria-hidden="true"
-                        className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${technology.dotClassName} `}
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${technology.dotClassName}`}
                       />
 
                       <span className="min-w-0 break-words">
@@ -597,7 +624,7 @@ export function SkillsSection() {
                 </div>
 
                 {/* =================================================
-                      LÍNEA INFERIOR OPTIMIZADA
+                      LÍNEA INFERIOR
                   ================================================= */}
 
                 <div

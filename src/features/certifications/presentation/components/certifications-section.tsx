@@ -10,6 +10,14 @@ import {
 
 import { BadgeCheck, ShieldCheck } from "lucide-react";
 
+import { useI18n } from "@/i18n/i18n-provider";
+
+import { messageKeys } from "@/i18n/message-keys";
+
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
+
 const AUTO_SPEED = 28;
 
 /* =========================================================
@@ -17,47 +25,96 @@ const AUTO_SPEED = 28;
 ========================================================= */
 
 const certifications = [
+  /* =======================================================
+     RESPONSIVE WEB DESIGN
+  ======================================================= */
+
   {
-    name: "Responsive Web Design",
+    id: "responsive-web",
+
+    nameKey: messageKeys.CERTIFICATIONS.ITEMS.RESPONSIVE_WEB.NAME,
+
     organization: "freeCodeCamp",
+
     year: "2024",
-    description:
-      "Desarrollo de interfaces web responsivas, estructura semántica y adaptación a diferentes dispositivos.",
+
+    descriptionKey: messageKeys.CERTIFICATIONS.ITEMS.RESPONSIVE_WEB.DESCRIPTION,
+
     accent: "cyan",
   },
+
+  /* =======================================================
+     PYTHON
+  ======================================================= */
+
   {
-    name: "Scientific Computing with Python",
+    id: "python",
+
+    nameKey: messageKeys.CERTIFICATIONS.ITEMS.PYTHON.NAME,
+
     organization: "freeCodeCamp",
+
     year: "2024",
-    description:
-      "Programación con Python aplicada a lógica, estructuras de datos y resolución de problemas computacionales.",
+
+    descriptionKey: messageKeys.CERTIFICATIONS.ITEMS.PYTHON.DESCRIPTION,
+
     accent: "blue",
   },
+
+  /* =======================================================
+     DATA ANALYTICS
+  ======================================================= */
+
   {
-    name: "Data Analytics Essentials",
+    id: "data-analytics",
+
+    nameKey: messageKeys.CERTIFICATIONS.ITEMS.DATA_ANALYTICS.NAME,
+
     organization: "Cisco Networking Academy",
+
     year: "2025",
-    description:
-      "Fundamentos de análisis de datos, interpretación de información y visualización orientada a decisiones.",
+
+    descriptionKey: messageKeys.CERTIFICATIONS.ITEMS.DATA_ANALYTICS.DESCRIPTION,
+
     accent: "cyan",
   },
+
+  /* =======================================================
+     AGILE & LEAN
+  ======================================================= */
+
   {
-    name: "Gestión Ágil y Lean",
+    id: "agile-lean",
+
+    nameKey: messageKeys.CERTIFICATIONS.ITEMS.AGILE_LEAN.NAME,
+
     organization: "Fundación Telefónica",
+
     year: "2025",
-    description:
-      "Principios de metodologías ágiles, mejora continua, organización del trabajo y entrega de valor.",
+
+    descriptionKey: messageKeys.CERTIFICATIONS.ITEMS.AGILE_LEAN.DESCRIPTION,
+
     accent: "violet",
   },
+
+  /* =======================================================
+     AZURE DATA ENGINEERING
+  ======================================================= */
+
   {
-    name: "Data Engineers en Azure",
+    id: "azure-data",
+
+    nameKey: messageKeys.CERTIFICATIONS.ITEMS.AZURE_DATA.NAME,
+
     organization: "NTT DATA",
+
     year: "2025",
-    description:
-      "Conceptos de ingeniería de datos y servicios cloud aplicados a ecosistemas tecnológicos modernos.",
+
+    descriptionKey: messageKeys.CERTIFICATIONS.ITEMS.AZURE_DATA.DESCRIPTION,
+
     accent: "blue",
   },
-];
+] as const;
 
 /* =========================================================
    COLORES
@@ -123,6 +180,8 @@ function getAccentClasses(accent: string) {
 ========================================================= */
 
 export function CertificationsSection() {
+  const { $t } = useI18n();
+
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const firstGroupRef = useRef<HTMLDivElement>(null);
@@ -150,11 +209,10 @@ export function CertificationsSection() {
   /* =======================================================
      NORMALIZAR POSICIÓN
 
-     Dos copias:
      [GRUPO A][GRUPO B]
 
-     Al llegar al grupo B volvemos
-     matemáticamente al grupo A.
+     Cuando llegamos al grupo B,
+     volvemos matemáticamente al A.
   ======================================================= */
 
   const normalizePosition = useCallback(() => {
@@ -166,9 +224,10 @@ export function CertificationsSection() {
       return;
     }
 
-    /*
-     * Movimiento hacia delante.
-     */
+    /* ===================================================
+         MOVIMIENTO HACIA ADELANTE
+      =================================================== */
+
     if (carousel.scrollLeft >= width) {
       carousel.scrollLeft -= width;
 
@@ -177,9 +236,10 @@ export function CertificationsSection() {
       }
     }
 
-    /*
-     * Movimiento manual hacia atrás.
-     */
+    /* ===================================================
+         MOVIMIENTO MANUAL HACIA ATRÁS
+      =================================================== */
+
     if (draggingRef.current && carousel.scrollLeft <= 0) {
       carousel.scrollLeft += width;
 
@@ -189,11 +249,6 @@ export function CertificationsSection() {
 
   /* =======================================================
      CALCULAR ANCHO DEL LOOP
-
-     Ya no buscamos las 15 cards ni
-     calculamos cada elemento.
-
-     Solo medimos dos grupos.
   ======================================================= */
 
   useEffect(() => {
@@ -231,6 +286,7 @@ export function CertificationsSection() {
        * en cero para permitir wrap
        * hacia la izquierda.
        */
+
       if (currentCarousel.scrollLeft === 0) {
         currentCarousel.scrollLeft = 1;
       }
@@ -243,6 +299,7 @@ export function CertificationsSection() {
     });
 
     resizeObserver.observe(carousel);
+
     resizeObserver.observe(firstGroup);
 
     return () => {
@@ -254,10 +311,6 @@ export function CertificationsSection() {
 
   /* =======================================================
      AUTOPLAY OPTIMIZADO
-
-     El requestAnimationFrame se detiene
-     totalmente cuando el carrusel está
-     fuera del viewport.
   ======================================================= */
 
   useEffect(() => {
@@ -329,6 +382,7 @@ export function CertificationsSection() {
       },
       {
         rootMargin: "160px 0px",
+
         threshold: 0.01,
       },
     );
@@ -363,7 +417,7 @@ export function CertificationsSection() {
   }
 
   /* =======================================================
-     ARRASTRE
+     POINTER DOWN
   ======================================================= */
 
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
@@ -374,9 +428,9 @@ export function CertificationsSection() {
     }
 
     /*
-     * Solo botón izquierdo del mouse.
-     * Touch sigue funcionando normalmente.
+     * Solo botón izquierdo.
      */
+
     if (event.pointerType === "mouse" && event.button !== 0) {
       return;
     }
@@ -396,6 +450,10 @@ export function CertificationsSection() {
     }
   }
 
+  /* =======================================================
+     POINTER MOVE
+  ======================================================= */
+
   function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
     const carousel = carouselRef.current;
 
@@ -409,6 +467,10 @@ export function CertificationsSection() {
 
     normalizePosition();
   }
+
+  /* =======================================================
+     POINTER UP
+  ======================================================= */
 
   function handlePointerUp(event: ReactPointerEvent<HTMLDivElement>) {
     const carousel = carouselRef.current;
@@ -432,6 +494,10 @@ export function CertificationsSection() {
     lastFrameRef.current = performance.now();
   }
 
+  /* =======================================================
+     POINTER CANCEL
+  ======================================================= */
+
   function handlePointerCancel() {
     draggingRef.current = false;
 
@@ -441,12 +507,14 @@ export function CertificationsSection() {
   }
 
   /* =======================================================
-     RENDER DE UNA CERTIFICACIÓN
+     RENDER DE CERTIFICACIÓN
   ======================================================= */
 
   function renderCertificate(
     certificate: (typeof certifications)[number],
+
     originalIndex: number,
+
     copyIndex: number,
   ) {
     const colors = getAccentClasses(certificate.accent);
@@ -454,52 +522,70 @@ export function CertificationsSection() {
     return (
       <article
         aria-hidden={copyIndex !== 0}
-        key={`${copyIndex}-${certificate.name}`}
-        className={`group relative flex min-h-[255px] w-[calc(100vw-3rem)] max-w-[330px] shrink-0 flex-col overflow-hidden rounded-[16px] border border-slate-200 bg-white p-4 shadow-[0_14px_45px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow,background-color] duration-300 hover:-translate-y-1.5 hover:scale-[1.006] min-[360px]:min-h-[270px] min-[360px]:rounded-[18px] min-[360px]:p-5 sm:min-h-[290px] sm:w-[340px] sm:max-w-[340px] sm:rounded-[20px] sm:p-6 lg:w-[330px] dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-[0_14px_45px_rgba(0,0,0,0.16)] ${colors.hover} `}
+        key={`${copyIndex}-${certificate.id}`}
+        className={`group relative flex min-h-[255px] w-[calc(100vw-3rem)] max-w-[330px] shrink-0 flex-col overflow-hidden rounded-[16px] border border-slate-200 bg-white p-4 shadow-[0_14px_45px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow,background-color] duration-300 hover:-translate-y-1.5 hover:scale-[1.006] min-[360px]:min-h-[270px] min-[360px]:rounded-[18px] min-[360px]:p-5 sm:min-h-[290px] sm:w-[340px] sm:max-w-[340px] sm:rounded-[20px] sm:p-6 lg:w-[330px] dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-[0_14px_45px_rgba(0,0,0,0.16)] ${colors.hover}`}
       >
         {/* ===============================================
             FONDO
         =============================================== */}
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-50/70 via-transparent to-transparent dark:from-white/[0.025]" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-50/70 via-transparent to-transparent dark:from-white/[0.025]"
+        />
 
         {/* ===============================================
             GLOW
         =============================================== */}
 
-        <div className="pointer-events-none absolute -top-16 -right-16 h-32 w-32 rounded-full bg-cyan-400/[0.06] blur-[60px] transition-[background-color] duration-500 group-hover:bg-cyan-400/[0.10] sm:-top-20 sm:-right-20 sm:h-44 sm:w-44 sm:blur-[80px] dark:bg-cyan-400/[0.025] dark:group-hover:bg-cyan-400/[0.055]" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-16 -right-16 h-32 w-32 rounded-full bg-cyan-400/[0.06] blur-[60px] transition-[background-color] duration-500 group-hover:bg-cyan-400/[0.10] sm:-top-20 sm:-right-20 sm:h-44 sm:w-44 sm:blur-[80px] dark:bg-cyan-400/[0.025] dark:group-hover:bg-cyan-400/[0.055]"
+        />
 
         {/* ===============================================
             HEADER CARD
         =============================================== */}
 
         <div className="relative flex min-w-0 flex-col gap-3 min-[350px]:flex-row min-[350px]:items-start min-[350px]:justify-between">
-          {/* ORGANIZACIÓN */}
+          {/* =============================================
+              ORGANIZACIÓN
+          ============================================= */}
 
           <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
             <div
-              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 hover:scale-110 hover:-rotate-6 sm:h-10 sm:w-10 sm:rounded-xl ${colors.iconBg} `}
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 hover:scale-110 hover:-rotate-6 sm:h-10 sm:w-10 sm:rounded-xl ${colors.iconBg}`}
             >
-              <ShieldCheck size={17} className={colors.icon} />
+              <ShieldCheck
+                size={17}
+                aria-hidden="true"
+                className={colors.icon}
+              />
             </div>
 
             <div className="min-w-0">
               <span
-                className={`block max-w-full truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization} `}
+                className={`block max-w-full truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization}`}
               >
                 {certificate.organization}
               </span>
 
+              {/* =========================================
+                  CREDENCIAL
+              ========================================= */}
+
               <span className="mt-1 block max-w-full truncate font-mono text-[7px] tracking-[0.07em] text-slate-500 uppercase sm:text-[8px] sm:tracking-[0.12em] dark:text-slate-600">
-                Professional Credential
+                {$t(messageKeys.CERTIFICATIONS.PROFESSIONAL_CREDENTIAL)}
               </span>
             </div>
           </div>
 
-          {/* AÑO */}
+          {/* =============================================
+              AÑO
+          ============================================= */}
 
           <span
-            className={`w-fit shrink-0 rounded-md border px-2 py-1 font-mono text-[8px] font-bold sm:px-2.5 sm:text-[9px] ${colors.year} `}
+            className={`w-fit shrink-0 rounded-md border px-2 py-1 font-mono text-[8px] font-bold sm:px-2.5 sm:text-[9px] ${colors.year}`}
           >
             {certificate.year}
           </span>
@@ -518,7 +604,7 @@ export function CertificationsSection() {
         =============================================== */}
 
         <h3 className="relative mt-5 max-w-full text-[16px] leading-6 font-bold tracking-[-0.035em] break-words text-slate-950 transition-colors duration-300 group-hover:text-cyan-700 min-[360px]:text-[18px] sm:mt-7 sm:max-w-[270px] sm:text-[20px] sm:leading-7 dark:text-white dark:group-hover:text-cyan-50">
-          {certificate.name}
+          {$t(certificate.nameKey)}
         </h3>
 
         {/* ===============================================
@@ -526,7 +612,7 @@ export function CertificationsSection() {
         =============================================== */}
 
         <p className="relative mt-2.5 flex-1 text-[11px] leading-5 break-words text-slate-600 transition-colors duration-300 group-hover:text-slate-700 min-[360px]:text-[12px] min-[360px]:leading-6 sm:mt-3 sm:text-[13px] dark:text-slate-400 dark:group-hover:text-slate-300">
-          {certificate.description}
+          {$t(certificate.descriptionKey)}
         </p>
 
         {/* ===============================================
@@ -534,25 +620,34 @@ export function CertificationsSection() {
         =============================================== */}
 
         <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-slate-200 pt-3 min-[340px]:flex-row min-[340px]:items-center min-[340px]:justify-between sm:mt-6 sm:pt-4 dark:border-white/[0.07]">
-          {/* VERIFICADA */}
+          {/* =============================================
+              VERIFICADA
+          ============================================= */}
 
           <div className="flex min-w-0 items-center gap-2">
-            <BadgeCheck size={14} className={`shrink-0 ${colors.icon}`} />
+            <BadgeCheck
+              size={14}
+              aria-hidden="true"
+              className={`shrink-0 ${colors.icon}`}
+            />
 
             <span className="min-w-0 truncate font-mono text-[8px] tracking-[0.06em] text-slate-500 sm:text-[9px] sm:tracking-[0.1em] dark:text-slate-400">
-              Verificada
+              {$t(messageKeys.CERTIFICATIONS.VERIFIED)}
             </span>
           </div>
 
-          {/* CÓDIGO */}
+          {/* =============================================
+              CÓDIGO
+          ============================================= */}
 
           <div className="flex min-w-0 items-center gap-2">
             <span
-              className={`h-1.5 w-1.5 shrink-0 rounded-full shadow-[0_0_7px_currentColor] ${colors.dot} `}
+              aria-hidden="true"
+              className={`h-1.5 w-1.5 shrink-0 rounded-full shadow-[0_0_7px_currentColor] ${colors.dot}`}
             />
 
             <span
-              className={`min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization} `}
+              className={`min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] sm:text-[9px] sm:tracking-[0.12em] ${colors.organization}`}
             >
               CERT-
               {String(originalIndex + 1).padStart(2, "0")}
@@ -562,35 +657,42 @@ export function CertificationsSection() {
 
         {/* ===============================================
             LÍNEA INFERIOR
-
-            Antes:
-            w-0 → group-hover:w-full
-
-            Ahora:
-            scale-x-0 → scale-x-100
         =============================================== */}
 
-        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 transition-transform duration-700 group-hover:scale-x-100" />
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 transition-transform duration-700 group-hover:scale-x-100"
+        />
       </article>
     );
   }
 
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
   return (
     <section
       id="certificaciones"
-      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
+      className="perf-section relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
       {/* =================================================
           GLOW DERECHO
       ================================================= */}
 
-      <div className="pointer-events-none absolute top-0 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400/[0.05] blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[155px] dark:bg-cyan-400/[0.025]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400/[0.05] blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[155px] dark:bg-cyan-400/[0.025]"
+      />
 
       {/* =================================================
           GLOW IZQUIERDO
       ================================================= */}
 
-      <div className="pointer-events-none absolute bottom-0 -left-28 h-[240px] w-[240px] rounded-full bg-blue-500/[0.04] blur-[100px] sm:-left-32 sm:h-[340px] sm:w-[340px] sm:blur-[150px] dark:bg-blue-500/[0.02]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 -left-28 h-[240px] w-[240px] rounded-full bg-blue-500/[0.04] blur-[100px] sm:-left-32 sm:h-[340px] sm:w-[340px] sm:blur-[150px] dark:bg-blue-500/[0.02]"
+      />
 
       {/* =================================================
           CONTENEDOR
@@ -601,28 +703,36 @@ export function CertificationsSection() {
             CABECERA
         ================================================= */}
 
-        <div className="min-w-0">
-          {/* BADGE */}
+        <div className="perf-reveal-up min-w-0">
+          {/* ===============================================
+              BADGE
+          =============================================== */}
 
           <div className="inline-flex max-w-full items-center gap-2 rounded-[5px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.55)] dark:bg-cyan-400 dark:shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.55)] dark:bg-cyan-400 dark:shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+            />
 
             <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-700 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.12em] dark:text-cyan-300">
-              Credenciales
+              {$t(messageKeys.CERTIFICATIONS.EYEBROW)}
             </span>
           </div>
 
-          {/* TÍTULO */}
+          {/* ===============================================
+              TÍTULO
+          =============================================== */}
 
           <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.04em] break-words text-slate-950 min-[360px]:text-[30px] sm:mt-4 sm:text-3xl md:text-[2.5rem] dark:text-white">
-            Certificaciones
+            {$t(messageKeys.CERTIFICATIONS.TITLE)}
           </h2>
 
-          {/* DESCRIPCIÓN */}
+          {/* ===============================================
+              DESCRIPCIÓN
+          =============================================== */}
 
           <p className="mt-3 max-w-[760px] text-[13px] leading-6 break-words text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px] dark:text-slate-300">
-            Acreditaciones y formación técnica orientadas al desarrollo de
-            software, datos, metodologías ágiles y tecnologías modernas.
+            {$t(messageKeys.CERTIFICATIONS.DESCRIPTION)}
           </p>
         </div>
 
@@ -631,13 +741,23 @@ export function CertificationsSection() {
         ================================================= */}
 
         <div className="relative mt-7 w-full max-w-full min-w-0 overflow-hidden sm:mt-9 lg:mt-10">
-          {/* FADE IZQUIERDO */}
+          {/* ===============================================
+              FADE IZQUIERDO
+          =============================================== */}
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-5 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent min-[360px]:w-7 sm:w-10 md:w-14 dark:from-[#070b14] dark:via-[#070b14]/60" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 z-20 w-5 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent min-[360px]:w-7 sm:w-10 md:w-14 dark:from-[#070b14] dark:via-[#070b14]/60"
+          />
 
-          {/* FADE DERECHO */}
+          {/* ===============================================
+              FADE DERECHO
+          =============================================== */}
 
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-5 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent min-[360px]:w-7 sm:w-10 md:w-14 dark:from-[#070b14] dark:via-[#070b14]/60" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 z-20 w-5 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent min-[360px]:w-7 sm:w-10 md:w-14 dark:from-[#070b14] dark:via-[#070b14]/60"
+          />
 
           {/* =================================================
               CARRUSEL
@@ -656,7 +776,7 @@ export function CertificationsSection() {
             } [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
           >
             {/* =============================================
-                COPIA ORIGINAL
+                GRUPO ORIGINAL
             ============================================= */}
 
             <div
@@ -669,10 +789,7 @@ export function CertificationsSection() {
             </div>
 
             {/* =============================================
-                SEGUNDA COPIA PARA LOOP
-
-                Antes había 3 grupos.
-                Ahora solo hay 2.
+                SEGUNDA COPIA
             ============================================= */}
 
             <div

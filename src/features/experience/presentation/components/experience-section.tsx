@@ -1,4 +1,10 @@
+"use client";
+
 import { Network } from "lucide-react";
+
+import { useI18n } from "@/i18n/i18n-provider";
+
+import { messageKeys } from "@/i18n/message-keys";
 
 /* =========================================================
    EXPERIENCIA
@@ -6,68 +12,145 @@ import { Network } from "lucide-react";
 
 const experiences = [
   {
+    id: "intigrate",
+
     company: "Intigrate E.I.R.L",
 
-    role: "Software Developer Trainee",
+    roleKey: messageKeys.EXPERIENCE.ITEMS.INTIGRATE.ROLE,
 
     period: "2025 — 2026",
 
     current: true,
 
-    description:
-      "Desarrollo de módulos funcionales, pruebas automatizadas, optimización de endpoints y validación estricta de esquemas de datos en arquitectura corporativa.",
+    descriptionKey: messageKeys.EXPERIENCE.ITEMS.INTIGRATE.DESCRIPTION,
 
     technologies: [
-      "Development",
-      "Testing",
-      "APIs",
-      "Bug fixing",
-      "Git",
-      "Data validation",
+      {
+        id: "development",
+
+        labelKey: messageKeys.EXPERIENCE.TECH.DEVELOPMENT,
+      },
+
+      {
+        id: "testing",
+
+        labelKey: messageKeys.EXPERIENCE.TECH.TESTING,
+      },
+
+      {
+        id: "apis",
+
+        labelKey: messageKeys.EXPERIENCE.TECH.APIS,
+      },
+
+      {
+        id: "bug-fixing",
+
+        labelKey: messageKeys.EXPERIENCE.TECH.BUG_FIXING,
+      },
+
+      {
+        id: "git",
+
+        labelKey: messageKeys.EXPERIENCE.TECH.GIT,
+      },
+
+      {
+        id: "data-validation",
+
+        labelKey: messageKeys.EXPERIENCE.TECH.DATA_VALIDATION,
+      },
     ],
 
-    delayClass: "[animation-delay:80ms]",
+    delayClass: "perf-delay-1",
   },
 
   {
+    id: "imayiner",
+
     company: "Imayiner Project E.I.R.L",
 
-    role: "Backend Developer / Technical Leadership",
+    roleKey: messageKeys.EXPERIENCE.ITEMS.IMAYINER.ROLE,
 
     period: "2024 — 2025",
 
     current: false,
 
-    leadership: "Backend · Architecture · APIs · Leadership",
+    leadershipKey: messageKeys.EXPERIENCE.ITEMS.IMAYINER.LEADERSHIP,
 
-    description:
-      "Liderazgo técnico en estructuración de microservicios, diseño de modelos relacionales transaccionales y despliegue continuo de APIs con altos estándares de seguridad.",
+    descriptionKey: messageKeys.EXPERIENCE.ITEMS.IMAYINER.DESCRIPTION,
 
     technologies: [
-      "Node.js",
-      "Express",
-      ".NET",
-      "SQL Server",
-      "MySQL",
-      "JWT",
-      "Docker",
-      "PM2",
-      "Scrum",
+      {
+        id: "node",
+
+        label: "Node.js",
+      },
+
+      {
+        id: "express",
+
+        label: "Express",
+      },
+
+      {
+        id: "dotnet",
+
+        label: ".NET",
+      },
+
+      {
+        id: "sql-server",
+
+        label: "SQL Server",
+      },
+
+      {
+        id: "mysql",
+
+        label: "MySQL",
+      },
+
+      {
+        id: "jwt",
+
+        label: "JWT",
+      },
+
+      {
+        id: "docker",
+
+        label: "Docker",
+      },
+
+      {
+        id: "pm2",
+
+        label: "PM2",
+      },
+
+      {
+        id: "scrum",
+
+        label: "Scrum",
+      },
     ],
 
-    delayClass: "[animation-delay:160ms]",
+    delayClass: "perf-delay-2",
   },
-];
+] as const;
 
 /* =========================================================
    COMPONENTE
 ========================================================= */
 
 export function ExperienceSection() {
+  const { $t } = useI18n();
+
   return (
     <section
       id="experiencia"
-      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
+      className="perf-section relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
       {/* =====================================================
           GLOW DECORATIVO
@@ -87,12 +170,14 @@ export function ExperienceSection() {
             CABECERA
         ================================================= */}
 
-        <div className="animate-in fade-in slide-in-from-bottom-4 min-w-0 duration-500">
-          {/* BADGE */}
+        <div className="perf-reveal-up min-w-0">
+          {/* =================================================
+              BADGE
+          ================================================= */}
 
           <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
             <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-700 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em] dark:text-cyan-300">
-              Trayectoria Profesional
+              {$t(messageKeys.EXPERIENCE.EYEBROW)}
             </span>
           </div>
 
@@ -101,7 +186,7 @@ export function ExperienceSection() {
           ================================================= */}
 
           <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-slate-950 min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem] dark:text-white">
-            Experiencia Laboral
+            {$t(messageKeys.EXPERIENCE.TITLE)}
           </h2>
 
           {/* =================================================
@@ -109,8 +194,7 @@ export function ExperienceSection() {
           ================================================= */}
 
           <p className="mt-3 max-w-3xl text-[13px] leading-6 text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px] dark:text-slate-300">
-            Roles clave en diseño de backend, testing sistemático y liderazgo de
-            desarrollo.
+            {$t(messageKeys.EXPERIENCE.DESCRIPTION)}
           </p>
         </div>
 
@@ -138,84 +222,95 @@ export function ExperienceSection() {
 
               return (
                 <article
-                  key={`${experience.company}-${experience.role}`}
-                  className={`group animate-in fade-in slide-in-from-bottom-5relative min-w-0 overflow-visible rounded-[14px] border bg-white px-4 py-5 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 min-[360px]:px-5 sm:rounded-[16px] sm:px-6 sm:py-7 md:px-7 dark:bg-[#151925]/95 dark:shadow-none ${experience.delayClass} ${
+                  key={experience.id}
+                  className={`group perf-reveal-up relative min-w-0 overflow-visible rounded-[14px] border bg-white px-4 py-5 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 min-[360px]:px-5 sm:rounded-[16px] sm:px-6 sm:py-7 md:px-7 dark:bg-[#151925]/95 dark:shadow-none ${experience.delayClass} ${
                     isPrimary
-                      ? `border-slate-200 hover:border-cyan-400/50 hover:shadow-[0_18px_50px_rgba(6,182,212,0.09)] dark:border-white/10 dark:hover:border-cyan-400/30 dark:hover:shadow-[0_18px_50px_rgba(34,211,238,0.05)]`
-                      : `border-slate-300 hover:border-blue-400/50 hover:shadow-[0_18px_50px_rgba(59,130,246,0.08)] dark:border-slate-400/40 dark:hover:border-cyan-400/35 dark:hover:shadow-[0_18px_50px_rgba(59,130,246,0.05)]`
-                  } `}
+                      ? "border-slate-200 hover:border-cyan-400/50 hover:shadow-[0_18px_50px_rgba(6,182,212,0.09)] dark:border-white/10 dark:hover:border-cyan-400/30 dark:hover:shadow-[0_18px_50px_rgba(34,211,238,0.05)]"
+                      : "border-slate-300 hover:border-blue-400/50 hover:shadow-[0_18px_50px_rgba(59,130,246,0.08)] dark:border-slate-400/40 dark:hover:border-cyan-400/35 dark:hover:shadow-[0_18px_50px_rgba(59,130,246,0.05)]"
+                  }`}
                 >
                   {/* =================================================
-                      PUNTO TIMELINE
-                  ================================================= */}
+                        PUNTO TIMELINE
+                    ================================================= */}
 
                   <div
                     aria-hidden="true"
                     className={`absolute top-3 -left-[25px] flex h-[14px] w-[14px] items-center justify-center rounded-full border-2 bg-white min-[360px]:-left-[29px] sm:top-2 sm:-left-[36px] sm:h-[16px] sm:w-[16px] md:-left-[44px] dark:bg-[#080d18] ${
                       isPrimary
-                        ? `border-cyan-500 shadow-[0_0_14px_rgba(6,182,212,0.45)] dark:border-cyan-300 dark:shadow-[0_0_14px_rgba(34,211,238,0.85)]`
-                        : `border-blue-500 shadow-[0_0_14px_rgba(59,130,246,0.35)] dark:border-blue-300 dark:shadow-[0_0_14px_rgba(96,165,250,0.65)]`
-                    } `}
+                        ? "border-cyan-500 shadow-[0_0_14px_rgba(6,182,212,0.45)] dark:border-cyan-300 dark:shadow-[0_0_14px_rgba(34,211,238,0.85)]"
+                        : "border-blue-500 shadow-[0_0_14px_rgba(59,130,246,0.35)] dark:border-blue-300 dark:shadow-[0_0_14px_rgba(96,165,250,0.65)]"
+                    }`}
                   >
                     <span
                       className={`h-[4px] w-[4px] rounded-full sm:h-[5px] sm:w-[5px] ${
                         isPrimary
                           ? "bg-cyan-500 dark:bg-cyan-300"
                           : "bg-blue-500 dark:bg-blue-300"
-                      } `}
+                      }`}
                     />
                   </div>
 
                   {/* =================================================
-                      HEADER EXPERIENCIA
-                  ================================================= */}
+                        HEADER EXPERIENCIA
+                    ================================================= */}
 
                   <div className="flex min-w-0 flex-col gap-4 lg:flex-row lg:items-start lg:justify-between lg:gap-6">
                     {/* =================================================
-                        INFORMACIÓN PRINCIPAL
-                    ================================================= */}
+                          INFORMACIÓN PRINCIPAL
+                      ================================================= */}
 
                     <div className="min-w-0">
+                      {/* EMPRESA */}
+
                       <span
                         className={`block max-w-full font-mono text-[8px] font-bold tracking-[0.1em] break-words uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.16em] ${
                           isPrimary
                             ? "text-cyan-700 dark:text-cyan-300"
                             : "text-blue-700 dark:text-blue-300"
-                        } `}
+                        }`}
                       >
                         {experience.company}
                       </span>
 
+                      {/* =================================================
+                            ROL
+                        ================================================= */}
+
                       <h3 className="mt-1 max-w-full text-[17px] leading-6 font-bold tracking-[-0.025em] break-words text-slate-950 min-[360px]:text-[18px] sm:text-xl md:text-[21px] dark:text-white">
-                        {experience.role}
+                        {$t(experience.roleKey)}
                       </h3>
 
                       {/* =================================================
-                          BADGE LIDERAZGO
-                      ================================================= */}
+                            BADGE LIDERAZGO
+                        ================================================= */}
 
-                      {experience.leadership && (
+                      {"leadershipKey" in experience && (
                         <div className="mt-3 flex w-fit max-w-full min-w-0 items-start gap-2 rounded-md border border-blue-200 bg-blue-50 px-2.5 py-2 font-mono text-[8px] font-bold tracking-[0.05em] text-blue-700 min-[360px]:text-[9px] sm:inline-flex sm:px-3 sm:text-[10px] sm:tracking-[0.08em] dark:border-blue-400/35 dark:bg-blue-400/10 dark:text-blue-200">
                           <Network
                             size={13}
+                            aria-hidden="true"
                             className="mt-0.5 shrink-0 sm:h-[14px] sm:w-[14px]"
                           />
 
                           <span className="min-w-0 break-words">
-                            {experience.leadership}
+                            {$t(experience.leadershipKey)}
                           </span>
                         </div>
                       )}
                     </div>
 
                     {/* =================================================
-                        FECHA + ESTADO
-                    ================================================= */}
+                          FECHA + ESTADO
+                      ================================================= */}
 
                     <div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3 lg:shrink-0 lg:justify-end">
                       {experience.current && (
                         <span className="rounded-md border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 font-mono text-[8px] font-bold tracking-[0.06em] text-cyan-700 min-[360px]:text-[9px] sm:px-3 sm:text-[10px] sm:tracking-[0.1em] dark:border-cyan-400/40 dark:bg-cyan-400/[0.07] dark:text-cyan-300">
-                          Actual / Reciente
+                          {$t(messageKeys.COMMON.CURRENT)}
+
+                          {" / "}
+
+                          {$t(messageKeys.COMMON.RECENT)}
                         </span>
                       )}
 
@@ -226,43 +321,48 @@ export function ExperienceSection() {
                   </div>
 
                   {/* =================================================
-                      DESCRIPCIÓN
-                  ================================================= */}
+                        DESCRIPCIÓN
+                    ================================================= */}
 
                   <p className="mt-4 max-w-[1040px] text-[12px] leading-6 break-words text-slate-600 min-[360px]:text-[13px] sm:mt-5 sm:text-[14px] sm:leading-7 dark:text-slate-300">
-                    {experience.description}
+                    {$t(experience.descriptionKey)}
                   </p>
 
                   {/* =================================================
-                      TECNOLOGÍAS
-                  ================================================= */}
+                        TECNOLOGÍAS
+                    ================================================= */}
 
                   <div className="mt-4 flex min-w-0 flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
                     {experience.technologies.map((technology) => {
+                      const label =
+                        "labelKey" in technology
+                          ? $t(technology.labelKey)
+                          : technology.label;
+
                       const highlighted = [
                         "Node.js",
                         "Express",
                         ".NET",
-                      ].includes(technology);
+                      ].includes(label);
 
                       return (
                         <span
-                          key={technology}
+                          key={technology.id}
                           className={`inline-flex max-w-full min-w-0 items-center rounded-md px-2.5 py-1.5 font-mono text-[8px] font-semibold tracking-[0.04em] break-words transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.03] sm:px-3 sm:text-[9px] lg:text-[10px] lg:tracking-[0.08em] ${
                             highlighted
-                              ? `border border-cyan-200 bg-cyan-50 text-cyan-700 hover:shadow-[0_0_14px_rgba(6,182,212,0.08)] dark:border-cyan-400/10 dark:bg-cyan-400/[0.06] dark:text-cyan-300 dark:hover:shadow-[0_0_14px_rgba(34,211,238,0.06)]`
-                              : `border border-slate-200 bg-slate-50 text-slate-600 hover:border-cyan-300/70 dark:border-white/[0.03] dark:bg-white/[0.06] dark:text-slate-400 dark:hover:border-white/[0.08]`
-                          } `}
+                              ? "border border-cyan-200 bg-cyan-50 text-cyan-700 hover:shadow-[0_0_14px_rgba(6,182,212,0.08)] dark:border-cyan-400/10 dark:bg-cyan-400/[0.06] dark:text-cyan-300 dark:hover:shadow-[0_0_14px_rgba(34,211,238,0.06)]"
+                              : "border border-slate-200 bg-slate-50 text-slate-600 hover:border-cyan-300/70 dark:border-white/[0.03] dark:bg-white/[0.06] dark:text-slate-400 dark:hover:border-white/[0.08]"
+                          }`}
                         >
-                          {technology}
+                          {label}
                         </span>
                       );
                     })}
                   </div>
 
                   {/* =================================================
-                      LÍNEA INFERIOR OPTIMIZADA
-                  ================================================= */}
+                        LÍNEA INFERIOR
+                    ================================================= */}
 
                   <div
                     aria-hidden="true"

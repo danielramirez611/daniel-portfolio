@@ -10,6 +10,10 @@ import { Check, Code2, Copy, Mail, MapPin, Rocket, Send } from "lucide-react";
 
 import { FaLinkedinIn } from "react-icons/fa";
 
+import { useI18n } from "@/i18n/i18n-provider";
+
+import { messageKeys } from "@/i18n/message-keys";
+
 import {
   contactSchema,
   type ContactFormData,
@@ -30,11 +34,21 @@ const GITHUB = "https://github.com/danielramirez611";
 ========================================================= */
 
 export function ContactSection() {
+  const { $t } = useI18n();
+
+  /* =======================================================
+     ESTADOS
+  ======================================================= */
+
   const [sent, setSent] = useState(false);
 
-  const [requestError, setRequestError] = useState("");
+  const [requestError, setRequestError] = useState(false);
 
   const [copied, setCopied] = useState(false);
+
+  /* =======================================================
+     FORMULARIO
+  ======================================================= */
 
   const {
     register,
@@ -53,7 +67,7 @@ export function ContactSection() {
   async function onSubmit(values: ContactFormData) {
     setSent(false);
 
-    setRequestError("");
+    setRequestError(false);
 
     try {
       const response = await fetch("/api/contact", {
@@ -66,12 +80,12 @@ export function ContactSection() {
         body: JSON.stringify({
           ...values,
 
-          subject: values.subject || "Contacto desde portafolio",
+          subject: values.subject || $t(messageKeys.CONTACT.SUBJECT),
         }),
       });
 
       if (!response.ok) {
-        throw new Error("No se pudo enviar el mensaje.");
+        throw new Error("CONTACT_ERROR");
       }
 
       reset();
@@ -82,7 +96,7 @@ export function ContactSection() {
         setSent(false);
       }, 5000);
     } catch {
-      setRequestError("No se pudo enviar el mensaje. Inténtalo nuevamente.");
+      setRequestError(true);
     }
   }
 
@@ -104,10 +118,14 @@ export function ContactSection() {
     }
   }
 
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
   return (
     <section
       id="contacto"
-      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
+      className="perf-section relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
       {/* =================================================
           LUZ DECORATIVA IZQUIERDA
@@ -136,32 +154,31 @@ export function ContactSection() {
             CABECERA
         ================================================= */}
 
-        <div className="animate-in fade-in slide-in-from-bottom-4 min-w-0 duration-500">
-          {/* =================================================
+        <div className="perf-reveal-up min-w-0">
+          {/* ===============================================
               BADGE
-          ================================================= */}
+          =============================================== */}
 
           <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
             <span className="truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-700 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em] dark:text-cyan-300">
-              Hablemos
+              {$t(messageKeys.CONTACT.EYEBROW)}
             </span>
           </div>
 
-          {/* =================================================
+          {/* ===============================================
               TÍTULO
-          ================================================= */}
+          =============================================== */}
 
           <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.04em] break-words text-slate-950 min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem] dark:text-white">
-            Construyamos algo juntos.
+            {$t(messageKeys.CONTACT.TITLE)}
           </h2>
 
-          {/* =================================================
+          {/* ===============================================
               DESCRIPCIÓN
-          ================================================= */}
+          =============================================== */}
 
           <p className="mt-3 max-w-[680px] text-[13px] leading-6 break-words text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[17px] dark:text-slate-300">
-            Disponible para oportunidades de desarrollo de software,
-            arquitectura de sistemas y proyectos tecnológicos desafiantes.
+            {$t(messageKeys.CONTACT.DESCRIPTION)}
           </p>
         </div>
 
@@ -174,24 +191,28 @@ export function ContactSection() {
               COLUMNA IZQUIERDA
           ================================================= */}
 
-          <div className="animate-in fade-in slide-in-from-left-4 flex min-w-0 flex-col gap-3 duration-500 sm:gap-4">
+          <div className="perf-reveal-left flex min-w-0 flex-col gap-3 sm:gap-4">
             {/* =================================================
                 EMAIL
             ================================================= */}
 
             <article className="group min-w-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out hover:border-cyan-400/40 hover:shadow-[0_14px_40px_rgba(6,182,212,0.08)] min-[360px]:p-5 sm:rounded-[16px] sm:p-6 dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:shadow-none">
               <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-4">
-                {/* ICONO */}
+                {/* =========================================
+                    ICONO
+                ========================================= */}
 
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 text-cyan-700 sm:h-11 sm:w-11 sm:rounded-xl dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-300">
-                  <Mail size={19} />
+                  <Mail size={19} aria-hidden="true" />
                 </div>
 
-                {/* INFORMACIÓN */}
+                {/* =========================================
+                    INFORMACIÓN
+                ========================================= */}
 
                 <div className="min-w-0 flex-1">
                   <p className="font-mono text-[8px] leading-4 font-bold tracking-[0.07em] break-words text-slate-500 uppercase min-[360px]:text-[9px] sm:tracking-[0.12em]">
-                    Correo electrónico directo
+                    {$t(messageKeys.CONTACT.DIRECT_EMAIL)}
                   </p>
 
                   <a
@@ -203,9 +224,9 @@ export function ContactSection() {
                 </div>
               </div>
 
-              {/* =================================================
+              {/* =============================================
                   COPIAR
-              ================================================= */}
+              ============================================= */}
 
               <button
                 type="button"
@@ -214,15 +235,15 @@ export function ContactSection() {
               >
                 {copied ? (
                   <>
-                    <Check size={15} className="shrink-0" />
+                    <Check size={15} aria-hidden="true" className="shrink-0" />
 
-                    <span>Correo copiado</span>
+                    <span>{$t(messageKeys.CONTACT.EMAIL_COPIED)}</span>
                   </>
                 ) : (
                   <>
-                    <Copy size={15} className="shrink-0" />
+                    <Copy size={15} aria-hidden="true" className="shrink-0" />
 
-                    <span>Copiar correo</span>
+                    <span>{$t(messageKeys.CONTACT.COPY_EMAIL)}</span>
                   </>
                 )}
               </button>
@@ -233,7 +254,9 @@ export function ContactSection() {
             ================================================= */}
 
             <div className="grid min-w-0 grid-cols-1 gap-3 min-[520px]:grid-cols-2 sm:gap-4">
-              {/* LINKEDIN */}
+              {/* =============================================
+                  LINKEDIN
+              ============================================= */}
 
               <a
                 href={LINKEDIN}
@@ -243,6 +266,7 @@ export function ContactSection() {
               >
                 <FaLinkedinIn
                   size={22}
+                  aria-hidden="true"
                   className="shrink-0 text-cyan-600 sm:h-6 sm:w-6 dark:text-cyan-300"
                 />
 
@@ -257,21 +281,24 @@ export function ContactSection() {
                 </div>
               </a>
 
-              {/* UBICACIÓN */}
+              {/* =============================================
+                  UBICACIÓN
+              ============================================= */}
 
               <article className="flex min-w-0 items-center gap-3 rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.04)] sm:min-h-[86px] sm:gap-4 sm:rounded-[16px] sm:p-5 dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-none">
                 <MapPin
                   size={22}
+                  aria-hidden="true"
                   className="shrink-0 text-blue-600 sm:h-6 sm:w-6 dark:text-blue-300"
                 />
 
                 <div className="min-w-0">
                   <strong className="block text-[13px] text-slate-950 sm:text-[14px] dark:text-white">
-                    Ubicación
+                    {$t(messageKeys.CONTACT.LOCATION)}
                   </strong>
 
                   <span className="mt-1 block max-w-full font-mono text-[8px] leading-4 break-words text-slate-500 sm:text-[9px]">
-                    Chiclayo, Perú · Remoto
+                    {$t(messageKeys.CONTACT.LOCATION_VALUE)}
                   </span>
                 </div>
               </article>
@@ -282,7 +309,9 @@ export function ContactSection() {
             ================================================= */}
 
             <div className="mt-1 grid w-full min-w-0 grid-cols-1 gap-2.5 min-[430px]:grid-cols-2 sm:mt-2 sm:gap-3 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3">
-              {/* LINKEDIN */}
+              {/* =============================================
+                  LINKEDIN
+              ============================================= */}
 
               <a
                 href={LINKEDIN}
@@ -290,12 +319,20 @@ export function ContactSection() {
                 rel="noopener noreferrer"
                 className="inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 px-3 text-center font-mono text-[8px] font-bold tracking-[0.06em] whitespace-normal text-white uppercase shadow-[0_12px_30px_rgba(34,211,238,0.12)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(34,211,238,0.18)] min-[360px]:text-[9px] sm:px-4 sm:tracking-[0.1em]"
               >
-                <FaLinkedinIn size={14} className="shrink-0" />
+                <FaLinkedinIn
+                  size={14}
+                  aria-hidden="true"
+                  className="shrink-0"
+                />
 
-                <span className="break-words">Conectar en LinkedIn</span>
+                <span className="break-words">
+                  {$t(messageKeys.CONTACT.CONNECT_LINKEDIN)}
+                </span>
               </a>
 
-              {/* GITHUB */}
+              {/* =============================================
+                  GITHUB
+              ============================================= */}
 
               <a
                 href={GITHUB}
@@ -303,20 +340,22 @@ export function ContactSection() {
                 rel="noopener noreferrer"
                 className="inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3 text-center font-mono text-[8px] font-bold tracking-[0.06em] whitespace-normal text-slate-800 uppercase shadow-sm transition-[transform,border-color,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:bg-cyan-50 min-[360px]:text-[9px] sm:px-4 sm:tracking-[0.1em] dark:border-white/10 dark:bg-white/[0.05] dark:text-white dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:bg-white/[0.07]"
               >
-                <Code2 size={14} className="shrink-0" />
+                <Code2 size={14} aria-hidden="true" className="shrink-0" />
 
-                <span>Ver GitHub</span>
+                <span>{$t(messageKeys.CONTACT.VIEW_GITHUB)}</span>
               </a>
 
-              {/* EMAIL */}
+              {/* =============================================
+                  EMAIL
+              ============================================= */}
 
               <a
                 href={`mailto:${EMAIL}`}
                 className="inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3 text-center font-mono text-[8px] font-bold tracking-[0.06em] whitespace-normal text-slate-800 uppercase shadow-sm transition-[transform,border-color,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:bg-cyan-50 min-[360px]:text-[9px] min-[430px]:col-span-2 sm:px-4 sm:tracking-[0.1em] lg:col-span-1 xl:col-span-2 2xl:col-span-1 dark:border-white/10 dark:bg-white/[0.05] dark:text-white dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:bg-white/[0.07]"
               >
-                <Send size={14} className="shrink-0" />
+                <Send size={14} aria-hidden="true" className="shrink-0" />
 
-                <span>Enviar correo</span>
+                <span>{$t(messageKeys.CONTACT.SEND_EMAIL)}</span>
               </a>
             </div>
           </div>
@@ -325,10 +364,10 @@ export function ContactSection() {
               FORMULARIO
           ================================================= */}
 
-          <div className="animate-in fade-in slide-in-from-right-4 relative min-w-0 overflow-hidden rounded-[16px] border border-slate-200 bg-white p-4 shadow-[0_22px_70px_rgba(15,23,42,0.08)] transition-colors duration-500 [animation-delay:80ms] min-[360px]:p-5 sm:rounded-[20px] sm:p-6 md:rounded-[22px] md:p-7 dark:border-white/[0.1] dark:bg-[#171b27]/95 dark:shadow-[0_22px_70px_rgba(0,0,0,0.18)]">
-            {/* =================================================
+          <div className="perf-reveal-right perf-delay-1 relative min-w-0 overflow-hidden rounded-[16px] border border-slate-200 bg-white p-4 shadow-[0_22px_70px_rgba(15,23,42,0.08)] transition-colors duration-500 min-[360px]:p-5 sm:rounded-[20px] sm:p-6 md:rounded-[22px] md:p-7 dark:border-white/[0.1] dark:bg-[#171b27]/95 dark:shadow-[0_22px_70px_rgba(0,0,0,0.18)]">
+            {/* ===============================================
                 GLOW
-            ================================================= */}
+            =============================================== */}
 
             <div
               aria-hidden="true"
@@ -336,38 +375,37 @@ export function ContactSection() {
             />
 
             <div className="relative min-w-0">
-              {/* =================================================
+              {/* =============================================
                   TÍTULO
-              ================================================= */}
+              ============================================= */}
 
               <h3 className="max-w-full text-[18px] font-bold tracking-[-0.03em] break-words text-slate-950 min-[360px]:text-[19px] sm:text-[21px] dark:text-white">
-                Mensaje rápido
+                {$t(messageKeys.CONTACT.QUICK_MESSAGE)}
               </h3>
 
-              {/* =================================================
+              {/* =============================================
                   DESCRIPCIÓN
-              ================================================= */}
+              ============================================= */}
 
               <p className="mt-2 max-w-full text-[11px] leading-5 break-words text-slate-500 sm:text-[12px] sm:leading-6 dark:text-slate-400">
-                Envíame los requerimientos de tu proyecto y responderé lo antes
-                posible.
+                {$t(messageKeys.CONTACT.QUICK_MESSAGE_DESCRIPTION)}
               </p>
 
-              {/* =================================================
+              {/* =============================================
                   FORM
-              ================================================= */}
+              ============================================= */}
 
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="mt-5 min-w-0 space-y-4 sm:mt-6 sm:space-y-5"
               >
-                {/* =================================================
+                {/* ===========================================
                     NOMBRE
-                ================================================= */}
+                =========================================== */}
 
                 <FormField
                   id="contact-name"
-                  label="Tu nombre / organización"
+                  label={$t(messageKeys.CONTACT.NAME)}
                   error={errors.name?.message}
                 >
                   <input
@@ -375,18 +413,18 @@ export function ContactSection() {
                     {...register("name")}
                     type="text"
                     autoComplete="name"
-                    placeholder="Ej. Alex Turner / FinTech Corp"
+                    placeholder={$t(messageKeys.CONTACT.NAME_PLACEHOLDER)}
                     className="h-12 w-full max-w-full min-w-0 rounded-xl border border-slate-200 bg-slate-50 px-3 text-[12px] text-slate-900 transition-[border-color,background-color,box-shadow] duration-200 outline-none placeholder:text-slate-400 focus:border-cyan-400/60 focus:bg-white focus:ring-2 focus:ring-cyan-400/[0.10] sm:h-[50px] sm:px-4 sm:text-[14px] dark:border-white/10 dark:bg-[#090d17] dark:text-white dark:placeholder:text-slate-600 dark:focus:border-cyan-400/50 dark:focus:bg-[#090d17] dark:focus:ring-cyan-400/[0.06]"
                   />
                 </FormField>
 
-                {/* =================================================
+                {/* ===========================================
                     EMAIL
-                ================================================= */}
+                =========================================== */}
 
                 <FormField
                   id="contact-email"
-                  label="Tu correo"
+                  label={$t(messageKeys.CONTACT.EMAIL)}
                   error={errors.email?.message}
                 >
                   <input
@@ -394,42 +432,42 @@ export function ContactSection() {
                     {...register("email")}
                     type="email"
                     autoComplete="email"
-                    placeholder="alex@empresa.com"
+                    placeholder={$t(messageKeys.CONTACT.EMAIL_PLACEHOLDER)}
                     className="h-12 w-full max-w-full min-w-0 rounded-xl border border-slate-200 bg-slate-50 px-3 text-[12px] text-slate-900 transition-[border-color,background-color,box-shadow] duration-200 outline-none placeholder:text-slate-400 focus:border-cyan-400/60 focus:bg-white focus:ring-2 focus:ring-cyan-400/[0.10] sm:h-[50px] sm:px-4 sm:text-[14px] dark:border-white/10 dark:bg-[#090d17] dark:text-white dark:placeholder:text-slate-600 dark:focus:border-cyan-400/50 dark:focus:bg-[#090d17] dark:focus:ring-cyan-400/[0.06]"
                   />
                 </FormField>
 
-                {/* =================================================
+                {/* ===========================================
                     ASUNTO
-                ================================================= */}
+                =========================================== */}
 
                 <input
                   {...register("subject")}
                   type="hidden"
-                  defaultValue="Contacto desde portafolio"
+                  defaultValue={$t(messageKeys.CONTACT.SUBJECT)}
                 />
 
-                {/* =================================================
+                {/* ===========================================
                     MENSAJE
-                ================================================= */}
+                =========================================== */}
 
                 <FormField
                   id="contact-message"
-                  label="Detalles del proyecto"
+                  label={$t(messageKeys.CONTACT.MESSAGE)}
                   error={errors.message?.message}
                 >
                   <textarea
                     id="contact-message"
                     {...register("message")}
                     rows={4}
-                    placeholder="Cuéntame sobre la arquitectura, alcance técnico o metas..."
+                    placeholder={$t(messageKeys.CONTACT.MESSAGE_PLACEHOLDER)}
                     className="min-h-[110px] w-full max-w-full min-w-0 resize-none rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-[12px] leading-6 text-slate-900 transition-[border-color,background-color,box-shadow] duration-200 outline-none placeholder:text-slate-400 focus:border-cyan-400/60 focus:bg-white focus:ring-2 focus:ring-cyan-400/[0.10] sm:px-4 sm:text-[14px] dark:border-white/10 dark:bg-[#090d17] dark:text-white dark:placeholder:text-slate-600 dark:focus:border-cyan-400/50 dark:focus:bg-[#090d17] dark:focus:ring-cyan-400/[0.06]"
                   />
                 </FormField>
 
-                {/* =================================================
+                {/* ===========================================
                     BOTÓN ENVIAR
-                ================================================= */}
+                =========================================== */}
 
                 <button
                   type="submit"
@@ -443,50 +481,55 @@ export function ContactSection() {
                         className="h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-[#07111b]/30 border-t-[#07111b]"
                       />
 
-                      <span>Enviando...</span>
+                      <span>{$t(messageKeys.CONTACT.SENDING)}</span>
                     </>
                   ) : (
                     <>
                       <Rocket
                         size={16}
+                        aria-hidden="true"
                         className="shrink-0 sm:h-[17px] sm:w-[17px]"
                       />
 
                       <span className="break-words">
-                        Enviar mensaje de contacto
+                        {$t(messageKeys.CONTACT.SEND)}
                       </span>
                     </>
                   )}
                 </button>
 
-                {/* =================================================
+                {/* ===========================================
                     ÉXITO
-                ================================================= */}
+                =========================================== */}
 
                 {sent && (
                   <div
                     role="status"
                     aria-live="polite"
-                    className="animate-in fade-in slide-in-from-bottom-1 flex min-w-0 items-start gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-3 text-[11px] leading-5 text-emerald-700 duration-300 sm:px-4 sm:text-[12px] dark:border-emerald-400/20 dark:bg-emerald-400/[0.06] dark:text-emerald-300"
+                    className="perf-reveal-up flex min-w-0 items-start gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-3 text-[11px] leading-5 text-emerald-700 sm:px-4 sm:text-[12px] dark:border-emerald-400/20 dark:bg-emerald-400/[0.06] dark:text-emerald-300"
                   >
-                    <Check size={16} className="mt-0.5 shrink-0" />
+                    <Check
+                      size={16}
+                      aria-hidden="true"
+                      className="mt-0.5 shrink-0"
+                    />
 
                     <span className="min-w-0 break-words">
-                      Mensaje enviado correctamente.
+                      {$t(messageKeys.CONTACT.SUCCESS)}
                     </span>
                   </div>
                 )}
 
-                {/* =================================================
+                {/* ===========================================
                     ERROR
-                ================================================= */}
+                =========================================== */}
 
                 {requestError && (
                   <div
                     role="alert"
-                    className="animate-in fade-in slide-in-from-bottom-1 max-w-full rounded-lg border border-red-200 bg-red-50 px-3 py-3 text-[11px] leading-5 break-words text-red-700 duration-300 sm:px-4 sm:text-[12px] dark:border-red-400/20 dark:bg-red-400/[0.05] dark:text-red-300"
+                    className="perf-reveal-up max-w-full rounded-lg border border-red-200 bg-red-50 px-3 py-3 text-[11px] leading-5 break-words text-red-700 sm:px-4 sm:text-[12px] dark:border-red-400/20 dark:bg-red-400/[0.05] dark:text-red-300"
                   >
-                    {requestError}
+                    {$t(messageKeys.CONTACT.ERROR)}
                   </div>
                 )}
               </form>

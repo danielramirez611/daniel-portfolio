@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-
 import type { ReactNode } from "react";
 
 import { JetBrains_Mono } from "next/font/google";
 
-import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
-
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-import { Analytics } from "@vercel/analytics/next";
+import { I18nProvider } from "@/i18n/i18n-provider";
+
+import "./globals.css";
 
 /* =========================================================
    FUENTE PRINCIPAL
@@ -48,14 +48,26 @@ const jetbrainsMono = JetBrains_Mono({
 ========================================================= */
 
 export const metadata: Metadata = {
+  /* =======================================================
+     TITLE
+  ======================================================= */
+
   title: {
     default: "Daniel Ramirez | Software Developer",
 
     template: "%s | Daniel Ramirez",
   },
 
+  /* =======================================================
+     DESCRIPTION
+  ======================================================= */
+
   description:
     "Software Developer especializado en backend, APIs, bases de datos y desarrollo de soluciones tecnológicas.",
+
+  /* =======================================================
+     KEYWORDS
+  ======================================================= */
 
   keywords: [
     "Daniel Ramirez",
@@ -67,6 +79,10 @@ export const metadata: Metadata = {
     "Laravel",
     ".NET",
   ],
+
+  /* =======================================================
+     AUTHOR
+  ======================================================= */
 
   authors: [
     {
@@ -139,14 +155,42 @@ export default function RootLayout({
       <body
         className={` ${jetbrainsMono.variable} bg-background text-foreground min-h-screen w-full max-w-full overflow-x-hidden overscroll-x-none antialiased`}
       >
-        <ThemeProvider>
-          <TooltipProvider>
-            <div className="min-h-screen w-full max-w-full min-w-0 overflow-x-hidden">
-              {children}
-            </div>
-          </TooltipProvider>
+        {/* =================================================
+            THEME PROVIDER
+        ================================================= */}
 
-          <Analytics />
+        <ThemeProvider>
+          {/* =================================================
+              INTERNATIONALIZATION PROVIDER
+
+              Permite usar:
+
+              const { $t } = useI18n();
+
+              $t(messageKeys.HEADER.HOME)
+          ================================================= */}
+
+          <I18nProvider>
+            {/* =================================================
+                TOOLTIP PROVIDER
+            ================================================= */}
+
+            <TooltipProvider>
+              {/* =================================================
+                  APP
+              ================================================= */}
+
+              <div className="min-h-screen w-full max-w-full min-w-0 overflow-x-hidden">
+                {children}
+              </div>
+            </TooltipProvider>
+
+            {/* =================================================
+                VERCEL ANALYTICS
+            ================================================= */}
+
+            <Analytics />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import {
@@ -10,33 +12,34 @@ import {
 
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
+import { useI18n } from "@/i18n/i18n-provider";
+
+import { messageKeys } from "@/i18n/message-keys";
+
 import { AnimatedStatValue } from "./animated-stat-value";
 
 /* =========================================================
    ESTADÍSTICAS
-
-   Se mantienen exactamente los mismos valores finales.
-
-   +2 Años
-   10+
-   Top 10%
-   100%
 ========================================================= */
 
 const stats = [
   {
+    id: "experience",
+
     value: 2,
 
     startValue: 100,
 
     prefix: "+",
 
-    suffix: " Años",
+    suffixKey: messageKeys.HERO.STATS.EXPERIENCE_SUFFIX,
 
-    label: "Experiencia Dev",
+    labelKey: messageKeys.HERO.STATS.EXPERIENCE,
   },
 
   {
+    id: "projects",
+
     value: 10,
 
     startValue: 100,
@@ -45,10 +48,12 @@ const stats = [
 
     suffix: "+",
 
-    label: "Proyectos completados",
+    labelKey: messageKeys.HERO.STATS.PROJECTS,
   },
 
   {
+    id: "academic",
+
     value: 10,
 
     startValue: 100,
@@ -57,10 +62,12 @@ const stats = [
 
     suffix: "%",
 
-    label: "Tecsup excelencia",
+    labelKey: messageKeys.HERO.STATS.ACADEMIC,
   },
 
   {
+    id: "clean-code",
+
     value: 100,
 
     startValue: 0,
@@ -69,15 +76,17 @@ const stats = [
 
     suffix: "%",
 
-    label: "Clean Code & Test",
+    labelKey: messageKeys.HERO.STATS.CLEAN_CODE,
   },
-];
+] as const;
 
 /* =========================================================
    HERO
 ========================================================= */
 
 export function HeroSection() {
+  const { $t } = useI18n();
+
   return (
     <section
       id="inicio"
@@ -108,7 +117,7 @@ export function HeroSection() {
 
         <div className="w-full min-w-0">
           {/* =================================================
-              BADGE SUPERIOR
+              BADGE
           ================================================= */}
 
           <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-cyan-300 bg-cyan-50 px-3 py-2 font-mono text-[8px] font-semibold tracking-[0.08em] text-cyan-700 uppercase shadow-[0_0_20px_rgba(6,182,212,0.08)] min-[360px]:text-[9px] sm:mb-7 sm:px-4 sm:text-[10px] md:text-[11px] dark:border-cyan-400/40 dark:bg-cyan-400/5 dark:text-cyan-400 dark:shadow-[0_0_20px_rgba(34,211,238,0.05)]">
@@ -118,7 +127,7 @@ export function HeroSection() {
             />
 
             <span className="min-w-0 leading-4">
-              Sistemas · Arquitectura · Rendimiento
+              {$t(messageKeys.HERO.BADGE)}
             </span>
           </div>
 
@@ -127,7 +136,7 @@ export function HeroSection() {
           ================================================= */}
 
           <h1 className="max-w-full text-[clamp(2.35rem,11vw,4.15rem)] leading-[0.98] font-extrabold tracking-[-0.045em] break-words text-slate-950 dark:text-white">
-            Daniel Ramirez
+            {$t(messageKeys.HERO.NAME)}
           </h1>
 
           {/* =================================================
@@ -136,7 +145,7 @@ export function HeroSection() {
 
           <div className="mt-4 flex min-w-0 flex-col items-start gap-3 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center sm:mt-5 sm:gap-4">
             <span className="max-w-full text-[16px] leading-tight font-medium text-slate-700 min-[360px]:text-[17px] sm:text-xl md:text-2xl dark:text-slate-200">
-              Software Developer
+              {$t(messageKeys.HERO.ROLE)}
             </span>
 
             <span
@@ -145,7 +154,7 @@ export function HeroSection() {
             />
 
             <span className="max-w-full rounded-md border border-cyan-200 bg-cyan-50 px-3 py-2 font-mono text-[9px] font-semibold tracking-wide text-cyan-700 sm:px-4 sm:text-xs dark:border-cyan-400/30 dark:bg-[#1b2433] dark:text-cyan-400">
-              FullStack Developer
+              {$t(messageKeys.HERO.SECONDARY_ROLE)}
             </span>
           </div>
 
@@ -154,9 +163,7 @@ export function HeroSection() {
           ================================================= */}
 
           <p className="mt-6 max-w-[690px] text-[14px] leading-7 text-slate-600 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base xl:text-[17px] dark:text-slate-300">
-            Construyo soluciones digitales escalables, funcionales y orientadas
-            a resolver problemas reales. Especializado en APIs de alta
-            disponibilidad y arquitecturas backend resilientes.
+            {$t(messageKeys.HERO.DESCRIPTION)}
           </p>
 
           {/* =================================================
@@ -175,9 +182,11 @@ export function HeroSection() {
                 href="#proyectos"
                 className="group inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 px-4 font-mono text-[10px] font-bold tracking-wide text-white uppercase shadow-[0_10px_30px_rgba(34,211,238,0.18)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(34,211,238,0.28)] min-[430px]:min-h-14 min-[430px]:px-6 sm:px-7 sm:text-xs"
               >
-                Ver proyectos
+                {$t(messageKeys.COMMON.VIEW_PROJECTS)}
+
                 <ArrowRight
                   size={16}
+                  aria-hidden="true"
                   className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
                 />
               </a>
@@ -191,9 +200,11 @@ export function HeroSection() {
               >
                 <Download
                   size={16}
+                  aria-hidden="true"
                   className="shrink-0 text-cyan-600 dark:text-cyan-400"
                 />
-                Descargar CV
+
+                {$t(messageKeys.COMMON.DOWNLOAD_CV)}
               </a>
             </div>
 
@@ -211,7 +222,7 @@ export function HeroSection() {
                 aria-label="GitHub"
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06]"
               >
-                <FaGithub size={18} />
+                <FaGithub size={18} aria-hidden="true" />
               </a>
 
               {/* LINKEDIN */}
@@ -223,17 +234,17 @@ export function HeroSection() {
                 aria-label="LinkedIn"
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06]"
               >
-                <FaLinkedinIn size={17} />
+                <FaLinkedinIn size={17} aria-hidden="true" />
               </a>
 
               {/* CONTACTO */}
 
               <a
                 href="#contacto"
-                aria-label="Contacto"
+                aria-label={$t(messageKeys.COMMON.CONTACT)}
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06]"
               >
-                <Mail size={18} />
+                <Mail size={18} aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -248,41 +259,43 @@ export function HeroSection() {
           />
 
           {/* =================================================
-              STATS ANIMADOS
-
-              El diseño se mantiene.
-              Solamente cambia el valor por AnimatedStatValue.
+              ESTADÍSTICAS
           ================================================= */}
 
           <div className="grid w-full min-w-0 grid-cols-1 gap-2.5 min-[340px]:grid-cols-2 sm:gap-3 lg:grid-cols-2 xl:grid-cols-4">
-            {stats.map((stat) => (
-              <article
-                key={stat.label}
-                className="min-w-0 rounded-xl border border-slate-200 bg-white p-3.5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_12px_35px_rgba(6,182,212,0.08)] sm:min-h-[105px] sm:p-4 dark:border-white/10 dark:bg-[#151b28]/80 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:shadow-none"
-              >
-                {/* =========================================
-                    NÚMERO ANIMADO
-                ========================================= */}
+            {stats.map((stat) => {
+              const suffix =
+                "suffixKey" in stat ? $t(stat.suffixKey) : stat.suffix;
 
-                <strong className="block text-[19px] leading-tight font-extrabold tracking-tight break-words text-slate-950 sm:text-xl xl:text-2xl dark:text-white">
-                  <AnimatedStatValue
-                    value={stat.value}
-                    startValue={stat.startValue}
-                    prefix={stat.prefix}
-                    suffix={stat.suffix}
-                    duration={1350}
-                  />
-                </strong>
+              return (
+                <article
+                  key={stat.id}
+                  className="min-w-0 rounded-xl border border-slate-200 bg-white p-3.5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_12px_35px_rgba(6,182,212,0.08)] sm:min-h-[105px] sm:p-4 dark:border-white/10 dark:bg-[#151b28]/80 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:shadow-none"
+                >
+                  {/* =====================================
+                        NÚMERO
+                    ===================================== */}
 
-                {/* =========================================
-                    ETIQUETA
-                ========================================= */}
+                  <strong className="block text-[19px] leading-tight font-extrabold tracking-tight break-words text-slate-950 sm:text-xl xl:text-2xl dark:text-white">
+                    <AnimatedStatValue
+                      value={stat.value}
+                      startValue={stat.startValue}
+                      prefix={stat.prefix}
+                      suffix={suffix}
+                      duration={1350}
+                    />
+                  </strong>
 
-                <span className="mt-2 block font-mono text-[8px] leading-4 tracking-[0.09em] break-words text-slate-500 uppercase sm:text-[9px] xl:text-[10px] dark:text-slate-400">
-                  {stat.label}
-                </span>
-              </article>
-            ))}
+                  {/* =====================================
+                        LABEL
+                    ===================================== */}
+
+                  <span className="mt-2 block font-mono text-[8px] leading-4 tracking-[0.09em] break-words text-slate-500 uppercase sm:text-[9px] xl:text-[10px] dark:text-slate-400">
+                    {$t(stat.labelKey)}
+                  </span>
+                </article>
+              );
+            })}
           </div>
         </div>
 
@@ -307,7 +320,7 @@ export function HeroSection() {
           <div className="relative mx-auto aspect-[0.76] w-full max-w-full overflow-hidden rounded-[18px] border-2 border-cyan-500 bg-slate-100 shadow-[0_0_40px_rgba(6,182,212,0.14)] [contain:paint] sm:rounded-[24px] sm:border-[3px] dark:border-cyan-400 dark:bg-[#111827] dark:shadow-[0_0_40px_rgba(34,211,238,0.10)]">
             <Image
               src="/daniel.webp"
-              alt="Daniel Ramirez - Software Developer"
+              alt={$t(messageKeys.HERO.PHOTO_ALT)}
               fill
               preload
               quality={65}
@@ -346,7 +359,7 @@ export function HeroSection() {
               />
 
               <span className="truncate font-mono text-[7px] font-bold tracking-[0.07em] text-cyan-300 uppercase min-[360px]:text-[8px] sm:text-[10px] sm:tracking-[0.12em]">
-                FullStack Developer
+                {$t(messageKeys.HERO.SECONDARY_ROLE)}
               </span>
             </div>
 
@@ -373,7 +386,7 @@ export function HeroSection() {
                 </span>
 
                 <span className="shrink-0 font-mono text-[7px] font-bold text-cyan-400 sm:text-[10px]">
-                  active
+                  {$t(messageKeys.HERO.TERMINAL_ACTIVE)}
                 </span>
               </div>
 
@@ -386,7 +399,9 @@ export function HeroSection() {
                   <span className="font-semibold text-blue-400">const</span>{" "}
                   architect = <span className="text-cyan-400">{"{"}</span> name:{" "}
                   <span className="text-violet-300">
-                    &quot;Daniel Ramirez&quot;
+                    &quot;
+                    {$t(messageKeys.HERO.NAME)}
+                    &quot;
                   </span>
                   ,
                 </p>
@@ -394,7 +409,9 @@ export function HeroSection() {
                 <p className="max-w-full break-words text-slate-300">
                   focus:{" "}
                   <span className="font-semibold text-cyan-300">
-                    &quot;Distributed APIs&quot;
+                    &quot;
+                    {$t(messageKeys.HERO.TERMINAL_FOCUS)}
+                    &quot;
                   </span>{" "}
                   <span className="text-cyan-400">{"}"}</span>;
                 </p>
@@ -408,11 +425,11 @@ export function HeroSection() {
 
           <div className="absolute top-1/2 -left-5 hidden -translate-y-1/2 flex-col gap-3 xl:flex">
             <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-cyan-600 shadow-sm dark:border-white/10 dark:bg-[#111722] dark:text-cyan-400 dark:shadow-none">
-              <Network size={18} />
+              <Network size={18} aria-hidden="true" />
             </span>
 
             <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-cyan-600 shadow-sm dark:border-white/10 dark:bg-[#111722] dark:text-cyan-400 dark:shadow-none">
-              <TerminalSquare size={18} />
+              <TerminalSquare size={18} aria-hidden="true" />
             </span>
           </div>
         </div>

@@ -1,4 +1,10 @@
+"use client";
+
 import { Braces, Cloud, Code2, Database } from "lucide-react";
+
+import { useI18n } from "@/i18n/i18n-provider";
+
+import { messageKeys } from "@/i18n/message-keys";
 
 /* =========================================================
    ÁREAS
@@ -6,15 +12,17 @@ import { Braces, Cloud, Code2, Database } from "lucide-react";
 
 const areas = [
   {
+    id: "software",
+
     icon: Code2,
 
-    title: "Software Development",
+    titleKey: messageKeys.ABOUT.AREAS.SOFTWARE.TITLE,
 
-    text: "Arquitectura limpia, patrones MVC, microservicios y código modular orientado a la escalabilidad y mantenibilidad.",
+    textKey: messageKeys.ABOUT.AREAS.SOFTWARE.TEXT,
 
-    label: "Modularidad",
+    labelKey: messageKeys.ABOUT.AREAS.SOFTWARE.LABEL,
 
-    footer: "SOLID · Clean",
+    footerKey: messageKeys.ABOUT.AREAS.SOFTWARE.FOOTER,
 
     iconClass:
       "border-indigo-200 bg-indigo-50 text-indigo-600 dark:border-indigo-400/30 dark:bg-indigo-400/10 dark:text-indigo-300",
@@ -30,15 +38,17 @@ const areas = [
   },
 
   {
+    id: "backend",
+
     icon: Braces,
 
-    title: "Backend & APIs",
+    titleKey: messageKeys.ABOUT.AREAS.BACKEND.TITLE,
 
-    text: "Diseño de RESTful APIs seguras, middleware optimizado, autenticación JWT, rate limiting y alto throughput.",
+    textKey: messageKeys.ABOUT.AREAS.BACKEND.TEXT,
 
-    label: "Seguridad",
+    labelKey: messageKeys.ABOUT.AREAS.BACKEND.LABEL,
 
-    footer: "JWT · OAuth",
+    footerKey: messageKeys.ABOUT.AREAS.BACKEND.FOOTER,
 
     iconClass:
       "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300",
@@ -54,15 +64,17 @@ const areas = [
   },
 
   {
+    id: "databases",
+
     icon: Database,
 
-    title: "Databases",
+    titleKey: messageKeys.ABOUT.AREAS.DATABASES.TITLE,
 
-    text: "Modelado relacional robusto, consultas indexadas complejas, integridad referencial y transacciones ACID confiables.",
+    textKey: messageKeys.ABOUT.AREAS.DATABASES.TEXT,
 
-    label: "Integridad",
+    labelKey: messageKeys.ABOUT.AREAS.DATABASES.LABEL,
 
-    footer: "ACID · Indexing",
+    footerKey: messageKeys.ABOUT.AREAS.DATABASES.FOOTER,
 
     iconClass:
       "border-violet-200 bg-violet-50 text-violet-600 dark:border-violet-400/30 dark:bg-violet-400/10 dark:text-violet-300",
@@ -78,15 +90,17 @@ const areas = [
   },
 
   {
+    id: "cloud",
+
     icon: Cloud,
 
-    title: "Cloud & Deployment",
+    titleKey: messageKeys.ABOUT.AREAS.CLOUD.TITLE,
 
-    text: "Contenedores Docker, orquestación, CI/CD, automatización con PM2 y despliegue de alta disponibilidad en la nube.",
+    textKey: messageKeys.ABOUT.AREAS.CLOUD.TEXT,
 
-    label: "DevOps",
+    labelKey: messageKeys.ABOUT.AREAS.CLOUD.LABEL,
 
-    footer: "Docker · PM2",
+    footerKey: messageKeys.ABOUT.AREAS.CLOUD.FOOTER,
 
     iconClass:
       "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300",
@@ -100,17 +114,19 @@ const areas = [
 
     delayClass: "[animation-delay:260ms]",
   },
-];
+] as const;
 
 /* =========================================================
    COMPONENTE
 ========================================================= */
 
 export function AboutSection() {
+  const { $t } = useI18n();
+
   return (
     <section
       id="sobre-mi"
-      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
+      className="perf-section relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
       {/* =====================================================
           ILUMINACIÓN
@@ -130,14 +146,14 @@ export function AboutSection() {
             CABECERA
         ================================================= */}
 
-        <div className="animate-in fade-in slide-in-from-bottom-4 mb-7 min-w-0 duration-500 sm:mb-9 lg:mb-10">
+        <div className="perf-reveal-up mb-7 min-w-0 sm:mb-9 lg:mb-10">
           {/* =================================================
               ETIQUETA
           ================================================= */}
 
           <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
             <span className="truncate font-mono text-[8px] font-bold tracking-[0.08em] text-cyan-700 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em] dark:text-cyan-300">
-              Trayectoria
+              {$t(messageKeys.ABOUT.EYEBROW)}
             </span>
           </div>
 
@@ -146,7 +162,7 @@ export function AboutSection() {
           ================================================= */}
 
           <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-slate-950 min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem] dark:text-white">
-            Sobre Mí
+            {$t(messageKeys.ABOUT.TITLE)}
           </h2>
 
           {/* =================================================
@@ -154,10 +170,7 @@ export function AboutSection() {
           ================================================= */}
 
           <p className="mt-3 max-w-[780px] text-[13px] leading-6 text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[17px] dark:text-slate-300">
-            Titulado en Diseño y Desarrollo de Software por Tecsup,
-            perteneciente al décimo superior y beneficiario de Beca 18.
-            Apasionado por construir soluciones web, backend, móviles y
-            tecnológicas.
+            {$t(messageKeys.ABOUT.DESCRIPTION)}
           </p>
         </div>
 
@@ -171,12 +184,12 @@ export function AboutSection() {
 
             return (
               <article
-                key={area.title}
-                className={`group animate-in fade-in slide-in-from-bottom-5 relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 min-[360px]:p-5 sm:min-h-[255px] sm:rounded-[16px] sm:p-6 lg:min-h-[275px] dark:bg-[#121620]/95 dark:shadow-none ${area.borderClass} ${area.glowClass} ${area.delayClass} `}
+                key={area.id}
+                className={`group perf-reveal-up relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 min-[360px]:p-5 sm:min-h-[255px] sm:rounded-[16px] sm:p-6 lg:min-h-[275px] dark:bg-[#121620]/95 dark:shadow-none ${area.borderClass} ${area.glowClass} ${area.delayClass}`}
               >
                 {/* =================================================
-                    GLOW SUPERIOR
-                ================================================= */}
+                      GLOW SUPERIOR
+                  ================================================= */}
 
                 <div
                   aria-hidden="true"
@@ -184,60 +197,58 @@ export function AboutSection() {
                 />
 
                 {/* =================================================
-                    ICONO
-                ================================================= */}
+                      ICONO
+                  ================================================= */}
 
                 <div
-                  className={`relative mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out group-hover:scale-[1.06] group-hover:-rotate-[4deg] sm:mb-5 sm:h-12 sm:w-12 sm:rounded-xl ${area.iconClass} `}
+                  className={`relative mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out group-hover:scale-[1.06] group-hover:-rotate-[4deg] sm:mb-5 sm:h-12 sm:w-12 sm:rounded-xl ${area.iconClass}`}
                 >
                   <Icon
                     size={20}
                     strokeWidth={2}
+                    aria-hidden="true"
                     className="sm:h-[22px] sm:w-[22px]"
                   />
                 </div>
 
                 {/* =================================================
-                    TÍTULO
-                ================================================= */}
+                      TÍTULO
+                  ================================================= */}
 
                 <h3 className="relative max-w-full text-[16px] leading-6 font-bold tracking-[-0.025em] break-words text-slate-950 min-[360px]:text-[17px] sm:text-[19px] dark:text-white">
-                  {area.title}
+                  {$t(area.titleKey)}
                 </h3>
 
                 {/* =================================================
-                    TEXTO
-                ================================================= */}
+                      TEXTO
+                  ================================================= */}
 
                 <p className="relative mt-2.5 flex-1 text-[12px] leading-6 break-words text-slate-600 sm:mt-3 sm:text-[13px] sm:leading-[1.65] dark:text-slate-300">
-                  {area.text}
+                  {$t(area.textKey)}
                 </p>
 
                 {/* =================================================
-                    FOOTER
-                ================================================= */}
+                      FOOTER
+                  ================================================= */}
 
                 <div className="relative mt-4 flex min-w-0 flex-col gap-2 border-t border-slate-200 pt-3 min-[350px]:flex-row min-[350px]:items-center min-[350px]:justify-between sm:mt-5 sm:gap-4 sm:pt-4 dark:border-white/[0.07]">
                   <span className="min-w-0 font-mono text-[8px] font-semibold tracking-[0.1em] break-words text-slate-500 min-[360px]:text-[9px] sm:tracking-[0.14em] dark:text-slate-500">
-                    {area.label}
+                    {$t(area.labelKey)}
                   </span>
 
                   <span
-                    className={`min-w-0 font-mono text-[8px] font-bold tracking-[0.08em] break-words min-[350px]:text-right min-[360px]:text-[9px] sm:tracking-[0.12em] ${area.footerClass} `}
+                    className={`min-w-0 font-mono text-[8px] font-bold tracking-[0.08em] break-words min-[350px]:text-right min-[360px]:text-[9px] sm:tracking-[0.12em] ${area.footerClass}`}
                   >
-                    {area.footer}
+                    {$t(area.footerKey)}
                   </span>
                 </div>
 
                 {/* =================================================
-                    LÍNEA HOVER OPTIMIZADA
+                      LÍNEA HOVER
 
-                    Antes:
-                    width 0 -> width 100%
-
-                    Ahora:
-                    scaleX(0) -> scaleX(1)
-                ================================================= */}
+                      scaleX permite una animación más barata
+                      que modificar width.
+                  ================================================= */}
 
                 <div
                   aria-hidden="true"

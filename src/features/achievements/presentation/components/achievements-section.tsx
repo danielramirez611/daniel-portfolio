@@ -1,16 +1,28 @@
+"use client";
+
 import { GraduationCap, Languages, Medal, UsersRound } from "lucide-react";
+
+import { useI18n } from "@/i18n/i18n-provider";
+
+import { messageKeys } from "@/i18n/message-keys";
 
 /* =========================================================
    LOGROS
 ========================================================= */
 
 const achievements = [
+  /* =======================================================
+     DÉCIMO SUPERIOR
+  ======================================================= */
+
   {
+    id: "top-tenth",
+
     icon: Medal,
 
-    title: "Décimo Superior",
+    titleKey: messageKeys.ACHIEVEMENTS.ITEMS.TOP_TENTH.TITLE,
 
-    text: "Tecsup excelencia académica destacada en Diseño y Desarrollo de Software.",
+    descriptionKey: messageKeys.ACHIEVEMENTS.ITEMS.TOP_TENTH.DESCRIPTION,
 
     iconClass:
       "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-300",
@@ -23,12 +35,18 @@ const achievements = [
     delayClass: "[animation-delay:80ms]",
   },
 
+  /* =======================================================
+     BECA 18
+  ======================================================= */
+
   {
+    id: "beca-18",
+
     icon: GraduationCap,
 
-    title: "Beca 18 — PRONABEC",
+    titleKey: messageKeys.ACHIEVEMENTS.ITEMS.BECA_18.TITLE,
 
-    text: "Beca integral otorgada por alto rendimiento escolar y mérito académico nacional.",
+    descriptionKey: messageKeys.ACHIEVEMENTS.ITEMS.BECA_18.DESCRIPTION,
 
     iconClass:
       "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-300",
@@ -41,12 +59,18 @@ const achievements = [
     delayClass: "[animation-delay:140ms]",
   },
 
+  /* =======================================================
+     CADE
+  ======================================================= */
+
   {
+    id: "cade",
+
     icon: UsersRound,
 
-    title: "CADE Universitario 2025",
+    titleKey: messageKeys.ACHIEVEMENTS.ITEMS.CADE.TITLE,
 
-    text: "Representante institucional en el encuentro de liderazgo juvenil más importante del país.",
+    descriptionKey: messageKeys.ACHIEVEMENTS.ITEMS.CADE.DESCRIPTION,
 
     iconClass:
       "border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-300",
@@ -59,12 +83,18 @@ const achievements = [
     delayClass: "[animation-delay:200ms]",
   },
 
+  /* =======================================================
+     INGLÉS B1
+  ======================================================= */
+
   {
+    id: "english-b1",
+
     icon: Languages,
 
-    title: "Inglés B1",
+    titleKey: messageKeys.ACHIEVEMENTS.ITEMS.ENGLISH_B1.TITLE,
 
-    text: "Competencia técnica comprobada en documentación, estándares globales y comunicación.",
+    descriptionKey: messageKeys.ACHIEVEMENTS.ITEMS.ENGLISH_B1.DESCRIPTION,
 
     iconClass:
       "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-300",
@@ -76,17 +106,19 @@ const achievements = [
 
     delayClass: "[animation-delay:260ms]",
   },
-];
+] as const;
 
 /* =========================================================
    COMPONENTE
 ========================================================= */
 
 export function AchievementsSection() {
+  const { $t } = useI18n();
+
   return (
     <section
       id="logros"
-      className="relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
+      className="perf-section relative w-full max-w-full overflow-x-clip border-t border-slate-200/80 py-14 transition-colors duration-300 sm:py-16 md:py-20 landscape:py-12 dark:border-white/[0.07]"
     >
       {/* =====================================================
           GLOW DECORATIVO
@@ -106,14 +138,14 @@ export function AchievementsSection() {
             CABECERA
         ================================================= */}
 
-        <div className="animate-in fade-in slide-in-from-bottom-4 min-w-0 duration-500">
+        <div className="perf-reveal-up min-w-0">
           {/* =================================================
               BADGE
           ================================================= */}
 
           <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
             <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-700 uppercase min-[360px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em] dark:text-cyan-300">
-              Distinciones
+              {$t(messageKeys.ACHIEVEMENTS.EYEBROW)}
             </span>
           </div>
 
@@ -122,7 +154,7 @@ export function AchievementsSection() {
           ================================================= */}
 
           <h2 className="mt-3 max-w-full text-[28px] leading-tight font-extrabold tracking-[-0.035em] break-words text-slate-950 min-[360px]:text-[30px] sm:text-3xl md:text-[2.4rem] dark:text-white">
-            Logros & Reconocimientos
+            {$t(messageKeys.ACHIEVEMENTS.TITLE)}
           </h2>
 
           {/* =================================================
@@ -130,8 +162,7 @@ export function AchievementsSection() {
           ================================================= */}
 
           <p className="mt-3 max-w-[820px] text-[13px] leading-6 break-words text-slate-600 min-[360px]:text-[14px] sm:text-[15px] sm:leading-7 md:text-[16px] dark:text-slate-300">
-            Reconocimientos de excelencia académica, liderazgo representativo y
-            acreditación de competencias.
+            {$t(messageKeys.ACHIEVEMENTS.DESCRIPTION)}
           </p>
         </div>
 
@@ -145,12 +176,12 @@ export function AchievementsSection() {
 
             return (
               <article
-                key={item.title}
-                className={`group animate-in fade-in slide-in-from-bottom-5 relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 min-[360px]:p-5 sm:min-h-[195px] sm:rounded-[16px] sm:p-6 lg:min-h-[205px] dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-none ${item.borderClass} ${item.glowClass} ${item.delayClass} `}
+                key={item.id}
+                className={`group perf-reveal-up relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 min-[360px]:p-5 sm:min-h-[195px] sm:rounded-[16px] sm:p-6 lg:min-h-[205px] dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-none ${item.borderClass} ${item.glowClass} ${item.delayClass}`}
               >
                 {/* =================================================
-                    LUZ SUPERIOR
-                ================================================= */}
+                      LUZ SUPERIOR
+                  ================================================= */}
 
                 <div
                   aria-hidden="true"
@@ -158,38 +189,39 @@ export function AchievementsSection() {
                 />
 
                 {/* =================================================
-                    ICONO
-                ================================================= */}
+                      ICONO
+                  ================================================= */}
 
                 <div
-                  className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out group-hover:scale-[1.08] group-hover:-rotate-[4deg] sm:h-11 sm:w-11 sm:rounded-xl ${item.iconClass} `}
+                  className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out group-hover:scale-[1.08] group-hover:-rotate-[4deg] sm:h-11 sm:w-11 sm:rounded-xl ${item.iconClass}`}
                 >
                   <Icon
                     size={19}
                     strokeWidth={2}
+                    aria-hidden="true"
                     className="sm:h-[21px] sm:w-[21px]"
                   />
                 </div>
 
                 {/* =================================================
-                    TÍTULO
-                ================================================= */}
+                      TÍTULO
+                  ================================================= */}
 
                 <h3 className="relative mt-4 max-w-full text-[16px] leading-6 font-bold tracking-[-0.025em] break-words text-slate-950 min-[360px]:text-[17px] sm:mt-5 sm:text-[19px] dark:text-white">
-                  {item.title}
+                  {$t(item.titleKey)}
                 </h3>
 
                 {/* =================================================
-                    DESCRIPCIÓN
-                ================================================= */}
+                      DESCRIPCIÓN
+                  ================================================= */}
 
                 <p className="relative mt-2 flex-1 text-[12px] leading-6 break-words text-slate-600 min-[360px]:text-[13px] dark:text-slate-300">
-                  {item.text}
+                  {$t(item.descriptionKey)}
                 </p>
 
                 {/* =================================================
-                    LÍNEA INFERIOR OPTIMIZADA
-                ================================================= */}
+                      LÍNEA INFERIOR
+                  ================================================= */}
 
                 <div
                   aria-hidden="true"

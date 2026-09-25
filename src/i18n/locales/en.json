@@ -1,0 +1,340 @@
+{
+  "COMMON": {
+    "VIEW_PROJECTS": "View projects",
+    "CONTACT": "Contact",
+    "COPY": "Copy",
+    "COPIED": "Copied",
+    "DOWNLOAD_CV": "Download CV",
+    "AVAILABLE": "Available for projects",
+    "CURRENT": "Current",
+    "RECENT": "Recent"
+  },
+
+  "HEADER": {
+    "HOME": "Home",
+    "ABOUT": "About me",
+    "STACK": "Stack",
+    "EXPERIENCE": "Experience",
+    "PROJECTS": "Projects",
+    "ACHIEVEMENTS": "Achievements",
+    "CERTIFICATIONS": "Certifications",
+    "CONTACT": "Contact",
+    "SOFTWARE_DEV": "SOFTWARE DEV",
+    "OPEN_MENU": "Open menu",
+    "CLOSE_MENU": "Close menu",
+    "GO_HOME": "Go to home",
+    "NAVIGATION": "Main navigation",
+    "MOBILE_NAVIGATION": "Mobile navigation"
+  },
+
+  "HERO": {
+    "BADGE": "Systems · Architecture · Performance",
+    "NAME": "Daniel Ramirez",
+    "ROLE": "Software Developer",
+    "SECONDARY_ROLE": "FullStack Developer",
+
+    "DESCRIPTION": "I build scalable, functional digital solutions focused on solving real-world problems. Specialized in high-availability APIs and resilient backend architectures.",
+
+    "PHOTO_ALT": "Daniel Ramirez - Software Developer",
+
+    "TERMINAL_ACTIVE": "active",
+    "TERMINAL_FOCUS": "Developer FullStack",
+
+    "STATS": {
+      "EXPERIENCE": "Development Experience",
+      "EXPERIENCE_SUFFIX": " Years",
+      "PROJECTS": "Completed Projects",
+      "ACADEMIC": "Tecsup Excellence",
+      "CLEAN_CODE": "Clean Code & Test"
+    }
+  },
+
+  "ABOUT": {
+    "EYEBROW": "BACKGROUND",
+    "TITLE": "About Me",
+    "DESCRIPTION": "Graduate in Software Design and Development from Tecsup, ranked in the top tenth of my class and a Beca 18 scholarship recipient. Passionate about building web, backend, mobile and technology solutions.",
+
+    "AREAS": {
+      "SOFTWARE": {
+        "TITLE": "Software Development",
+        "TEXT": "Clean architecture, MVC patterns, microservices and modular code focused on scalability and maintainability.",
+        "LABEL": "Modularity",
+        "FOOTER": "SOLID · Clean"
+      },
+
+      "BACKEND": {
+        "TITLE": "Backend & APIs",
+        "TEXT": "Design of secure RESTful APIs, optimized middleware, JWT authentication, rate limiting and high throughput.",
+        "LABEL": "Security",
+        "FOOTER": "JWT · OAuth"
+      },
+
+      "DATABASES": {
+        "TITLE": "Databases",
+        "TEXT": "Robust relational modeling, complex indexed queries, referential integrity and reliable ACID transactions.",
+        "LABEL": "Integrity",
+        "FOOTER": "ACID · Indexing"
+      },
+
+      "CLOUD": {
+        "TITLE": "Cloud & Deployment",
+        "TEXT": "Docker containers, orchestration, CI/CD, PM2 automation and high-availability cloud deployment.",
+        "LABEL": "DevOps",
+        "FOOTER": "Docker · PM2"
+      }
+    }
+  },
+
+  "SKILLS": {
+    "EYEBROW": "TOOLS & LANGUAGES",
+    "TITLE": "Technology Stack",
+    "DESCRIPTION": "Tools and technologies applied in production environments and software architecture.",
+
+    "FRONTEND": "Frontend",
+    "BACKEND": "Backend",
+    "DATABASES": "Databases",
+    "LANGUAGES": "Languages",
+    "TOOLS": "Tools & DevOps",
+    "HARDWARE": "Hardware & Enterprise",
+
+    "FILTERS": {
+      "ALL": "All",
+      "BACKEND": "Backend",
+      "FRONTEND": "Frontend",
+      "DATABASES": "Databases",
+      "DEVOPS": "DevOps/Tools"
+    }
+  },
+
+  "EXPERIENCE": {
+    "EYEBROW": "PROFESSIONAL CAREER",
+    "TITLE": "Work Experience",
+    "DESCRIPTION": "Key roles in backend design, systematic testing and development leadership.",
+
+    "ITEMS": {
+      "INTIGRATE": {
+        "ROLE": "Software Developer Trainee",
+        "DESCRIPTION": "Development of functional modules, automated testing, endpoint optimization and strict data schema validation within a corporate architecture."
+      },
+
+      "IMAYINER": {
+        "ROLE": "Backend Developer / Technical Leadership",
+        "LEADERSHIP": "Backend · Architecture · APIs · Leadership",
+        "DESCRIPTION": "Technical leadership in microservices structuring, transactional relational model design and continuous API deployment with high security standards."
+      }
+    },
+
+    "TECH": {
+      "DEVELOPMENT": "Development",
+      "TESTING": "Testing",
+      "APIS": "APIs",
+      "BUG_FIXING": "Bug fixing",
+      "DATA_VALIDATION": "Data validation",
+      "GIT": "Git"
+    }
+  },
+
+  "PROJECTS": {
+    "EYEBROW": "SELECTED PROJECTS",
+    "TITLE": "Solutions designed with robust architecture",
+    "DESCRIPTION": "Complete systems with high interaction, modern interfaces and a fluid user experience backed by a reliable backend.",
+
+    "CATEGORIES": {
+      "HARDWARE_WEB": "Hardware & Web",
+      "MOBILE": "Mobile",
+      "WEB": "Web"
+    },
+
+    "ITEMS": {
+      "HUB": {
+        "TITLE": "Programming Hub",
+        "SUBTITLE": "Educational platform and remote laboratory",
+        "DESCRIPTION": "Educational platform with a remote laboratory and IDE for Arduino programming."
+      },
+
+      "XOXO": {
+        "TITLE": "XOXO",
+        "SUBTITLE": "Mobile application",
+        "DESCRIPTION": "Mobile application focused on interfaces, navigation, authentication and payments."
+      },
+
+      "MESSAGES_TEC": {
+        "TITLE": "MessagesTec",
+        "SUBTITLE": "Institutional chat",
+        "DESCRIPTION": "Institutional messaging system with authentication and permission management."
+      },
+
+      "BARAK": {
+        "TITLE": "Barak",
+        "SUBTITLE": "Appointment management",
+        "DESCRIPTION": "System for managing appointments in a dental clinic."
+      },
+
+      "CEFOPROH": {
+        "TITLE": "CEFOPROH",
+        "SUBTITLE": "Institutional website",
+        "DESCRIPTION": "Design and development of an institutional web platform."
+      }
+    },
+
+    "STATUS": {
+      "STABLE_ARCHITECTURE": "Stable architecture",
+      "PRODUCTION_READY": "Production Ready",
+      "SYSTEM_READY": "System Ready"
+    },
+
+    "PREVIEWS": {
+      "HUB": {
+        "COMMENT": "// Starts secure handshake with Node.js broker",
+        "ONLINE": "ONLINE",
+        "COMPILED": "> [OK] Sketch compiled cleanly",
+        "TELEMETRY": "> Telemetry ping: 12ms · Remote socket verified."
+      },
+
+      "XOXO": {
+        "BALANCE_TOTAL": "Total Balance",
+        "PAY": "Pay",
+        "CHARGE": "Charge",
+        "TRANSFER": "Transfer"
+      },
+
+      "MESSAGES": {
+        "CHANNEL": "#systems-department",
+        "ONLINE": "34 online",
+        "DANIEL_MESSAGE": "Schema migration completed successfully with no downtime.",
+        "LEAD_MESSAGE": "Staging merge approved. Excellent latency."
+      },
+
+      "BARAK": {
+        "TITLE": "Clinical Schedule · Dentistry",
+        "APPOINTMENTS_TODAY": "8 appointments today",
+        "ENDODONTICS": "Endodontics",
+        "ORTHODONTICS": "Orthodontics",
+        "PATIENT": "Patient"
+      },
+
+      "CEFOPROH": {
+        "TITLE": "CEFOPROH Academic Portal",
+        "PERFORMANCE": "99/100 Core Web Vitals",
+        "COURSES": "Courses",
+        "AVAILABLE": "12 Available",
+        "ENROLLMENT": "Enrollment",
+        "ONLINE": "100% Online",
+        "CERTIFICATES": "Certificates",
+        "QR_VERIFICATION": "QR Verification"
+      }
+    }
+  },
+
+  "ACHIEVEMENTS": {
+    "EYEBROW": "DISTINCTIONS",
+    "TITLE": "Achievements & Recognition",
+    "DESCRIPTION": "Recognition for academic excellence, representative leadership and professional competencies.",
+
+    "ITEMS": {
+      "TOP_TENTH": {
+        "TITLE": "Top Tenth",
+        "DESCRIPTION": "Tecsup academic excellence recognition in Software Design and Development."
+      },
+
+      "BECA_18": {
+        "TITLE": "Beca 18 — PRONABEC",
+        "DESCRIPTION": "Full scholarship awarded for outstanding school performance and national academic merit."
+      },
+
+      "CADE": {
+        "TITLE": "CADE Universitario 2025",
+        "DESCRIPTION": "Institutional representative at one of the country's most important youth leadership events."
+      },
+
+      "ENGLISH_B1": {
+        "TITLE": "English B1",
+        "DESCRIPTION": "Demonstrated proficiency in technical documentation, global standards and communication."
+      }
+    }
+  },
+
+  "CERTIFICATIONS": {
+    "EYEBROW": "CREDENTIALS",
+    "TITLE": "Certifications",
+    "DESCRIPTION": "Credentials and technical training focused on software development, data, agile methodologies and modern technologies.",
+
+    "PROFESSIONAL_CREDENTIAL": "Professional Credential",
+    "VERIFIED": "Verified",
+
+    "ITEMS": {
+      "RESPONSIVE_WEB": {
+        "NAME": "Responsive Web Design",
+        "DESCRIPTION": "Development of responsive web interfaces, semantic structure and adaptation to different devices."
+      },
+
+      "PYTHON": {
+        "NAME": "Scientific Computing with Python",
+        "DESCRIPTION": "Python programming applied to logic, data structures and computational problem solving."
+      },
+
+      "DATA_ANALYTICS": {
+        "NAME": "Data Analytics Essentials",
+        "DESCRIPTION": "Fundamentals of data analysis, information interpretation and decision-oriented visualization."
+      },
+
+      "AGILE_LEAN": {
+        "NAME": "Gestión Ágil y Lean",
+        "DESCRIPTION": "Principles of agile methodologies, continuous improvement, work organization and value delivery."
+      },
+
+      "AZURE_DATA": {
+        "NAME": "Data Engineers en Azure",
+        "DESCRIPTION": "Data engineering concepts and cloud services applied to modern technology ecosystems."
+      }
+    }
+  },
+
+  "CONTACT": {
+    "EYEBROW": "LET'S TALK",
+    "TITLE": "Let's build something together.",
+    "DESCRIPTION": "Available for software development opportunities, systems architecture and challenging technology projects.",
+
+    "DIRECT_EMAIL": "DIRECT EMAIL",
+    "COPY_EMAIL": "COPY EMAIL",
+    "EMAIL_COPIED": "EMAIL COPIED",
+
+    "LOCATION": "Location",
+    "LOCATION_VALUE": "Chiclayo, Peru · Remote",
+
+    "CONNECT_LINKEDIN": "Connect on LinkedIn",
+    "VIEW_GITHUB": "View GitHub",
+    "SEND_EMAIL": "Send email",
+
+    "QUICK_MESSAGE": "Quick message",
+    "QUICK_MESSAGE_DESCRIPTION": "Send me your project requirements and I will respond as soon as possible.",
+
+    "NAME": "Your name / organization",
+    "NAME_PLACEHOLDER": "e.g. Alex Turner / FinTech Corp",
+
+    "EMAIL": "Your email",
+    "EMAIL_PLACEHOLDER": "alex@company.com",
+
+    "MESSAGE": "Project details",
+    "MESSAGE_PLACEHOLDER": "Tell me about the architecture, technical scope or goals...",
+
+    "SUBJECT": "Contact from portfolio",
+
+    "SEND": "Send contact message",
+    "SENDING": "Sending...",
+
+    "SUCCESS": "Message sent successfully.",
+    "ERROR": "The message could not be sent. Please try again."
+  },
+
+  "FOOTER": {
+    "RIGHTS": "All rights reserved.",
+    "DEVELOPED": "Designed and developed by Daniel Ramirez."
+  },
+
+  "LANGUAGE": {
+    "SPANISH": "Spanish",
+    "ENGLISH": "English",
+    "CHANGE_LANGUAGE": "Change language"
+  }
+}

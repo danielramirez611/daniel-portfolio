@@ -1,0 +1,340 @@
+{
+  "COMMON": {
+    "VIEW_PROJECTS": "Ver proyectos",
+    "CONTACT": "Contacto",
+    "COPY": "Copiar",
+    "COPIED": "Copiado",
+    "DOWNLOAD_CV": "Descargar CV",
+    "AVAILABLE": "Disponible para proyectos",
+    "CURRENT": "Actual",
+    "RECENT": "Reciente"
+  },
+
+  "HEADER": {
+    "HOME": "Inicio",
+    "ABOUT": "Sobre mí",
+    "STACK": "Stack",
+    "EXPERIENCE": "Experiencia",
+    "PROJECTS": "Proyectos",
+    "ACHIEVEMENTS": "Logros",
+    "CERTIFICATIONS": "Certificaciones",
+    "CONTACT": "Contacto",
+    "SOFTWARE_DEV": "SOFTWARE DEV",
+    "OPEN_MENU": "Abrir menú",
+    "CLOSE_MENU": "Cerrar menú",
+    "GO_HOME": "Ir al inicio",
+    "NAVIGATION": "Navegación principal",
+    "MOBILE_NAVIGATION": "Navegación móvil"
+  },
+
+  "HERO": {
+    "BADGE": "Sistemas · Arquitectura · Rendimiento",
+    "NAME": "Daniel Ramirez",
+    "ROLE": "Software Developer",
+    "SECONDARY_ROLE": "FullStack Developer",
+
+    "DESCRIPTION": "Construyo soluciones digitales escalables, funcionales y orientadas a resolver problemas reales. Especializado en APIs de alta disponibilidad y arquitecturas backend resilientes.",
+
+    "PHOTO_ALT": "Daniel Ramirez - Desarrollador de Software",
+
+    "TERMINAL_ACTIVE": "activo",
+    "TERMINAL_FOCUS": "Developer FullStack",
+
+    "STATS": {
+      "EXPERIENCE": "Experiencia Dev",
+      "EXPERIENCE_SUFFIX": " Años",
+      "PROJECTS": "Proyectos completados",
+      "ACADEMIC": "Tecsup excelencia",
+      "CLEAN_CODE": "Clean Code & Test"
+    }
+  },
+
+  "ABOUT": {
+    "EYEBROW": "TRAYECTORIA",
+    "TITLE": "Sobre Mí",
+    "DESCRIPTION": "Titulado en Diseño y Desarrollo de Software por Tecsup, perteneciente al décimo superior y beneficiario de Beca 18. Apasionado por construir soluciones web, backend, móviles y tecnológicas.",
+
+    "AREAS": {
+      "SOFTWARE": {
+        "TITLE": "Desarrollo de Software",
+        "TEXT": "Arquitectura limpia, patrones MVC, microservicios y código modular orientado a la escalabilidad y mantenibilidad.",
+        "LABEL": "Modularidad",
+        "FOOTER": "SOLID · Clean"
+      },
+
+      "BACKEND": {
+        "TITLE": "Backend & APIs",
+        "TEXT": "Diseño de APIs RESTful seguras, middleware optimizado, autenticación JWT, rate limiting y alto throughput.",
+        "LABEL": "Seguridad",
+        "FOOTER": "JWT · OAuth"
+      },
+
+      "DATABASES": {
+        "TITLE": "Bases de Datos",
+        "TEXT": "Modelado relacional robusto, consultas indexadas complejas, integridad referencial y transacciones ACID confiables.",
+        "LABEL": "Integridad",
+        "FOOTER": "ACID · Indexing"
+      },
+
+      "CLOUD": {
+        "TITLE": "Cloud & Despliegue",
+        "TEXT": "Contenedores Docker, orquestación, CI/CD, automatización con PM2 y despliegue de alta disponibilidad en la nube.",
+        "LABEL": "DevOps",
+        "FOOTER": "Docker · PM2"
+      }
+    }
+  },
+
+  "SKILLS": {
+    "EYEBROW": "HERRAMIENTAS & LENGUAJES",
+    "TITLE": "Stack Tecnológico",
+    "DESCRIPTION": "Herramientas y tecnologías aplicadas en entornos de producción y arquitectura de software.",
+
+    "FRONTEND": "Frontend",
+    "BACKEND": "Backend",
+    "DATABASES": "Bases de Datos",
+    "LANGUAGES": "Lenguajes",
+    "TOOLS": "Herramientas & DevOps",
+    "HARDWARE": "Hardware & Enterprise",
+
+    "FILTERS": {
+      "ALL": "Todos",
+      "BACKEND": "Backend",
+      "FRONTEND": "Frontend",
+      "DATABASES": "Bases de Datos",
+      "DEVOPS": "DevOps/Herramientas"
+    }
+  },
+
+  "EXPERIENCE": {
+    "EYEBROW": "TRAYECTORIA PROFESIONAL",
+    "TITLE": "Experiencia Laboral",
+    "DESCRIPTION": "Roles clave en diseño de backend, testing sistemático y liderazgo de desarrollo.",
+
+    "ITEMS": {
+      "INTIGRATE": {
+        "ROLE": "Practicante de Desarrollo de Software",
+        "DESCRIPTION": "Desarrollo de módulos funcionales, pruebas automatizadas, optimización de endpoints y validación estricta de esquemas de datos en arquitectura corporativa."
+      },
+
+      "IMAYINER": {
+        "ROLE": "Backend Developer / Liderazgo Técnico",
+        "LEADERSHIP": "Backend · Arquitectura · APIs · Liderazgo",
+        "DESCRIPTION": "Liderazgo técnico en estructuración de microservicios, diseño de modelos relacionales transaccionales y despliegue continuo de APIs con altos estándares de seguridad."
+      }
+    },
+
+    "TECH": {
+      "DEVELOPMENT": "Desarrollo",
+      "TESTING": "Pruebas",
+      "APIS": "APIs",
+      "BUG_FIXING": "Corrección de errores",
+      "DATA_VALIDATION": "Validación de datos",
+      "GIT": "Git"
+    }
+  },
+
+  "PROJECTS": {
+    "EYEBROW": "PROYECTOS SELECCIONADOS",
+    "TITLE": "Soluciones diseñadas con arquitectura robusta",
+    "DESCRIPTION": "Sistemas completos con alta interacción, interfaces modernas y experiencia de usuario fluida respaldada por un backend confiable.",
+
+    "CATEGORIES": {
+      "HARDWARE_WEB": "Hardware & Web",
+      "MOBILE": "Móvil",
+      "WEB": "Web"
+    },
+
+    "ITEMS": {
+      "HUB": {
+        "TITLE": "Hub de Programación",
+        "SUBTITLE": "Plataforma educativa y laboratorio remoto",
+        "DESCRIPTION": "Plataforma educativa con laboratorio remoto e IDE para programación de Arduino."
+      },
+
+      "XOXO": {
+        "TITLE": "XOXO",
+        "SUBTITLE": "Aplicación móvil",
+        "DESCRIPTION": "Aplicación móvil orientada a interfaces, navegación, autenticación y pagos."
+      },
+
+      "MESSAGES_TEC": {
+        "TITLE": "MessagesTec",
+        "SUBTITLE": "Chat institucional",
+        "DESCRIPTION": "Sistema institucional de mensajería con autenticación y gestión de permisos."
+      },
+
+      "BARAK": {
+        "TITLE": "Barak",
+        "SUBTITLE": "Gestión de citas",
+        "DESCRIPTION": "Sistema para la gestión de citas de una clínica dental."
+      },
+
+      "CEFOPROH": {
+        "TITLE": "CEFOPROH",
+        "SUBTITLE": "Web institucional",
+        "DESCRIPTION": "Diseño y desarrollo de una plataforma web institucional."
+      }
+    },
+
+    "STATUS": {
+      "STABLE_ARCHITECTURE": "Arquitectura estable",
+      "PRODUCTION_READY": "Listo para producción",
+      "SYSTEM_READY": "Sistema listo"
+    },
+
+    "PREVIEWS": {
+      "HUB": {
+        "COMMENT": "// Inicia handshake seguro con broker Node.js",
+        "ONLINE": "EN LÍNEA",
+        "COMPILED": "> [OK] Sketch compilado correctamente",
+        "TELEMETRY": "> Telemetría: 12ms · Socket remoto verificado."
+      },
+
+      "XOXO": {
+        "BALANCE_TOTAL": "Balance Total",
+        "PAY": "Pagar",
+        "CHARGE": "Cobrar",
+        "TRANSFER": "Transferir"
+      },
+
+      "MESSAGES": {
+        "CHANNEL": "#departamento-sistemas",
+        "ONLINE": "34 en línea",
+        "DANIEL_MESSAGE": "Migración de esquema completada con éxito sin downtime.",
+        "LEAD_MESSAGE": "Aprobado merge en staging. Excelente latencia."
+      },
+
+      "BARAK": {
+        "TITLE": "Agenda Clínica · Odontología",
+        "APPOINTMENTS_TODAY": "8 citas hoy",
+        "ENDODONTICS": "Endodoncia",
+        "ORTHODONTICS": "Ortodoncia",
+        "PATIENT": "Paciente"
+      },
+
+      "CEFOPROH": {
+        "TITLE": "Portal Académico CEFOPROH",
+        "PERFORMANCE": "99/100 Core Web Vitals",
+        "COURSES": "Cursos",
+        "AVAILABLE": "12 Disponibles",
+        "ENROLLMENT": "Matrícula",
+        "ONLINE": "100% Online",
+        "CERTIFICATES": "Certificados",
+        "QR_VERIFICATION": "Verificación QR"
+      }
+    }
+  },
+
+  "ACHIEVEMENTS": {
+    "EYEBROW": "DISTINCIONES",
+    "TITLE": "Logros & Reconocimientos",
+    "DESCRIPTION": "Reconocimientos de excelencia académica, liderazgo representativo y acreditación de competencias.",
+
+    "ITEMS": {
+      "TOP_TENTH": {
+        "TITLE": "Décimo Superior",
+        "DESCRIPTION": "Tecsup excelencia académica destacada en Diseño y Desarrollo de Software."
+      },
+
+      "BECA_18": {
+        "TITLE": "Beca 18 — PRONABEC",
+        "DESCRIPTION": "Beca integral otorgada por alto rendimiento escolar y mérito académico nacional."
+      },
+
+      "CADE": {
+        "TITLE": "CADE Universitario 2025",
+        "DESCRIPTION": "Representante institucional en el encuentro de liderazgo juvenil más importante del país."
+      },
+
+      "ENGLISH_B1": {
+        "TITLE": "Inglés B1",
+        "DESCRIPTION": "Competencia técnica comprobada en documentación, estándares globales y comunicación."
+      }
+    }
+  },
+
+  "CERTIFICATIONS": {
+    "EYEBROW": "CREDENCIALES",
+    "TITLE": "Certificaciones",
+    "DESCRIPTION": "Acreditaciones y formación técnica orientadas al desarrollo de software, datos, metodologías ágiles y tecnologías modernas.",
+
+    "PROFESSIONAL_CREDENTIAL": "Credencial Profesional",
+    "VERIFIED": "Verificada",
+
+    "ITEMS": {
+      "RESPONSIVE_WEB": {
+        "NAME": "Responsive Web Design",
+        "DESCRIPTION": "Desarrollo de interfaces web responsivas, estructura semántica y adaptación a diferentes dispositivos."
+      },
+
+      "PYTHON": {
+        "NAME": "Scientific Computing with Python",
+        "DESCRIPTION": "Programación con Python aplicada a lógica, estructuras de datos y resolución de problemas computacionales."
+      },
+
+      "DATA_ANALYTICS": {
+        "NAME": "Data Analytics Essentials",
+        "DESCRIPTION": "Fundamentos de análisis de datos, interpretación de información y visualización orientada a decisiones."
+      },
+
+      "AGILE_LEAN": {
+        "NAME": "Gestión Ágil y Lean",
+        "DESCRIPTION": "Principios de metodologías ágiles, mejora continua, organización del trabajo y entrega de valor."
+      },
+
+      "AZURE_DATA": {
+        "NAME": "Data Engineers en Azure",
+        "DESCRIPTION": "Conceptos de ingeniería de datos y servicios cloud aplicados a ecosistemas tecnológicos modernos."
+      }
+    }
+  },
+
+  "CONTACT": {
+    "EYEBROW": "HABLEMOS",
+    "TITLE": "Construyamos algo juntos.",
+    "DESCRIPTION": "Disponible para oportunidades de desarrollo de software, arquitectura de sistemas y proyectos tecnológicos desafiantes.",
+
+    "DIRECT_EMAIL": "CORREO ELECTRÓNICO DIRECTO",
+    "COPY_EMAIL": "COPIAR CORREO",
+    "EMAIL_COPIED": "CORREO COPIADO",
+
+    "LOCATION": "Ubicación",
+    "LOCATION_VALUE": "Chiclayo, Perú · Remoto",
+
+    "CONNECT_LINKEDIN": "Conectar en LinkedIn",
+    "VIEW_GITHUB": "Ver GitHub",
+    "SEND_EMAIL": "Enviar correo",
+
+    "QUICK_MESSAGE": "Mensaje rápido",
+    "QUICK_MESSAGE_DESCRIPTION": "Envíame los requerimientos de tu proyecto y responderé lo antes posible.",
+
+    "NAME": "Tu nombre / organización",
+    "NAME_PLACEHOLDER": "Ej. Alex Turner / FinTech Corp",
+
+    "EMAIL": "Tu correo",
+    "EMAIL_PLACEHOLDER": "alex@empresa.com",
+
+    "MESSAGE": "Detalles del proyecto",
+    "MESSAGE_PLACEHOLDER": "Cuéntame sobre la arquitectura, alcance técnico o metas...",
+
+    "SUBJECT": "Contacto desde portafolio",
+
+    "SEND": "Enviar mensaje de contacto",
+    "SENDING": "Enviando...",
+
+    "SUCCESS": "Mensaje enviado correctamente.",
+    "ERROR": "No se pudo enviar el mensaje. Inténtalo nuevamente."
+  },
+
+  "FOOTER": {
+    "RIGHTS": "Todos los derechos reservados.",
+    "DEVELOPED": "Diseñado y desarrollado por Daniel Ramirez."
+  },
+
+  "LANGUAGE": {
+    "SPANISH": "Español",
+    "ENGLISH": "Inglés",
+    "CHANGE_LANGUAGE": "Cambiar idioma"
+  }
+}
