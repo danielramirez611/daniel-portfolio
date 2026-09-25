@@ -73,15 +73,7 @@ export function ThemeToggle() {
   const isDark = resolvedTheme === "dark";
 
   /* =======================================================
-     CAMBIO INMEDIATO
-
-     Importante:
-     dejamos que next-themes controle la clase .dark.
-
-     No modificamos manualmente:
-     document.documentElement.classList
-
-     Esto evita hacer dos actualizaciones de estilos.
+     CAMBIO DIRECTO
   ======================================================= */
 
   function changeTheme(nextTheme: "light" | "dark") {
@@ -89,14 +81,14 @@ export function ThemeToggle() {
   }
 
   /* =======================================================
-     TRANSICIÓN ESCRITORIO
+     TRANSICIÓN SOLO PARA ESCRITORIO
   ======================================================= */
 
   function runDesktopTransition(nextTheme: "light" | "dark") {
     const documentWithTransition = document as DocumentWithViewTransition;
 
     /* =====================================================
-       NAVEGADOR SIN VIEW TRANSITION
+       SI EL NAVEGADOR NO SOPORTA VIEW TRANSITION
     ===================================================== */
 
     if (!documentWithTransition.startViewTransition) {
@@ -116,7 +108,7 @@ export function ThemeToggle() {
     const y = rect ? rect.top + rect.height / 2 : 40;
 
     /* =====================================================
-       RADIO
+       RADIO DE EXPANSIÓN
     ===================================================== */
 
     const maxX = Math.max(x, window.innerWidth - x);
@@ -134,7 +126,7 @@ export function ThemeToggle() {
     });
 
     /* =====================================================
-       REVELADO
+       ANIMACIÓN CIRCULAR SOLO DESKTOP
     ===================================================== */
 
     transition.ready
@@ -164,20 +156,20 @@ export function ThemeToggle() {
       })
       .catch(() => {
         /*
-         * El tema ya fue actualizado.
+         * El tema ya fue cambiado.
          */
       });
   }
 
   /* =======================================================
-     CAMBIAR TEMA
+     TOGGLE
   ======================================================= */
 
   function toggleTheme() {
     const nextTheme: "light" | "dark" = isDark ? "light" : "dark";
 
     /* =====================================================
-       REDUCED MOTION
+       ACCESIBILIDAD
     ===================================================== */
 
     const reduceMotion = window.matchMedia(
@@ -191,28 +183,24 @@ export function ThemeToggle() {
     }
 
     /* =====================================================
-       MÓVIL / TABLET TÁCTIL
+       MÓVIL / TABLET
 
-       IMPORTANTE:
-
-       NO usamos startViewTransition.
-
-       Esto elimina:
-       - screenshot completo del DOM
-       - composición de dos páginas
+       SIN:
+       - View Transition
        - clip-path
-       - animación global
-       - memoria extra
-       - posibles tirones
+       - fade
+       - scale
+       - rotate
+       - transición del botón
 
-       El tema cambia inmediatamente.
+       Cambio totalmente inmediato.
     ===================================================== */
 
-    const lightweightDevice = window.matchMedia(
+    const isMobileOrTouch = window.matchMedia(
       "(max-width: 1024px), (pointer: coarse)",
     ).matches;
 
-    if (lightweightDevice) {
+    if (isMobileOrTouch) {
       changeTheme(nextTheme);
 
       return;
@@ -236,21 +224,29 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={isDark ? "Activar tema claro" : "Activar tema oscuro"}
       title={isDark ? "Tema claro" : "Tema oscuro"}
-      className="group flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition-transform duration-100 ease-out hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-cyan-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:translate-y-0 active:scale-[0.92] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:focus-visible:ring-cyan-400/40 dark:focus-visible:ring-offset-[#070913]"
+      className="group flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm focus-visible:ring-2 focus-visible:ring-cyan-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none min-[1025px]:transition-transform min-[1025px]:duration-150 min-[1025px]:ease-out min-[1025px]:hover:-translate-y-0.5 min-[1025px]:active:translate-y-0 min-[1025px]:active:scale-[0.94] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:focus-visible:ring-cyan-400/40 dark:focus-visible:ring-offset-[#070913]"
     >
+      {/* =================================================
+          ICONO SOL
+      ================================================= */}
+
       {isDark ? (
         <Sun
           size={16}
           strokeWidth={2}
           aria-hidden="true"
-          className="shrink-0 text-cyan-300 transition-transform duration-100 ease-out group-hover:scale-110 group-hover:rotate-12 group-active:scale-90 group-active:rotate-45"
+          className="shrink-0 text-cyan-300 min-[1025px]:transition-transform min-[1025px]:duration-150 min-[1025px]:ease-out min-[1025px]:group-hover:scale-110 min-[1025px]:group-hover:rotate-12 min-[1025px]:group-active:scale-90 min-[1025px]:group-active:rotate-45"
         />
       ) : (
+        /* =================================================
+           ICONO LUNA
+        ================================================= */
+
         <Moon
           size={16}
           strokeWidth={2}
           aria-hidden="true"
-          className="shrink-0 text-slate-700 transition-transform duration-100 ease-out group-hover:scale-110 group-hover:-rotate-12 group-active:scale-90 group-active:-rotate-45"
+          className="shrink-0 text-slate-700 min-[1025px]:transition-transform min-[1025px]:duration-150 min-[1025px]:ease-out min-[1025px]:group-hover:scale-110 min-[1025px]:group-hover:-rotate-12 min-[1025px]:group-active:scale-90 min-[1025px]:group-active:-rotate-45"
         />
       )}
     </button>
