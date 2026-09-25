@@ -250,15 +250,6 @@ body {
     #f8fafc;
 
   color: #0f172a;
-
-  /*
-   * No usamos transición global de:
-   *
-   * color
-   * background-color
-   *
-   * para evitar trabajo de pintura adicional.
-   */
 }
 
 /* =========================================================
@@ -349,16 +340,6 @@ canvas {
 /* =========================================================
    ANIMACIONES OPTIMIZADAS
 ========================================================= */
-
-/*
- * Estas animaciones utilizan solamente:
- *
- * opacity
- * transform
- *
- * Son mucho más amigables con la GPU que animaciones
- * que incluyen filter, blur, box-shadow, width, etc.
- */
 
 /* =========================================================
    ENTRADA DESDE ABAJO
@@ -474,9 +455,6 @@ canvas {
 
 /* =========================================================
    DELAYS OPTIMIZADOS
-
-   Úsalos cuando quieras que tarjetas aparezcan
-   ligeramente una después de otra.
 ========================================================= */
 
 .perf-delay-1 {
@@ -507,18 +485,6 @@ canvas {
    SECCIONES BELOW THE FOLD
 ========================================================= */
 
-/*
- * El navegador puede posponer el renderizado de secciones
- * que todavía no están visibles.
- *
- * Esto ayuda especialmente en móvil porque:
- *
- * Hero se pinta primero.
- *
- * About / Skills / Experience / Projects / etc.
- * se renderizan cuando se acercan al viewport.
- */
-
 .perf-section {
   content-visibility: auto;
 
@@ -529,11 +495,6 @@ canvas {
    CONTENCIÓN DE PINTURA
 ========================================================= */
 
-/*
- * Para tarjetas o bloques independientes que tengan
- * decoraciones, sombras o fondos complejos.
- */
-
 .perf-paint {
   contain: paint;
 }
@@ -542,28 +503,25 @@ canvas {
    TRANSFORMACIONES
 ========================================================= */
 
-/*
- * Útil solamente en elementos que realmente van a
- * transformarse con hover.
- *
- * No usamos will-change globalmente porque reservaría
- * memoria innecesariamente.
- */
-
 .perf-transform {
   transform: translateZ(0);
 }
+
 /* =========================================================
-   CAMBIO DE TEMA SUAVE
+   CAMBIO DE TEMA
 ========================================================= */
 
 /*
- * View Transition:
+ * ThemeToggle controla:
  *
- * El nuevo tema aparece desde el botón como una expansión
- * circular.
+ * MÓVIL:
+ * fade de aproximadamente 160 ms.
  *
- * No mantenemos transiciones globales permanentemente.
+ * ESCRITORIO:
+ * revelado circular de aproximadamente 380 ms.
+ *
+ * Aquí desactivamos la animación nativa de View Transition
+ * para que solamente se ejecute nuestra animación.
  */
 
 ::view-transition-old(root),
@@ -573,66 +531,44 @@ canvas {
   mix-blend-mode: normal;
 }
 
+/* =========================================================
+   CAPA DEL TEMA ANTERIOR
+========================================================= */
+
 ::view-transition-old(root) {
   z-index: 1;
 }
 
+/* =========================================================
+   CAPA DEL TEMA NUEVO
+========================================================= */
+
 ::view-transition-new(root) {
-  z-index: 9999;
+  z-index: 2;
 }
 
 /* =========================================================
-   FALLBACK PARA NAVEGADORES SIN VIEW TRANSITION
+   OPTIMIZACIÓN MÓVIL
 ========================================================= */
 
 /*
- * Estas transiciones únicamente existen mientras el usuario
- * pulsa el botón de tema.
+ * En pantallas móviles evitamos filtros,
+ * blur adicional y cualquier transición global.
  *
- * La clase se elimina automáticamente después.
+ * La animación del tema utiliza solamente opacity.
  */
 
-html.theme-transition-fallback,
-html.theme-transition-fallback body,
-html.theme-transition-fallback header,
-html.theme-transition-fallback main,
-html.theme-transition-fallback footer,
-html.theme-transition-fallback section,
-html.theme-transition-fallback article,
-html.theme-transition-fallback nav,
-html.theme-transition-fallback a,
-html.theme-transition-fallback button,
-html.theme-transition-fallback div,
-html.theme-transition-fallback span,
-html.theme-transition-fallback p,
-html.theme-transition-fallback h1,
-html.theme-transition-fallback h2,
-html.theme-transition-fallback h3,
-html.theme-transition-fallback input,
-html.theme-transition-fallback textarea {
-  transition:
-    background-color 360ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 360ms cubic-bezier(0.22, 1, 0.36, 1),
-    color 360ms cubic-bezier(0.22, 1, 0.36, 1) !important;
-}
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 767px), (pointer: coarse) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation: none !important;
-  }
+    mix-blend-mode: normal;
 
-  html.theme-transition-fallback,
-  html.theme-transition-fallback * {
-    transition: none !important;
+    animation: none;
   }
 }
+
 /* =========================================================
-   REDUCED MOTION
+   REDUCED MOTION GLOBAL
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -663,6 +599,11 @@ html.theme-transition-fallback textarea {
 
     transform: none !important;
 
+    animation: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
     animation: none !important;
   }
 }
