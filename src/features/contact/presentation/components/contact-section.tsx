@@ -174,7 +174,7 @@ export function ContactSection() {
               COLUMNA IZQUIERDA
           ================================================= */}
 
-          <div className="perf-reveal-left flex min-w-0 flex-col gap-3 duration-500 sm:gap-4">
+          <div className="animate-in fade-in slide-in-from-left-4 flex min-w-0 flex-col gap-3 duration-500 sm:gap-4">
             {/* =================================================
                 EMAIL
             ================================================= */}
@@ -325,7 +325,7 @@ export function ContactSection() {
               FORMULARIO
           ================================================= */}
 
-          <div className="perf-reveal-right relative min-w-0 overflow-hidden rounded-[16px] border border-slate-200 bg-white p-4 shadow-[0_22px_70px_rgba(15,23,42,0.08)] transition-colors duration-500 [animation-delay:80ms] min-[360px]:p-5 sm:rounded-[20px] sm:p-6 md:rounded-[22px] md:p-7 dark:border-white/[0.1] dark:bg-[#171b27]/95 dark:shadow-[0_22px_70px_rgba(0,0,0,0.18)]">
+          <div className="animate-in fade-in slide-in-from-right-4 relative min-w-0 overflow-hidden rounded-[16px] border border-slate-200 bg-white p-4 shadow-[0_22px_70px_rgba(15,23,42,0.08)] transition-colors duration-500 [animation-delay:80ms] min-[360px]:p-5 sm:rounded-[20px] sm:p-6 md:rounded-[22px] md:p-7 dark:border-white/[0.1] dark:bg-[#171b27]/95 dark:shadow-[0_22px_70px_rgba(0,0,0,0.18)]">
             {/* =================================================
                 GLOW
             ================================================= */}
