@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/brand/marca-light.png",
+        url: "/brand/marca-dark.png",
 
         type: "image/png",
 
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
 
     shortcut: "/brand/marca-dark.png",
 
-    apple: "/brand/marca-light.png",
+    apple: "/brand/marca-dark.png",
   },
 
   /* =======================================================

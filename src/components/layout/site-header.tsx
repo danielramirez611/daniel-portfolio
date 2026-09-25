@@ -193,7 +193,7 @@ export function SiteHeader() {
               ============================================= */}
 
               <Image
-                src="/brand/marca-light.png"
+                src="/brand/marca-dark.png"
                 alt=""
                 width={40}
                 height={40}

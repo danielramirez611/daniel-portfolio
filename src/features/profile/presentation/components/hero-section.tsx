@@ -309,6 +309,7 @@ export function HeroSection() {
               src="/daniel.webp"
               alt="Daniel Ramirez - Software Developer"
               fill
+              preload
               quality={65}
               decoding="async"
               className="object-cover object-center"
