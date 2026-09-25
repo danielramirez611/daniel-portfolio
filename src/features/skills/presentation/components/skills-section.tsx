@@ -11,8 +11,6 @@ import {
   Wrench,
 } from "lucide-react";
 
-import { AnimatePresence, motion } from "motion/react";
-
 /* =========================================================
    TIPOS
 ========================================================= */
@@ -28,9 +26,13 @@ interface Technology {
 
 interface StackGroup {
   title: string;
+
   category: Exclude<Category, "all">;
+
   icon: ElementType;
+
   iconClassName: string;
+
   technologies: Technology[];
 }
 
@@ -45,7 +47,9 @@ const groups: StackGroup[] = [
 
   {
     title: "Frontend",
+
     category: "frontend",
+
     icon: PanelsTopLeft,
 
     iconClassName:
@@ -96,7 +100,9 @@ const groups: StackGroup[] = [
 
   {
     title: "Backend",
+
     category: "backend",
+
     icon: Server,
 
     iconClassName:
@@ -156,7 +162,9 @@ const groups: StackGroup[] = [
 
   {
     title: "Lenguajes",
+
     category: "backend",
+
     icon: CodeXml,
 
     iconClassName:
@@ -207,7 +215,9 @@ const groups: StackGroup[] = [
 
   {
     title: "Bases de Datos",
+
     category: "database",
+
     icon: Database,
 
     iconClassName:
@@ -258,7 +268,9 @@ const groups: StackGroup[] = [
 
   {
     title: "Herramientas & DevOps",
+
     category: "devops",
+
     icon: Wrench,
 
     iconClassName:
@@ -318,7 +330,9 @@ const groups: StackGroup[] = [
 
   {
     title: "Hardware & Enterprise",
+
     category: "other",
+
     icon: Cpu,
 
     iconClassName:
@@ -367,23 +381,55 @@ const filters: {
     id: "all",
     label: "Todos",
   },
+
   {
     id: "backend",
     label: "Backend",
   },
+
   {
     id: "frontend",
     label: "Frontend",
   },
+
   {
     id: "database",
     label: "Databases",
   },
+
   {
     id: "devops",
     label: "DevOps/Tools",
   },
 ];
+
+/* =========================================================
+   DELAYS CSS
+
+   Reemplaza stagger de Motion.
+========================================================= */
+
+function getDelayClass(index: number) {
+  switch (index) {
+    case 1:
+      return "[animation-delay:40ms]";
+
+    case 2:
+      return "[animation-delay:80ms]";
+
+    case 3:
+      return "[animation-delay:120ms]";
+
+    case 4:
+      return "[animation-delay:160ms]";
+
+    case 5:
+      return "[animation-delay:200ms]";
+
+    default:
+      return "[animation-delay:0ms]";
+  }
+}
 
 /* =========================================================
    COMPONENTE
@@ -406,7 +452,10 @@ export function SkillsSection() {
           ILUMINACIÓN
       ===================================================== */}
 
-      <div className="pointer-events-none absolute top-20 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400/[0.08] blur-[90px] sm:right-0 sm:h-[340px] sm:w-[340px] sm:blur-[120px] dark:bg-cyan-400/[0.02]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-20 -right-28 h-[260px] w-[260px] rounded-full bg-cyan-400/[0.08] blur-[90px] sm:right-0 sm:h-[340px] sm:w-[340px] sm:blur-[120px] dark:bg-cyan-400/[0.02]"
+      />
 
       {/* =====================================================
           CONTENEDOR
@@ -417,25 +466,10 @@ export function SkillsSection() {
             CABECERA
         ================================================= */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="mb-7 min-w-0 sm:mb-9 lg:mb-10"
-        >
-          {/* ETIQUETA */}
+        <div className="animate-in fade-in slide-in-from-bottom-4 mb-7 min-w-0 duration-500 sm:mb-9 lg:mb-10">
+          {/* =================================================
+              ETIQUETA
+          ================================================= */}
 
           <div className="inline-flex max-w-full items-center rounded-[4px] border border-cyan-200 bg-cyan-50 px-2.5 py-1.5 shadow-sm transition-colors duration-300 sm:px-3 dark:border-cyan-300/25 dark:bg-[#1b2330]/80 dark:shadow-none">
             <span className="min-w-0 truncate font-mono text-[8px] font-bold tracking-[0.07em] text-cyan-700 uppercase min-[350px]:text-[9px] sm:text-[10px] sm:tracking-[0.1em] dark:text-cyan-300">
@@ -477,7 +511,8 @@ export function SkillsSection() {
                       key={filter.id}
                       type="button"
                       onClick={() => setActive(filter.id)}
-                      className={`min-w-0 rounded-lg px-2 py-2.5 font-mono text-[8px] font-bold tracking-[0.06em] break-words uppercase transition-all duration-300 min-[360px]:text-[9px] sm:px-3 xl:px-4 ${
+                      aria-pressed={selected}
+                      className={`min-w-0 rounded-lg px-2 py-2.5 font-mono text-[8px] font-bold tracking-[0.06em] break-words uppercase transition-[transform,background-color,color,box-shadow] duration-200 ease-out active:scale-[0.98] min-[360px]:text-[9px] sm:px-3 xl:px-4 ${
                         selected
                           ? `bg-cyan-500 text-white shadow-[0_0_18px_rgba(6,182,212,0.18)] dark:bg-cyan-400 dark:text-[#06111a] dark:shadow-[0_0_18px_rgba(34,211,238,0.15)]`
                           : `text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/[0.04] dark:hover:text-white`
@@ -490,121 +525,89 @@ export function SkillsSection() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* =================================================
             CARDS
+
+            Ya no usa:
+            motion.div
+            layout
+            AnimatePresence
         ================================================= */}
 
-        <motion.div
-          layout
-          className="grid w-full min-w-0 grid-cols-1 gap-3 min-[540px]:grid-cols-2 sm:gap-4 lg:gap-5 xl:grid-cols-3 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-3"
-        >
-          <AnimatePresence mode="popLayout">
-            {visible.map((group, index) => {
-              const Icon = group.icon;
+        <div className="grid w-full min-w-0 grid-cols-1 gap-3 min-[540px]:grid-cols-2 sm:gap-4 lg:gap-5 xl:grid-cols-3 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-3">
+          {visible.map((group, index) => {
+            const Icon = group.icon;
 
-              return (
-                <motion.article
-                  key={group.title}
-                  layout
-                  initial={{
-                    opacity: 0,
-                    y: 24,
-                    scale: 0.97,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: 10,
-                    scale: 0.97,
-                  }}
-                  transition={{
-                    duration: 0.35,
-                    delay: index * 0.04,
-                  }}
-                  whileHover={{
-                    y: -5,
-                  }}
-                  className="group relative min-w-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[background-color,border-color,box-shadow] duration-300 hover:border-cyan-400/40 hover:shadow-[0_18px_45px_rgba(6,182,212,0.08)] min-[360px]:p-5 sm:min-h-[160px] sm:rounded-[16px] sm:p-6 dark:border-white/10 dark:bg-[#151925]/95 dark:shadow-none dark:hover:border-cyan-400/25 dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)]"
-                >
-                  {/* =================================================
+            return (
+              <article
+                key={`${active}-${group.title}`}
+                className={`group animate-in fade-in slide-in-from-bottom-4 zoom-in-[0.98] relative min-w-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:border-cyan-400/40 hover:shadow-[0_18px_45px_rgba(6,182,212,0.08)] min-[360px]:p-5 sm:min-h-[160px] sm:rounded-[16px] sm:p-6 dark:border-white/10 dark:bg-[#151925]/95 dark:shadow-none dark:hover:border-cyan-400/25 dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)] ${getDelayClass(index)} `}
+              >
+                {/* =================================================
                       GLOW
                   ================================================= */}
 
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-cyan-50/80 to-transparent sm:h-20 dark:from-white/[0.015]" />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-cyan-50/80 to-transparent sm:h-20 dark:from-white/[0.015]"
+                />
 
-                  {/* =================================================
+                {/* =================================================
                       ENCABEZADO CARD
                   ================================================= */}
 
-                  <div className="relative flex min-w-0 items-center gap-3 sm:gap-4">
-                    <motion.div
-                      whileHover={{
-                        scale: 1.08,
-                        rotate: -3,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 18,
-                      }}
-                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border sm:h-10 sm:w-10 ${group.iconClassName} `}
-                    >
-                      <Icon
-                        size={18}
-                        strokeWidth={2}
-                        className="sm:h-[19px] sm:w-[19px]"
-                      />
-                    </motion.div>
-
-                    <h3 className="min-w-0 text-[16px] leading-6 font-bold tracking-[-0.03em] break-words text-slate-950 min-[360px]:text-[17px] sm:text-[19px] dark:text-white">
-                      {group.title}
-                    </h3>
+                <div className="relative flex min-w-0 items-center gap-3 sm:gap-4">
+                  <div
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out hover:scale-[1.08] hover:-rotate-3 sm:h-10 sm:w-10 ${group.iconClassName} `}
+                  >
+                    <Icon
+                      size={18}
+                      strokeWidth={2}
+                      className="sm:h-[19px] sm:w-[19px]"
+                    />
                   </div>
 
-                  {/* =================================================
+                  <h3 className="min-w-0 text-[16px] leading-6 font-bold tracking-[-0.03em] break-words text-slate-950 min-[360px]:text-[17px] sm:text-[19px] dark:text-white">
+                    {group.title}
+                  </h3>
+                </div>
+
+                {/* =================================================
                       TECNOLOGÍAS
                   ================================================= */}
 
-                  <div className="relative mt-4 flex min-w-0 flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
-                    {group.technologies.map((technology) => (
-                      <motion.span
-                        key={technology.name}
-                        whileHover={{
-                          y: -2,
-                          scale: 1.03,
-                        }}
-                        transition={{
-                          duration: 0.18,
-                        }}
-                        className={`inline-flex max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[8px] font-bold tracking-[0.04em] transition-colors duration-300 sm:gap-2 sm:px-3 sm:text-[9px] lg:text-[10px] ${technology.className} `}
-                      >
-                        <span
-                          className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${technology.dotClassName} `}
-                        />
+                <div className="relative mt-4 flex min-w-0 flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
+                  {group.technologies.map((technology) => (
+                    <span
+                      key={technology.name}
+                      className={`inline-flex max-w-full min-w-0 items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[8px] font-bold tracking-[0.04em] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_14px_rgba(6,182,212,0.07)] sm:gap-2 sm:px-3 sm:text-[9px] lg:text-[10px] dark:hover:shadow-[0_0_14px_rgba(34,211,238,0.06)] ${technology.className} `}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${technology.dotClassName} `}
+                      />
 
-                        <span className="min-w-0 break-words">
-                          {technology.name}
-                        </span>
-                      </motion.span>
-                    ))}
-                  </div>
+                      <span className="min-w-0 break-words">
+                        {technology.name}
+                      </span>
+                    </span>
+                  ))}
+                </div>
 
-                  {/* =================================================
-                      LÍNEA INFERIOR
+                {/* =================================================
+                      LÍNEA INFERIOR OPTIMIZADA
                   ================================================= */}
 
-                  <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-all duration-500 group-hover:w-full" />
-                </motion.article>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
+                <div
+                  aria-hidden="true"
+                  className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100"
+                />
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

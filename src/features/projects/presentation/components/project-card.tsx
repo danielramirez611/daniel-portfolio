@@ -1,7 +1,6 @@
-"use client";
+import type { ReactNode } from "react";
 
 import { Wifi } from "lucide-react";
-import { motion } from "motion/react";
 
 import type { Project } from "../../domain/entities/project";
 
@@ -138,13 +137,9 @@ function getTechnologyClass(technology: string) {
 function HubProgrammingPreview() {
   return (
     <div className="w-full max-w-full min-w-0 overflow-hidden rounded-[12px] border border-slate-200 bg-white shadow-[0_15px_50px_rgba(15,23,42,0.08)] sm:rounded-[15px] dark:border-white/10 dark:bg-[#090d17] dark:shadow-[0_15px_50px_rgba(0,0,0,0.25)]">
-      {/* =================================================
-          BARRA SUPERIOR
-      ================================================= */}
+      {/* BARRA SUPERIOR */}
 
       <div className="flex h-9 min-w-0 items-center gap-2 overflow-hidden border-b border-slate-200 bg-slate-100 px-2.5 sm:h-10 sm:px-4 dark:border-white/[0.07] dark:bg-[#1b202d]">
-        {/* LUCES */}
-
         <div className="flex shrink-0 gap-1.5 sm:gap-2">
           <span className="h-2 w-2 rounded-full bg-red-400/80 sm:h-3 sm:w-3 dark:bg-red-300/80" />
 
@@ -153,13 +148,9 @@ function HubProgrammingPreview() {
           <span className="h-2 w-2 rounded-full bg-sky-500 sm:h-3 sm:w-3 dark:bg-sky-400" />
         </div>
 
-        {/* ARCHIVO */}
-
         <span className="min-w-0 flex-1 truncate font-mono text-[7px] text-slate-500 min-[360px]:text-[8px] sm:ml-1 sm:text-[10px]">
           arduino_telemetry_hub.cc
         </span>
-
-        {/* ESTADO */}
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-500 sm:h-2 sm:w-2 dark:bg-cyan-400" />
@@ -171,9 +162,7 @@ function HubProgrammingPreview() {
         </div>
       </div>
 
-      {/* =================================================
-          CÓDIGO
-      ================================================= */}
+      {/* CÓDIGO */}
 
       <div className="min-w-0 space-y-1.5 overflow-hidden p-3 font-mono text-[7px] leading-4 min-[360px]:text-[8px] sm:space-y-2 sm:p-4 sm:text-[9px] md:p-5 md:text-[10px] xl:text-[11px]">
         <CodeLine number="01">
@@ -221,9 +210,7 @@ function HubProgrammingPreview() {
         </CodeLine>
       </div>
 
-      {/* =================================================
-          TERMINAL
-      ================================================= */}
+      {/* TERMINAL */}
 
       <div className="mx-2.5 mb-2.5 min-w-0 overflow-hidden rounded-lg border border-cyan-200 bg-slate-100 px-3 py-2.5 font-mono text-[7px] leading-4 min-[360px]:text-[8px] sm:mx-4 sm:mb-4 sm:px-4 sm:py-3 sm:text-[9px] lg:text-[10px] dark:border-cyan-400/10 dark:bg-[#181d29]">
         <p className="break-words text-cyan-700 dark:text-cyan-300">
@@ -247,7 +234,7 @@ function CodeLine({
   children,
 }: {
   number: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <p className="flex min-w-0 items-start">
@@ -265,6 +252,8 @@ function CodeLine({
 ========================================================= */
 
 function XoxoPreview() {
+  const actions = ["Pagar", "Cobrar", "Transferir"];
+
   return (
     <div className="mx-auto w-full max-w-[255px] min-w-0 rounded-[22px] border border-slate-200 bg-slate-100 p-2.5 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:rounded-[28px] sm:p-3 dark:border-white/10 dark:bg-[#252a38] dark:shadow-[0_18px_50px_rgba(0,0,0,0.25)]">
       <div className="mx-auto mb-2.5 h-2.5 w-16 rounded-full bg-slate-300 sm:mb-3 sm:h-3 sm:w-20 dark:bg-white/[0.06]" />
@@ -292,7 +281,7 @@ function XoxoPreview() {
         </div>
 
         <div className="mt-2.5 grid grid-cols-3 gap-1.5 sm:mt-3 sm:gap-2">
-          {["Pagar", "Cobrar", "Transferir"].map((item) => (
+          {actions.map((item) => (
             <div
               key={item}
               className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-1 py-2.5 text-center text-[7px] break-words text-cyan-700 sm:px-2 sm:py-3 sm:text-[9px] dark:border-transparent dark:bg-[#1c2230] dark:text-cyan-300"
@@ -386,6 +375,12 @@ function BarakPreview() {
 ========================================================= */
 
 function CefoprohPreview() {
+  const items = [
+    ["Cursos", "12 Disponibles"],
+    ["Matrícula", "100% Online"],
+    ["Certificados", "Verificación QR"],
+  ];
+
   return (
     <div className="w-full max-w-full min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white p-3 shadow-[0_15px_45px_rgba(15,23,42,0.07)] sm:p-4 dark:border-white/[0.08] dark:bg-[#090d17] dark:shadow-[0_15px_45px_rgba(0,0,0,0.2)]">
       <div className="mb-3 flex min-w-0 flex-col gap-1.5 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between">
@@ -399,11 +394,7 @@ function CefoprohPreview() {
       </div>
 
       <div className="grid min-w-0 grid-cols-1 gap-2 min-[360px]:grid-cols-3">
-        {[
-          ["Cursos", "12 Disponibles"],
-          ["Matrícula", "100% Online"],
-          ["Certificados", "Verificación QR"],
-        ].map(([title, value]) => (
+        {items.map(([title, value]) => (
           <div
             key={title}
             className="min-w-0 rounded-md border border-slate-200 bg-slate-100 px-1.5 py-3 text-center sm:px-2 sm:py-4 dark:border-white/[0.04] dark:bg-[#292d3b]"
@@ -482,28 +473,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const isFeatured = project.slug === "hub-programacion";
 
   return (
-    <motion.article
-      initial={{
-        opacity: 0,
-        y: 26,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-        amount: 0.1,
-      }}
-      transition={{
-        duration: 0.55,
-        delay: 0.055,
-        ease: "easeOut",
-      }}
-      whileHover={{
-        y: -4,
-      }}
-      className={`group relative w-full max-w-full min-w-0 overflow-hidden rounded-[16px] border transition-all duration-500 sm:rounded-[20px] lg:rounded-[22px] ${
+    <article
+      className={`group relative w-full max-w-full min-w-0 overflow-hidden rounded-[16px] border transition-[transform,border-color,box-shadow,background-color] duration-500 hover:-translate-y-1 sm:rounded-[20px] lg:rounded-[22px] ${
         isFeatured
           ? `border-cyan-300 bg-white shadow-[0_20px_70px_rgba(6,182,212,0.08)] lg:col-span-2 landscape:min-[900px]:col-span-2 dark:border-cyan-400/45 dark:bg-[#141923] dark:shadow-[0_20px_70px_rgba(0,0,0,0.18)]`
           : `border-slate-200 bg-white shadow-[0_10px_35px_rgba(15,23,42,0.05)] hover:border-cyan-400/40 hover:shadow-[0_20px_60px_rgba(6,182,212,0.08)] dark:border-white/[0.09] dark:bg-[#151923] dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:shadow-[0_20px_60px_rgba(0,0,0,0.22)]`
@@ -514,6 +485,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       ================================================= */}
 
       <div
+        aria-hidden="true"
         className={`pointer-events-none absolute rounded-full blur-[90px] sm:blur-[120px] ${
           isFeatured
             ? `-top-20 -right-20 h-[240px] w-[240px] bg-cyan-400/[0.10] sm:-top-28 sm:-right-24 sm:h-[330px] sm:w-[330px] dark:bg-cyan-400/[0.055]`
@@ -525,7 +497,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
           LUZ SUPERIOR
       ================================================= */}
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-cyan-50/70 to-transparent sm:h-28 dark:from-white/[0.018]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-cyan-50/70 to-transparent sm:h-28 dark:from-white/[0.018]"
+      />
 
       {isFeatured ? (
         <FeaturedProject project={project} />
@@ -534,11 +509,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
       )}
 
       {/* =================================================
-          LÍNEA INFERIOR
+          LÍNEA INFERIOR OPTIMIZADA
+
+          Ya no cambia width.
+          Ahora usa transform/scale.
       ================================================= */}
 
-      <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-all duration-700 group-hover:w-full" />
-    </motion.article>
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-transform duration-700 group-hover:scale-x-100"
+      />
+    </article>
   );
 }
 
@@ -549,9 +530,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 function FeaturedProject({ project }: { project: Project }) {
   return (
     <div className="relative grid w-full min-w-0 grid-cols-1 gap-6 p-4 min-[360px]:p-5 sm:gap-8 sm:p-6 md:p-7 xl:min-h-[355px] xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:gap-10 xl:p-9">
-      {/* =================================================
-          INFORMACIÓN
-      ================================================= */}
+      {/* INFORMACIÓN */}
 
       <div className="flex min-w-0 flex-col justify-center">
         <ProjectHeader project={project} />
@@ -566,9 +545,7 @@ function FeaturedProject({ project }: { project: Project }) {
 
         <TechnologyList technologies={project.technologies} />
 
-        {/* =================================================
-            ESTADO
-        ================================================= */}
+        {/* ESTADO */}
 
         <div className="mt-5 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5 font-mono text-[7px] tracking-[0.06em] text-slate-500 uppercase min-[360px]:text-[8px] sm:mt-7 sm:text-[9px] sm:tracking-[0.12em]">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.5)] dark:bg-cyan-400 dark:shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
@@ -583,24 +560,17 @@ function FeaturedProject({ project }: { project: Project }) {
         </div>
       </div>
 
-      {/* =================================================
-          PREVIEW
-      ================================================= */}
+      {/* PREVIEW */}
 
       <div className="relative flex min-w-0 items-center">
-        <div className="pointer-events-none absolute inset-4 rounded-[24px] bg-cyan-400/[0.07] blur-2xl sm:inset-6 sm:rounded-[30px] sm:blur-3xl dark:bg-cyan-400/[0.025]" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-4 rounded-[24px] bg-cyan-400/[0.07] blur-2xl sm:inset-6 sm:rounded-[30px] sm:blur-3xl dark:bg-cyan-400/[0.025]"
+        />
 
-        <motion.div
-          whileHover={{
-            scale: 1.01,
-          }}
-          transition={{
-            duration: 0.3,
-          }}
-          className="relative w-full max-w-full min-w-0"
-        >
+        <div className="relative w-full max-w-full min-w-0 transition-transform duration-300 ease-out hover:scale-[1.01]">
           <ProjectPreview project={project} />
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -625,29 +595,20 @@ function StandardProject({ project }: { project: Project }) {
 
       <TechnologyList technologies={project.technologies} />
 
-      {/* =================================================
-          PREVIEW
-      ================================================= */}
+      {/* PREVIEW */}
 
       <div className="relative my-5 flex min-w-0 flex-1 items-center justify-center sm:my-6 lg:my-7">
-        <div className="pointer-events-none absolute inset-5 rounded-[30px] bg-cyan-400/[0.06] blur-2xl sm:inset-10 sm:rounded-[40px] sm:blur-3xl dark:bg-cyan-400/[0.02]" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-5 rounded-[30px] bg-cyan-400/[0.06] blur-2xl sm:inset-10 sm:rounded-[40px] sm:blur-3xl dark:bg-cyan-400/[0.02]"
+        />
 
-        <motion.div
-          whileHover={{
-            scale: 1.012,
-          }}
-          transition={{
-            duration: 0.3,
-          }}
-          className="relative w-full max-w-full min-w-0"
-        >
+        <div className="relative w-full max-w-full min-w-0 transition-transform duration-300 ease-out hover:scale-[1.012]">
           <ProjectPreview project={project} />
-        </motion.div>
+        </div>
       </div>
 
-      {/* =================================================
-          FOOTER
-      ================================================= */}
+      {/* FOOTER */}
 
       <div className="flex min-w-0 items-center border-t border-slate-200 pt-3 font-mono text-[7px] tracking-[0.07em] uppercase sm:pt-4 sm:text-[9px] sm:tracking-[0.1em] dark:border-white/[0.06]">
         <span className="flex min-w-0 items-center gap-2 break-words text-cyan-700 dark:text-cyan-400">
@@ -691,21 +652,14 @@ function TechnologyList({ technologies }: { technologies: string[] }) {
   return (
     <div className="mt-4 flex min-w-0 flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
       {technologies.map((technology) => (
-        <motion.span
+        <span
           key={technology}
-          whileHover={{
-            y: -2,
-            scale: 1.03,
-          }}
-          transition={{
-            duration: 0.18,
-          }}
-          className={`inline-flex max-w-full min-w-0 items-center rounded-md border px-2 py-1.5 font-mono text-[7px] font-bold tracking-[0.04em] break-words transition-[background-color,border-color,color,box-shadow] duration-300 hover:shadow-[0_0_14px_rgba(6,182,212,0.08)] min-[360px]:text-[8px] sm:px-3 sm:text-[9px] sm:tracking-[0.075em] dark:hover:shadow-[0_0_14px_rgba(34,211,238,0.07)] ${getTechnologyClass(
+          className={`inline-flex max-w-full min-w-0 items-center rounded-md border px-2 py-1.5 font-mono text-[7px] font-bold tracking-[0.04em] break-words transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_14px_rgba(6,182,212,0.08)] min-[360px]:text-[8px] sm:px-3 sm:text-[9px] sm:tracking-[0.075em] dark:hover:shadow-[0_0_14px_rgba(34,211,238,0.07)] ${getTechnologyClass(
             technology,
           )} `}
         >
           {technology}
-        </motion.span>
+        </span>
       ))}
     </div>
   );

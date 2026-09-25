@@ -1,34 +1,46 @@
 import type { Metadata } from "next";
 
-import { Inter, JetBrains_Mono, Manrope } from "next/font/google";
+import type { ReactNode } from "react";
+
+import { JetBrains_Mono } from "next/font/google";
 
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
+
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { Analytics } from "@vercel/analytics/next";
 
 /* =========================================================
-   FUENTES
+   FUENTE PRINCIPAL
+
+   Se mantiene únicamente JetBrains Mono porque el diseño
+   del portafolio utiliza una estética técnica / monoespaciada.
+
+   Esto evita precargar fuentes adicionales que aumentaban
+   las solicitudes iniciales.
 ========================================================= */
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
+
   variable: "--font-mono",
+
   display: "swap",
+
+  preload: true,
+
+  fallback: [
+    "ui-monospace",
+    "SFMono-Regular",
+    "Menlo",
+    "Monaco",
+    "Consolas",
+    "Liberation Mono",
+    "Courier New",
+    "monospace",
+  ],
 });
 
 /* =========================================================
@@ -38,6 +50,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Daniel Ramirez | Software Developer",
+
     template: "%s | Daniel Ramirez",
   },
 
@@ -71,12 +84,17 @@ export const metadata: Metadata = {
     icon: [
       {
         url: "/brand/marca-light.png",
+
         type: "image/png",
+
         media: "(prefers-color-scheme: light)",
       },
+
       {
         url: "/brand/marca-dark.png",
+
         type: "image/png",
+
         media: "(prefers-color-scheme: dark)",
       },
     ],
@@ -110,7 +128,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html
@@ -119,7 +137,7 @@ export default function RootLayout({
       className="w-full max-w-full overflow-x-hidden"
     >
       <body
-        className={` ${inter.variable} ${manrope.variable} ${jetbrainsMono.variable} bg-background text-foreground min-h-screen w-full max-w-full overflow-x-hidden overscroll-x-none antialiased transition-colors duration-300`}
+        className={` ${jetbrainsMono.variable} bg-background text-foreground min-h-screen w-full max-w-full overflow-x-hidden overscroll-x-none antialiased`}
       >
         <ThemeProvider>
           <TooltipProvider>

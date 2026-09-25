@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import {
   ArrowRight,
   Download,
@@ -6,7 +7,12 @@ import {
   Network,
   TerminalSquare,
 } from "lucide-react";
+
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+
+/* =========================================================
+   ESTADÍSTICAS
+========================================================= */
 
 const stats = [
   {
@@ -27,6 +33,10 @@ const stats = [
   },
 ];
 
+/* =========================================================
+   HERO
+========================================================= */
+
 export function HeroSection() {
   return (
     <section
@@ -37,9 +47,15 @@ export function HeroSection() {
           LUCES DECORATIVAS
       ================================================= */}
 
-      <div className="pointer-events-none absolute top-32 -left-40 h-[300px] w-[300px] rounded-full bg-blue-500/[0.08] blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[120px] dark:bg-blue-600/5" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-32 -left-40 h-[300px] w-[300px] rounded-full bg-blue-500/[0.08] blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[120px] dark:bg-blue-600/5"
+      />
 
-      <div className="pointer-events-none absolute top-20 -right-40 h-[300px] w-[300px] rounded-full bg-cyan-400/[0.10] blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[120px] dark:bg-cyan-400/5" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-20 -right-40 h-[300px] w-[300px] rounded-full bg-cyan-400/[0.10] blur-[100px] sm:h-[420px] sm:w-[420px] sm:blur-[120px] dark:bg-cyan-400/5"
+      />
 
       {/* =================================================
           CONTENEDOR
@@ -56,7 +72,10 @@ export function HeroSection() {
           ================================================= */}
 
           <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-cyan-300 bg-cyan-50 px-3 py-2 font-mono text-[8px] font-semibold tracking-[0.08em] text-cyan-700 uppercase shadow-[0_0_20px_rgba(6,182,212,0.08)] min-[360px]:text-[9px] sm:mb-7 sm:px-4 sm:text-[10px] md:text-[11px] dark:border-cyan-400/40 dark:bg-cyan-400/5 dark:text-cyan-400 dark:shadow-[0_0_20px_rgba(34,211,238,0.05)]">
-            <span className="h-2 w-2 shrink-0 rounded-full border border-cyan-400/60 bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.55)] sm:h-2.5 sm:w-2.5 dark:border-cyan-300/50 dark:bg-cyan-400 dark:shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 shrink-0 rounded-full border border-cyan-400/60 bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.55)] sm:h-2.5 sm:w-2.5 dark:border-cyan-300/50 dark:bg-cyan-400 dark:shadow-[0_0_12px_rgba(34,211,238,0.8)]"
+            />
 
             <span className="min-w-0 leading-4">
               Sistemas · Arquitectura · Rendimiento
@@ -80,7 +99,10 @@ export function HeroSection() {
               Software Developer
             </span>
 
-            <span className="hidden h-7 w-px shrink-0 bg-slate-300 min-[420px]:block dark:bg-white/20" />
+            <span
+              aria-hidden="true"
+              className="hidden h-7 w-px shrink-0 bg-slate-300 min-[420px]:block dark:bg-white/20"
+            />
 
             <span className="max-w-full rounded-md border border-cyan-200 bg-cyan-50 px-3 py-2 font-mono text-[9px] font-semibold tracking-wide text-cyan-700 sm:px-4 sm:text-xs dark:border-cyan-400/30 dark:bg-[#1b2433] dark:text-cyan-400">
               FullStack Developer
@@ -102,19 +124,21 @@ export function HeroSection() {
           ================================================= */}
 
           <div className="mt-7 flex min-w-0 flex-col gap-5 sm:mt-8 lg:mt-9 xl:flex-row xl:items-center xl:justify-between">
-            {/* BOTONES */}
+            {/* =================================================
+                BOTONES
+            ================================================= */}
 
             <div className="grid w-full min-w-0 grid-cols-1 gap-3 min-[430px]:flex min-[430px]:w-auto min-[430px]:flex-wrap">
               {/* VER PROYECTOS */}
 
               <a
                 href="#proyectos"
-                className="group inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 px-4 font-mono text-[10px] font-bold tracking-wide text-white uppercase shadow-[0_10px_30px_rgba(34,211,238,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(34,211,238,0.28)] min-[430px]:min-h-14 min-[430px]:px-6 sm:px-7 sm:text-xs"
+                className="group inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 px-4 font-mono text-[10px] font-bold tracking-wide text-white uppercase shadow-[0_10px_30px_rgba(34,211,238,0.18)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(34,211,238,0.28)] min-[430px]:min-h-14 min-[430px]:px-6 sm:px-7 sm:text-xs"
               >
                 Ver proyectos
                 <ArrowRight
                   size={16}
-                  className="shrink-0 transition group-hover:translate-x-1"
+                  className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
                 />
               </a>
 
@@ -123,7 +147,7 @@ export function HeroSection() {
               <a
                 href="/daniel-ramirez-cv.pdf"
                 download
-                className="inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 font-mono text-[10px] font-bold tracking-wide text-slate-700 uppercase shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:bg-cyan-50 hover:text-cyan-700 min-[430px]:min-h-14 min-[430px]:px-6 sm:px-7 sm:text-xs dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:bg-white/[0.07] dark:hover:text-slate-200"
+                className="inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 font-mono text-[10px] font-bold tracking-wide text-slate-700 uppercase shadow-sm transition-[transform,border-color,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:bg-cyan-50 min-[430px]:min-h-14 min-[430px]:px-6 sm:px-7 sm:text-xs dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:bg-white/[0.07]"
               >
                 <Download
                   size={16}
@@ -145,7 +169,7 @@ export function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 hover:text-cyan-700 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06] dark:hover:text-cyan-400"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06]"
               >
                 <FaGithub size={18} />
               </a>
@@ -157,7 +181,7 @@ export function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 hover:text-cyan-700 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06] dark:hover:text-cyan-400"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06]"
               >
                 <FaLinkedinIn size={17} />
               </a>
@@ -167,7 +191,7 @@ export function HeroSection() {
               <a
                 href="#contacto"
                 aria-label="Contacto"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 hover:text-cyan-700 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06] dark:hover:text-cyan-400"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-50 sm:h-12 sm:w-12 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06]"
               >
                 <Mail size={18} />
               </a>
@@ -178,7 +202,10 @@ export function HeroSection() {
               SEPARADOR
           ================================================= */}
 
-          <div className="my-6 h-px w-full bg-gradient-to-r from-slate-300/80 via-slate-200/50 to-transparent sm:my-7 dark:from-white/10 dark:via-white/5" />
+          <div
+            aria-hidden="true"
+            className="my-6 h-px w-full bg-gradient-to-r from-slate-300/80 via-slate-200/50 to-transparent sm:my-7 dark:from-white/10 dark:via-white/5"
+          />
 
           {/* =================================================
               STATS
@@ -188,7 +215,7 @@ export function HeroSection() {
             {stats.map((stat) => (
               <article
                 key={stat.label}
-                className="min-w-0 rounded-xl border border-slate-200 bg-white p-3.5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_12px_35px_rgba(6,182,212,0.08)] sm:min-h-[105px] sm:p-4 dark:border-white/10 dark:bg-[#151b28]/80 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:shadow-none"
+                className="min-w-0 rounded-xl border border-slate-200 bg-white p-3.5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_12px_35px_rgba(6,182,212,0.08)] sm:min-h-[105px] sm:p-4 dark:border-white/10 dark:bg-[#151b28]/80 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:shadow-none"
               >
                 <strong className="block text-[19px] leading-tight font-extrabold tracking-tight break-words text-slate-950 sm:text-xl xl:text-2xl dark:text-white">
                   {stat.value}
@@ -207,40 +234,57 @@ export function HeroSection() {
         ================================================= */}
 
         <div className="relative mx-auto mt-2 w-full max-w-[425px] min-w-0 sm:max-w-[390px] md:max-w-[420px] lg:mt-0 lg:max-w-[425px]">
-          {/* RESPLANDOR */}
+          {/* =================================================
+              RESPLANDOR
+          ================================================= */}
 
-          <div className="pointer-events-none absolute -inset-3 rounded-[30px] bg-cyan-400/[0.10] blur-2xl sm:-inset-5 sm:rounded-[36px] sm:blur-3xl dark:bg-cyan-400/5" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-3 rounded-[30px] bg-cyan-400/[0.10] blur-2xl sm:-inset-5 sm:rounded-[36px] sm:blur-3xl dark:bg-cyan-400/5"
+          />
 
           {/* =================================================
               FOTO
           ================================================= */}
 
-          <div className="relative mx-auto aspect-[0.76] w-full max-w-full overflow-hidden rounded-[18px] border-2 border-cyan-500 bg-slate-100 shadow-[0_0_40px_rgba(6,182,212,0.14)] sm:rounded-[24px] sm:border-[3px] dark:border-cyan-400 dark:bg-[#111827] dark:shadow-[0_0_40px_rgba(34,211,238,0.10)]">
+          <div className="relative mx-auto aspect-[0.76] w-full max-w-full overflow-hidden rounded-[18px] border-2 border-cyan-500 bg-slate-100 shadow-[0_0_40px_rgba(6,182,212,0.14)] [contain:paint] sm:rounded-[24px] sm:border-[3px] dark:border-cyan-400 dark:bg-[#111827] dark:shadow-[0_0_40px_rgba(34,211,238,0.10)]">
             <Image
-              src="/daniel.jpg"
+              src="/daniel.webp"
               alt="Daniel Ramirez - Software Developer"
               fill
-              priority
+              quality={65}
+              decoding="async"
               className="object-cover object-center"
-              sizes="(max-width: 480px) calc(100vw - 32px), (max-width: 1024px) 420px, 425px"
+              sizes="
+                (max-width: 480px) calc(100vw - 32px),
+                (max-width: 1024px) 420px,
+                425px
+              "
             />
 
             {/* =================================================
-                TRATAMIENTO DE FOTO
-                Lo mantenemos oscuro para conservar contraste
-                con el terminal y la fotografía.
+                TRATAMIENTO FOTO
             ================================================= */}
 
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080c16] via-transparent to-[#07101e]/10" />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080c16] via-transparent to-[#07101e]/10"
+            />
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-[#080b14] to-transparent" />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-[#080b14] to-transparent"
+            />
 
             {/* =================================================
                 BADGE FOTO
             ================================================= */}
 
-            <div className="absolute top-3 right-3 flex max-w-[calc(100%-24px)] items-center gap-1.5 rounded-lg border border-cyan-400/60 bg-[#07101e]/90 px-2.5 py-1.5 backdrop-blur-xl sm:top-4 sm:right-4 sm:gap-2 sm:rounded-xl sm:px-4 sm:py-2">
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.9)] sm:h-2 sm:w-2" />
+            <div className="absolute top-3 right-3 flex max-w-[calc(100%-24px)] items-center gap-1.5 rounded-lg border border-cyan-400/60 bg-[#07101e]/95 px-2.5 py-1.5 sm:top-4 sm:right-4 sm:gap-2 sm:rounded-xl sm:px-4 sm:py-2">
+              <span
+                aria-hidden="true"
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.9)] sm:h-2 sm:w-2"
+              />
 
               <span className="truncate font-mono text-[7px] font-bold tracking-[0.07em] text-cyan-300 uppercase min-[360px]:text-[8px] sm:text-[10px] sm:tracking-[0.12em]">
                 FullStack Developer
@@ -251,8 +295,10 @@ export function HeroSection() {
                 TERMINAL
             ================================================= */}
 
-            <div className="absolute right-2.5 bottom-2.5 left-2.5 min-w-0 overflow-hidden rounded-lg border border-white/10 bg-[#090d17]/95 shadow-2xl backdrop-blur-xl min-[360px]:right-3 min-[360px]:bottom-3 min-[360px]:left-3 sm:right-4 sm:bottom-4 sm:left-4 sm:rounded-xl">
-              {/* BARRA TERMINAL */}
+            <div className="absolute right-2.5 bottom-2.5 left-2.5 min-w-0 overflow-hidden rounded-lg border border-white/10 bg-[#090d17]/95 shadow-2xl [contain:paint] min-[360px]:right-3 min-[360px]:bottom-3 min-[360px]:left-3 sm:right-4 sm:bottom-4 sm:left-4 sm:rounded-xl">
+              {/* =================================================
+                  BARRA TERMINAL
+              ================================================= */}
 
               <div className="flex h-8 min-w-0 items-center border-b border-white/5 px-2.5 sm:h-10 sm:px-4">
                 <div className="flex shrink-0 gap-1.5 sm:gap-2">
@@ -272,7 +318,9 @@ export function HeroSection() {
                 </span>
               </div>
 
-              {/* CÓDIGO */}
+              {/* =================================================
+                  CÓDIGO
+              ================================================= */}
 
               <div className="min-w-0 overflow-hidden p-2.5 font-mono text-[8px] leading-4 min-[360px]:text-[9px] sm:p-4 sm:text-[11px] sm:leading-5">
                 <p className="max-w-full break-words text-slate-300">

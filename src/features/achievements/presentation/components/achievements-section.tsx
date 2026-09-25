@@ -1,8 +1,4 @@
-"use client";
-
 import { GraduationCap, Languages, Medal, UsersRound } from "lucide-react";
-
-import { motion } from "motion/react";
 
 /* =========================================================
    LOGROS
@@ -23,6 +19,8 @@ const achievements = [
 
     glowClass:
       "hover:shadow-[0_18px_45px_rgba(6,182,212,0.09)] dark:hover:shadow-[0_18px_45px_rgba(34,211,238,0.06)]",
+
+    delayClass: "[animation-delay:80ms]",
   },
 
   {
@@ -39,6 +37,8 @@ const achievements = [
 
     glowClass:
       "hover:shadow-[0_18px_45px_rgba(59,130,246,0.09)] dark:hover:shadow-[0_18px_45px_rgba(96,165,250,0.06)]",
+
+    delayClass: "[animation-delay:140ms]",
   },
 
   {
@@ -55,6 +55,8 @@ const achievements = [
 
     glowClass:
       "hover:shadow-[0_18px_45px_rgba(139,92,246,0.09)] dark:hover:shadow-[0_18px_45px_rgba(167,139,250,0.06)]",
+
+    delayClass: "[animation-delay:200ms]",
   },
 
   {
@@ -71,42 +73,10 @@ const achievements = [
 
     glowClass:
       "hover:shadow-[0_18px_45px_rgba(6,182,212,0.09)] dark:hover:shadow-[0_18px_45px_rgba(34,211,238,0.06)]",
+
+    delayClass: "[animation-delay:260ms]",
   },
 ];
-
-/* =========================================================
-   ANIMACIONES
-========================================================= */
-
-const containerVariants = {
-  hidden: {},
-
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.08,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 24,
-    scale: 0.98,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-
-    transition: {
-      duration: 0.5,
-      ease: "easeOut" as const,
-    },
-  },
-};
 
 /* =========================================================
    COMPONENTE
@@ -122,7 +92,10 @@ export function AchievementsSection() {
           GLOW DECORATIVO
       ===================================================== */}
 
-      <div className="pointer-events-none absolute top-20 -left-28 h-[240px] w-[240px] rounded-full bg-cyan-400/[0.08] blur-[90px] sm:-left-32 sm:h-[320px] sm:w-[320px] sm:blur-[120px] dark:bg-cyan-400/[0.025]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-20 -left-28 h-[240px] w-[240px] rounded-full bg-cyan-400/[0.08] blur-[90px] sm:-left-32 sm:h-[320px] sm:w-[320px] sm:blur-[120px] dark:bg-cyan-400/[0.025]"
+      />
 
       {/* =====================================================
           CONTENEDOR
@@ -133,25 +106,7 @@ export function AchievementsSection() {
             CABECERA
         ================================================= */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.5,
-            ease: "easeOut",
-          }}
-          className="min-w-0"
-        >
+        <div className="animate-in fade-in slide-in-from-bottom-4 min-w-0 duration-500">
           {/* =================================================
               BADGE
           ================================================= */}
@@ -178,62 +133,43 @@ export function AchievementsSection() {
             Reconocimientos de excelencia académica, liderazgo representativo y
             acreditación de competencias.
           </p>
-        </motion.div>
+        </div>
 
         {/* =================================================
             CARDS
         ================================================= */}
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.12,
-          }}
-          className="mt-8 grid w-full min-w-0 grid-cols-1 gap-3 min-[520px]:grid-cols-2 sm:mt-10 sm:gap-4 lg:grid-cols-2 xl:grid-cols-4 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-4"
-        >
+        <div className="mt-8 grid w-full min-w-0 grid-cols-1 gap-3 min-[520px]:grid-cols-2 sm:mt-10 sm:gap-4 lg:grid-cols-2 xl:grid-cols-4 landscape:min-[700px]:grid-cols-2 xl:landscape:grid-cols-4">
           {achievements.map((item) => {
             const Icon = item.icon;
 
             return (
-              <motion.article
+              <article
                 key={item.title}
-                variants={cardVariants}
-                whileHover={{
-                  y: -6,
-                }}
-                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[background-color,border-color,box-shadow] duration-300 min-[360px]:p-5 sm:min-h-[195px] sm:rounded-[16px] sm:p-6 lg:min-h-[205px] dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-none ${item.borderClass} ${item.glowClass} `}
+                className={`group animate-in fade-in slide-in-from-bottom-5 relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 min-[360px]:p-5 sm:min-h-[195px] sm:rounded-[16px] sm:p-6 lg:min-h-[205px] dark:border-white/[0.09] dark:bg-[#151923]/95 dark:shadow-none ${item.borderClass} ${item.glowClass} ${item.delayClass} `}
               >
                 {/* =================================================
                     LUZ SUPERIOR
                 ================================================= */}
 
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-cyan-50/80 to-transparent sm:h-20 dark:from-white/[0.015]" />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-cyan-50/80 to-transparent sm:h-20 dark:from-white/[0.015]"
+                />
 
                 {/* =================================================
                     ICONO
                 ================================================= */}
 
-                <motion.div
-                  whileHover={{
-                    scale: 1.08,
-                    rotate: -4,
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 280,
-                    damping: 18,
-                  }}
-                  className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border sm:h-11 sm:w-11 sm:rounded-xl ${item.iconClass} `}
+                <div
+                  className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 ease-out group-hover:scale-[1.08] group-hover:-rotate-[4deg] sm:h-11 sm:w-11 sm:rounded-xl ${item.iconClass} `}
                 >
                   <Icon
                     size={19}
                     strokeWidth={2}
                     className="sm:h-[21px] sm:w-[21px]"
                   />
-                </motion.div>
+                </div>
 
                 {/* =================================================
                     TÍTULO
@@ -252,14 +188,17 @@ export function AchievementsSection() {
                 </p>
 
                 {/* =================================================
-                    LÍNEA INFERIOR
+                    LÍNEA INFERIOR OPTIMIZADA
                 ================================================= */}
 
-                <div className="absolute bottom-0 left-0 h-px w-0 max-w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-all duration-500 group-hover:w-full" />
-              </motion.article>
+                <div
+                  aria-hidden="true"
+                  className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100"
+                />
+              </article>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
