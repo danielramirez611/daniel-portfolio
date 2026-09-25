@@ -309,12 +309,14 @@ export function HeroSection() {
               src="/daniel.webp"
               alt="Daniel Ramirez - Software Developer"
               fill
+              preload
               quality={65}
               decoding="async"
               className="object-cover object-center"
               sizes="
                 (max-width: 480px) calc(100vw - 32px),
-                (max-width: 1024px) 420px,
+                (max-width: 768px) 390px,
+                (max-width: 1023px) 420px,
                 425px
               "
             />

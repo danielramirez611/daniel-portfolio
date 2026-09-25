@@ -20,6 +20,13 @@ interface AnimatedStatValueProps {
 
 /* =========================================================
    EASING
+
+   Movimiento:
+   rápido al inicio
+   ↓
+   desacelera progresivamente
+   ↓
+   termina suavemente
 ========================================================= */
 
 function easeOutQuart(progress: number) {
@@ -41,7 +48,15 @@ export function AnimatedStatValue({
 
   duration = 1350,
 }: AnimatedStatValueProps) {
+  /* =======================================================
+     ESTADO
+  ======================================================= */
+
   const [displayValue, setDisplayValue] = useState(startValue);
+
+  /* =======================================================
+     REFERENCIAS
+  ======================================================= */
 
   const elementRef = useRef<HTMLSpanElement>(null);
 
@@ -64,6 +79,14 @@ export function AnimatedStatValue({
 
     /* =====================================================
        REDUCED MOTION
+
+       Si el usuario prefiere menos movimiento,
+       mostramos directamente el resultado final.
+
+       El setState se ejecuta dentro de
+       requestAnimationFrame para evitar:
+
+       react-hooks/set-state-in-effect
     ===================================================== */
 
     const reduceMotion = window.matchMedia(
@@ -87,7 +110,10 @@ export function AnimatedStatValue({
     }
 
     /* =====================================================
-       INTERSECTION OBSERVER
+       OBSERVADOR
+
+       La animación comienza únicamente cuando
+       el número entra en pantalla.
     ===================================================== */
 
     const observer = new IntersectionObserver(
@@ -96,32 +122,73 @@ export function AnimatedStatValue({
           return;
         }
 
+        /* ===============================================
+             SOLO UNA VEZ
+          =============================================== */
+
         hasAnimatedRef.current = true;
 
         observer.disconnect();
+
+        /* ===============================================
+             INICIO
+          =============================================== */
 
         const startedAt = performance.now();
 
         const difference = value - startValue;
 
-        /* =================================================
-             ANIMACIÓN POR FRAME
-          ================================================= */
+        /* ===============================================
+             ANIMACIÓN
+          =============================================== */
 
         const animate = (currentTime: number) => {
+          /* =============================================
+               TIEMPO TRANSCURRIDO
+            ============================================= */
+
           const elapsed = currentTime - startedAt;
+
+          /* =============================================
+               PROGRESO 0 → 1
+            ============================================= */
 
           const progress = Math.min(Math.max(elapsed / duration, 0), 1);
 
+          /* =============================================
+               SUAVIZADO
+
+               Empieza rápido y desacelera al llegar
+               al número correspondiente.
+            ============================================= */
+
           const easedProgress = easeOutQuart(progress);
+
+          /* =============================================
+               INTERPOLACIÓN
+
+               Sirve tanto para:
+
+               12 → 2
+
+               como para:
+
+               2 → 10
+
+               o:
+
+               25 → 100
+            ============================================= */
 
           const calculatedValue = startValue + difference * easedProgress;
 
           const nextValue = Math.round(calculatedValue);
 
-          /* ===============================================
-               SOLO ACTUALIZA REACT SI CAMBIA EL VALOR
-            =============================================== */
+          /* =============================================
+               SOLO ACTUALIZAR SI CAMBIÓ EL NÚMERO
+
+               Evita renders innecesarios.
+            ============================================= */
 
           if (nextValue !== lastValueRef.current) {
             lastValueRef.current = nextValue;
@@ -129,9 +196,9 @@ export function AnimatedStatValue({
             setDisplayValue(nextValue);
           }
 
-          /* ===============================================
-               SIGUIENTE FRAME
-            =============================================== */
+          /* =============================================
+               CONTINUAR ANIMACIÓN
+            ============================================= */
 
           if (progress < 1) {
             frameRef.current = requestAnimationFrame(animate);
@@ -139,9 +206,12 @@ export function AnimatedStatValue({
             return;
           }
 
-          /* ===============================================
-               ASEGURAR VALOR FINAL EXACTO
-            =============================================== */
+          /* =============================================
+               VALOR FINAL EXACTO
+
+               Siempre termina exactamente en
+               el número configurado.
+            ============================================= */
 
           if (lastValueRef.current !== value) {
             lastValueRef.current = value;
@@ -151,6 +221,10 @@ export function AnimatedStatValue({
 
           frameRef.current = null;
         };
+
+        /* ===============================================
+             PRIMER FRAME
+          =============================================== */
 
         frameRef.current = requestAnimationFrame(animate);
       },
@@ -182,14 +256,30 @@ export function AnimatedStatValue({
   ======================================================= */
 
   return (
-    <span
-      ref={elementRef}
-      className="inline-block min-w-[3ch] tabular-nums"
-      aria-label={`${prefix}${value}${suffix}`}
-    >
+    <span ref={elementRef} className="inline-block min-w-[3ch] tabular-nums">
+      {/* =================================================
+          NÚMERO VISUAL ANIMADO
+
+          Lo ocultamos para lectores de pantalla porque
+          cambia varias veces durante la animación.
+      ================================================= */}
+
       <span aria-hidden="true" className="inline-block tabular-nums">
         {prefix}
         {displayValue}
+        {suffix}
+      </span>
+
+      {/* =================================================
+          TEXTO ACCESIBLE
+
+          El lector de pantalla recibe únicamente
+          el valor final correcto.
+      ================================================= */}
+
+      <span className="sr-only">
+        {prefix}
+        {value}
         {suffix}
       </span>
     </span>
