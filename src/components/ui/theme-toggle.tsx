@@ -25,7 +25,7 @@ type ViewTransitionAnimationOptions = KeyframeAnimationOptions & {
 };
 
 /* =========================================================
-   DETECTAR MONTAJE
+   DETECTAR CLIENTE
 ========================================================= */
 
 function subscribe() {
@@ -73,141 +73,34 @@ export function ThemeToggle() {
   const isDark = resolvedTheme === "dark";
 
   /* =======================================================
-     APLICAR TEMA
+     CAMBIO INMEDIATO
+
+     Importante:
+     dejamos que next-themes controle la clase .dark.
+
+     No modificamos manualmente:
+     document.documentElement.classList
+
+     Esto evita hacer dos actualizaciones de estilos.
   ======================================================= */
 
-  function applyTheme(nextTheme: "light" | "dark") {
-    const root = document.documentElement;
-
-    /*
-     * Cambiamos inmediatamente la clase
-     * para que View Transition capture
-     * correctamente el nuevo tema.
-     */
-
-    root.classList.toggle("dark", nextTheme === "dark");
-
-    root.style.colorScheme = nextTheme;
-
-    /*
-     * Sincronizamos con next-themes
-     * y localStorage.
-     */
-
+  function changeTheme(nextTheme: "light" | "dark") {
     setTheme(nextTheme);
   }
 
   /* =======================================================
-     CAMBIO DIRECTO
-  ======================================================= */
-
-  function applyThemeDirectly(nextTheme: "light" | "dark") {
-    applyTheme(nextTheme);
-  }
-
-  /* =======================================================
-     TRANSICIÓN MÓVIL
-
-     En móvil usamos únicamente OPACITY.
-
-     Evitamos:
-     - clip-path
-     - radios grandes
-     - repintado circular
-     - animaciones pesadas
-  ======================================================= */
-
-  function runMobileTransition(
-    nextTheme: "light" | "dark",
-    documentWithTransition: DocumentWithViewTransition,
-  ) {
-    /* =====================================================
-       SIN SOPORTE
-    ===================================================== */
-
-    if (!documentWithTransition.startViewTransition) {
-      applyThemeDirectly(nextTheme);
-
-      return;
-    }
-
-    /* =====================================================
-       IMPORTANTE
-
-       Llamamos startViewTransition directamente
-       desde documentWithTransition.
-
-       NO hacemos:
-
-       const startViewTransition =
-         document.startViewTransition;
-
-       porque perdería el contexto nativo
-       y produciría:
-
-       TypeError: Illegal invocation
-    ===================================================== */
-
-    const transition = documentWithTransition.startViewTransition(() => {
-      applyTheme(nextTheme);
-    });
-
-    /* =====================================================
-       FADE MÓVIL
-    ===================================================== */
-
-    transition.ready
-      .then(() => {
-        const options: ViewTransitionAnimationOptions = {
-          duration: 140,
-
-          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-
-          fill: "both",
-
-          pseudoElement: "::view-transition-new(root)",
-        };
-
-        document.documentElement.animate(
-          [
-            {
-              opacity: 0,
-            },
-
-            {
-              opacity: 1,
-            },
-          ],
-          options,
-        );
-      })
-      .catch(() => {
-        /*
-         * No hacemos nada.
-         *
-         * El tema ya se aplicó dentro
-         * de startViewTransition.
-         */
-      });
-  }
-
-  /* =======================================================
      TRANSICIÓN ESCRITORIO
-
-     En escritorio mantenemos el efecto
-     circular desde el botón.
   ======================================================= */
 
-  function runDesktopTransition(
-    nextTheme: "light" | "dark",
-    documentWithTransition: DocumentWithViewTransition,
-  ) {
+  function runDesktopTransition(nextTheme: "light" | "dark") {
+    const documentWithTransition = document as DocumentWithViewTransition;
+
     /* =====================================================
-       SIN SOPORTE
+       NAVEGADOR SIN VIEW TRANSITION
     ===================================================== */
 
     if (!documentWithTransition.startViewTransition) {
-      applyThemeDirectly(nextTheme);
+      changeTheme(nextTheme);
 
       return;
     }
@@ -223,10 +116,7 @@ export function ThemeToggle() {
     const y = rect ? rect.top + rect.height / 2 : 40;
 
     /* =====================================================
-       RADIO FINAL
-
-       Distancia necesaria para cubrir
-       completamente la pantalla.
+       RADIO
     ===================================================== */
 
     const maxX = Math.max(x, window.innerWidth - x);
@@ -237,24 +127,20 @@ export function ThemeToggle() {
 
     /* =====================================================
        VIEW TRANSITION
-
-       IMPORTANTE:
-       llamada directa para conservar
-       el contexto de document.
     ===================================================== */
 
     const transition = documentWithTransition.startViewTransition(() => {
-      applyTheme(nextTheme);
+      changeTheme(nextTheme);
     });
 
     /* =====================================================
-       REVELADO CIRCULAR
+       REVELADO
     ===================================================== */
 
     transition.ready
       .then(() => {
         const options: ViewTransitionAnimationOptions = {
-          duration: 320,
+          duration: 280,
 
           easing: "cubic-bezier(0.22, 1, 0.36, 1)",
 
@@ -278,7 +164,7 @@ export function ThemeToggle() {
       })
       .catch(() => {
         /*
-         * El cambio de tema ya ocurrió.
+         * El tema ya fue actualizado.
          */
       });
   }
@@ -299,46 +185,35 @@ export function ThemeToggle() {
     ).matches;
 
     if (reduceMotion) {
-      applyThemeDirectly(nextTheme);
+      changeTheme(nextTheme);
 
       return;
     }
 
     /* =====================================================
-       DOCUMENT CON VIEW TRANSITION
+       MÓVIL / TABLET TÁCTIL
+
+       IMPORTANTE:
+
+       NO usamos startViewTransition.
+
+       Esto elimina:
+       - screenshot completo del DOM
+       - composición de dos páginas
+       - clip-path
+       - animación global
+       - memoria extra
+       - posibles tirones
+
+       El tema cambia inmediatamente.
     ===================================================== */
 
-    const documentWithTransition = document as DocumentWithViewTransition;
-
-    /* =====================================================
-       SIN VIEW TRANSITION API
-    ===================================================== */
-
-    if (!documentWithTransition.startViewTransition) {
-      applyThemeDirectly(nextTheme);
-
-      return;
-    }
-
-    /* =====================================================
-       DETECTAR MÓVIL
-
-       Consideramos móvil:
-
-       - ancho <= 767px
-       - dispositivo táctil/coarse
-    ===================================================== */
-
-    const isMobile = window.matchMedia(
-      "(max-width: 767px), (pointer: coarse)",
+    const lightweightDevice = window.matchMedia(
+      "(max-width: 1024px), (pointer: coarse)",
     ).matches;
 
-    /* =====================================================
-       MÓVIL
-    ===================================================== */
-
-    if (isMobile) {
-      runMobileTransition(nextTheme, documentWithTransition);
+    if (lightweightDevice) {
+      changeTheme(nextTheme);
 
       return;
     }
@@ -347,7 +222,7 @@ export function ThemeToggle() {
        ESCRITORIO
     ===================================================== */
 
-    runDesktopTransition(nextTheme, documentWithTransition);
+    runDesktopTransition(nextTheme);
   }
 
   /* =======================================================
@@ -361,29 +236,21 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={isDark ? "Activar tema claro" : "Activar tema oscuro"}
       title={isDark ? "Tema claro" : "Tema oscuro"}
-      className="group flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition-[transform,background-color,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-cyan-50 focus-visible:ring-2 focus-visible:ring-cyan-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:translate-y-0 active:scale-[0.94] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:hover:border-cyan-400/40 dark:hover:bg-white/[0.06] dark:focus-visible:ring-cyan-400/40 dark:focus-visible:ring-offset-[#070913]"
+      className="group flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition-transform duration-100 ease-out hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-cyan-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:translate-y-0 active:scale-[0.92] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:shadow-none dark:focus-visible:ring-cyan-400/40 dark:focus-visible:ring-offset-[#070913]"
     >
-      {/* =================================================
-          TEMA OSCURO
-      ================================================= */}
-
       {isDark ? (
         <Sun
           size={16}
           strokeWidth={2}
           aria-hidden="true"
-          className="shrink-0 text-cyan-300 transition-transform duration-150 ease-out group-hover:scale-110 group-hover:rotate-12 group-active:scale-90 group-active:rotate-45"
+          className="shrink-0 text-cyan-300 transition-transform duration-100 ease-out group-hover:scale-110 group-hover:rotate-12 group-active:scale-90 group-active:rotate-45"
         />
       ) : (
-        /* =================================================
-           TEMA CLARO
-        ================================================= */
-
         <Moon
           size={16}
           strokeWidth={2}
           aria-hidden="true"
-          className="shrink-0 text-slate-700 transition-transform duration-150 ease-out group-hover:scale-110 group-hover:-rotate-12 group-active:scale-90 group-active:-rotate-45"
+          className="shrink-0 text-slate-700 transition-transform duration-100 ease-out group-hover:scale-110 group-hover:-rotate-12 group-active:scale-90 group-active:-rotate-45"
         />
       )}
     </button>

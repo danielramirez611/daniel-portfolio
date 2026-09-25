@@ -31,12 +31,15 @@
   --color-sidebar-border: var(--sidebar-border);
 
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
   --color-sidebar-accent: var(--sidebar-accent);
 
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
   --color-sidebar-primary: var(--sidebar-primary);
 
   --color-sidebar-foreground: var(--sidebar-foreground);
+
   --color-sidebar: var(--sidebar);
 
   /* =======================================================
@@ -60,21 +63,27 @@
   --color-destructive: var(--destructive);
 
   --color-accent-foreground: var(--accent-foreground);
+
   --color-accent: var(--accent);
 
   --color-muted-foreground: var(--muted-foreground);
+
   --color-muted: var(--muted);
 
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-secondary: var(--secondary);
 
   --color-primary-foreground: var(--primary-foreground);
+
   --color-primary: var(--primary);
 
   --color-popover-foreground: var(--popover-foreground);
+
   --color-popover: var(--popover);
 
   --color-card-foreground: var(--card-foreground);
+
   --color-card: var(--card);
 
   /* =======================================================
@@ -82,11 +91,17 @@
   ======================================================= */
 
   --radius-sm: calc(var(--radius) * 0.6);
+
   --radius-md: calc(var(--radius) * 0.8);
+
   --radius-lg: var(--radius);
+
   --radius-xl: calc(var(--radius) * 1.4);
+
   --radius-2xl: calc(var(--radius) * 1.8);
+
   --radius-3xl: calc(var(--radius) * 2.2);
+
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
@@ -193,6 +208,7 @@
   --sidebar-accent-foreground: #ffffff;
 
   --sidebar-border: rgb(255 255 255 / 10%);
+
   --sidebar-ring: #22d3ee;
 
   color-scheme: dark;
@@ -342,7 +358,7 @@ canvas {
 ========================================================= */
 
 /* =========================================================
-   ENTRADA DESDE ABAJO
+   REVEAL UP
 ========================================================= */
 
 @keyframes perf-reveal-up {
@@ -360,7 +376,7 @@ canvas {
 }
 
 /* =========================================================
-   ENTRADA DESDE IZQUIERDA
+   REVEAL LEFT
 ========================================================= */
 
 @keyframes perf-reveal-left {
@@ -378,7 +394,7 @@ canvas {
 }
 
 /* =========================================================
-   ENTRADA DESDE DERECHA
+   REVEAL RIGHT
 ========================================================= */
 
 @keyframes perf-reveal-right {
@@ -396,7 +412,7 @@ canvas {
 }
 
 /* =========================================================
-   ENTRADA + ESCALA
+   REVEAL SCALE
 ========================================================= */
 
 @keyframes perf-reveal-scale {
@@ -414,7 +430,7 @@ canvas {
 }
 
 /* =========================================================
-   FADE SIMPLE
+   FADE
 ========================================================= */
 
 @keyframes perf-fade {
@@ -454,7 +470,7 @@ canvas {
 }
 
 /* =========================================================
-   DELAYS OPTIMIZADOS
+   DELAYS
 ========================================================= */
 
 .perf-delay-1 {
@@ -500,7 +516,7 @@ canvas {
 }
 
 /* =========================================================
-   TRANSFORMACIONES
+   TRANSFORMACIONES GPU
 ========================================================= */
 
 .perf-transform {
@@ -512,58 +528,76 @@ canvas {
 ========================================================= */
 
 /*
- * ThemeToggle controla:
+ * IMPORTANTE:
  *
- * MÓVIL:
- * fade de aproximadamente 160 ms.
+ * MÓVIL Y TABLET
+ * -----------------------
+ * ThemeToggle NO ejecuta startViewTransition().
  *
- * ESCRITORIO:
- * revelado circular de aproximadamente 380 ms.
+ * El cambio dark/light es directo.
  *
- * Aquí desactivamos la animación nativa de View Transition
- * para que solamente se ejecute nuestra animación.
+ * Por lo tanto:
+ * - no hay snapshot de página
+ * - no hay crossfade global
+ * - no hay clip-path
+ * - no hay repaint circular
+ * - no hay animación pesada
+ *
+ *
+ * ESCRITORIO
+ * -----------------------
+ * Se conserva View Transition.
+ *
+ * Estas reglas solamente están activas
+ * en dispositivos de escritorio.
  */
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
+@media (min-width: 1025px) and (pointer: fine) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
 
-  mix-blend-mode: normal;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 2;
+  }
 }
 
 /* =========================================================
-   CAPA DEL TEMA ANTERIOR
-========================================================= */
-
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-/* =========================================================
-   CAPA DEL TEMA NUEVO
-========================================================= */
-
-::view-transition-new(root) {
-  z-index: 2;
-}
-
-/* =========================================================
-   OPTIMIZACIÓN MÓVIL
+   MÓVIL / TABLET
 ========================================================= */
 
 /*
- * En pantallas móviles evitamos filtros,
- * blur adicional y cualquier transición global.
+ * No agregamos ninguna transición global.
  *
- * La animación del tema utiliza solamente opacity.
+ * El cambio de tema debe ser inmediato.
+ *
+ * Muy importante:
+ * NO usar aquí:
+ *
+ * transition: background-color
+ * transition: color
+ * filter
+ * backdrop-filter
+ * clip-path
+ * opacity global
  */
 
-@media (max-width: 767px), (pointer: coarse) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    mix-blend-mode: normal;
+@media (max-width: 1024px), (pointer: coarse) {
+  html,
+  body {
+    /*
+     * Evita crear accidentalmente
+     * una transición global.
+     */
 
-    animation: none;
+    transition: none;
   }
 }
 
