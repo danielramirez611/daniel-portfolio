@@ -553,7 +553,84 @@ canvas {
 .perf-transform {
   transform: translateZ(0);
 }
+/* =========================================================
+   CAMBIO DE TEMA SUAVE
+========================================================= */
 
+/*
+ * View Transition:
+ *
+ * El nuevo tema aparece desde el botón como una expansión
+ * circular.
+ *
+ * No mantenemos transiciones globales permanentemente.
+ */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* =========================================================
+   FALLBACK PARA NAVEGADORES SIN VIEW TRANSITION
+========================================================= */
+
+/*
+ * Estas transiciones únicamente existen mientras el usuario
+ * pulsa el botón de tema.
+ *
+ * La clase se elimina automáticamente después.
+ */
+
+html.theme-transition-fallback,
+html.theme-transition-fallback body,
+html.theme-transition-fallback header,
+html.theme-transition-fallback main,
+html.theme-transition-fallback footer,
+html.theme-transition-fallback section,
+html.theme-transition-fallback article,
+html.theme-transition-fallback nav,
+html.theme-transition-fallback a,
+html.theme-transition-fallback button,
+html.theme-transition-fallback div,
+html.theme-transition-fallback span,
+html.theme-transition-fallback p,
+html.theme-transition-fallback h1,
+html.theme-transition-fallback h2,
+html.theme-transition-fallback h3,
+html.theme-transition-fallback input,
+html.theme-transition-fallback textarea {
+  transition:
+    background-color 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 360ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  html.theme-transition-fallback,
+  html.theme-transition-fallback * {
+    transition: none !important;
+  }
+}
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
