@@ -543,7 +543,7 @@ export function SkillsSection() {
             return (
               <article
                 key={`${active}-${group.title}`}
-                className={`group animate-in fade-in slide-in-from-bottom-4 zoom-in-[0.98] relative min-w-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:border-cyan-400/40 hover:shadow-[0_18px_45px_rgba(6,182,212,0.08)] min-[360px]:p-5 sm:min-h-[160px] sm:rounded-[16px] sm:p-6 dark:border-white/10 dark:bg-[#151925]/95 dark:shadow-none dark:hover:border-cyan-400/25 dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)] ${getDelayClass(index)} `}
+                className={`group perf-reveal-scale relative min-w-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:border-cyan-400/40 hover:shadow-[0_18px_45px_rgba(6,182,212,0.08)] min-[360px]:p-5 sm:min-h-[160px] sm:rounded-[16px] sm:p-6 dark:border-white/10 dark:bg-[#151925]/95 dark:shadow-none dark:hover:border-cyan-400/25 dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.16)] ${getDelayClass(index)} `}
               >
                 {/* =================================================
                       GLOW

@@ -172,7 +172,7 @@ export function AboutSection() {
             return (
               <article
                 key={area.title}
-                className={`group animate-in fade-in slide-in-from-bottom-5 relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 min-[360px]:p-5 sm:min-h-[255px] sm:rounded-[16px] sm:p-6 lg:min-h-[275px] dark:bg-[#121620]/95 dark:shadow-none ${area.borderClass} ${area.glowClass} ${area.delayClass} `}
+                className={`group perf-reveal-up relative flex min-w-0 flex-col overflow-hidden rounded-[14px] border bg-white p-4 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 min-[360px]:p-5 sm:min-h-[255px] sm:rounded-[16px] sm:p-6 lg:min-h-[275px] dark:bg-[#121620]/95 dark:shadow-none ${area.borderClass} ${area.glowClass} ${area.delayClass} `}
               >
                 {/* =================================================
                     GLOW SUPERIOR

@@ -139,7 +139,7 @@ export function ExperienceSection() {
               return (
                 <article
                   key={`${experience.company}-${experience.role}`}
-                  className={`group animate-in fade-in slide-in-from-bottom-5 relative min-w-0 overflow-visible rounded-[14px] border bg-white px-4 py-5 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 min-[360px]:px-5 sm:rounded-[16px] sm:px-6 sm:py-7 md:px-7 dark:bg-[#151925]/95 dark:shadow-none ${experience.delayClass} ${
+                  className={`group perf-reveal-up relative min-w-0 overflow-visible rounded-[14px] border bg-white px-4 py-5 shadow-[0_8px_30px_rgba(15,23,42,0.045)] transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 min-[360px]:px-5 sm:rounded-[16px] sm:px-6 sm:py-7 md:px-7 dark:bg-[#151925]/95 dark:shadow-none ${experience.delayClass} ${
                     isPrimary
                       ? `border-slate-200 hover:border-cyan-400/50 hover:shadow-[0_18px_50px_rgba(6,182,212,0.09)] dark:border-white/10 dark:hover:border-cyan-400/30 dark:hover:shadow-[0_18px_50px_rgba(34,211,238,0.05)]`
                       : `border-slate-300 hover:border-blue-400/50 hover:shadow-[0_18px_50px_rgba(59,130,246,0.08)] dark:border-slate-400/40 dark:hover:border-cyan-400/35 dark:hover:shadow-[0_18px_50px_rgba(59,130,246,0.05)]`
