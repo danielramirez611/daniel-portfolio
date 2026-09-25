@@ -10,25 +10,65 @@ import {
 
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
+import { AnimatedStatValue } from "./animated-stat-value";
+
 /* =========================================================
    ESTADÍSTICAS
+
+   Se mantienen exactamente los mismos valores finales.
+
+   +2 Años
+   10+
+   Top 10%
+   100%
 ========================================================= */
 
 const stats = [
   {
-    value: "+2 Años",
+    value: 2,
+
+    startValue: 100,
+
+    prefix: "+",
+
+    suffix: " Años",
+
     label: "Experiencia Dev",
   },
+
   {
-    value: "10+",
+    value: 10,
+
+    startValue: 100,
+
+    prefix: "",
+
+    suffix: "+",
+
     label: "Proyectos completados",
   },
+
   {
-    value: "Top 10%",
+    value: 10,
+
+    startValue: 100,
+
+    prefix: "Top ",
+
+    suffix: "%",
+
     label: "Tecsup excelencia",
   },
+
   {
-    value: "100%",
+    value: 100,
+
+    startValue: 0,
+
+    prefix: "",
+
+    suffix: "%",
+
     label: "Clean Code & Test",
   },
 ];
@@ -208,7 +248,10 @@ export function HeroSection() {
           />
 
           {/* =================================================
-              STATS
+              STATS ANIMADOS
+
+              El diseño se mantiene.
+              Solamente cambia el valor por AnimatedStatValue.
           ================================================= */}
 
           <div className="grid w-full min-w-0 grid-cols-1 gap-2.5 min-[340px]:grid-cols-2 sm:gap-3 lg:grid-cols-2 xl:grid-cols-4">
@@ -217,9 +260,23 @@ export function HeroSection() {
                 key={stat.label}
                 className="min-w-0 rounded-xl border border-slate-200 bg-white p-3.5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_12px_35px_rgba(6,182,212,0.08)] sm:min-h-[105px] sm:p-4 dark:border-white/10 dark:bg-[#151b28]/80 dark:shadow-none dark:hover:border-cyan-400/30 dark:hover:shadow-none"
               >
+                {/* =========================================
+                    NÚMERO ANIMADO
+                ========================================= */}
+
                 <strong className="block text-[19px] leading-tight font-extrabold tracking-tight break-words text-slate-950 sm:text-xl xl:text-2xl dark:text-white">
-                  {stat.value}
+                  <AnimatedStatValue
+                    value={stat.value}
+                    startValue={stat.startValue}
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                    duration={1350}
+                  />
                 </strong>
+
+                {/* =========================================
+                    ETIQUETA
+                ========================================= */}
 
                 <span className="mt-2 block font-mono text-[8px] leading-4 tracking-[0.09em] break-words text-slate-500 uppercase sm:text-[9px] xl:text-[10px] dark:text-slate-400">
                   {stat.label}
